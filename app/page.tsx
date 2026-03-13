@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import UrlInput from './components/UrlInput'
 import LoadingState from './components/LoadingState'
 import BrandAnalysis from './components/BrandAnalysis'
-import EmailCapture from './components/EmailCapture'
+
 import { Sparkles } from 'lucide-react'
 
 type AnalysisResult = {
@@ -38,7 +38,6 @@ export default function Home() {
   const [result, setResult] = useState<AnalysisResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [showManualInput, setShowManualInput] = useState(false)
-  const [emailCaptured, setEmailCaptured] = useState(false)
   const resultRef = useRef<HTMLDivElement>(null)
 
   const loadingSteps = [
@@ -162,12 +161,16 @@ export default function Home() {
               <span className="text-sm text-neutral-600">Niveau 1 van BrandReady</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-4 tracking-tight">
-              Maak van je merk een superprompt
+            <h1 className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-2 tracking-tight">
+              Is jouw merk AI ready?
             </h1>
 
+            <h2 className="text-2xl md:text-3xl font-medium text-neutral-700 mb-4">
+              Maak van je merk een superprompt.
+            </h2>
+
             <p className="text-lg text-neutral-500 mb-12">
-              Scherper dan je het zelf had beschreven
+              Scherper dan je het zelf had beschreven — in 60 seconden.
             </p>
 
             <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
@@ -215,21 +218,10 @@ export default function Home() {
               onReset={() => {
                 setResult(null)
                 setUrl('')
-                setEmailCaptured(false)
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             />
 
-            {!emailCaptured && (
-              <div className="mt-16">
-                <EmailCapture
-                  onSubmit={(email) => {
-                    console.log('Email captured:', email)
-                    setEmailCaptured(true)
-                  }}
-                />
-              </div>
-            )}
           </div>
         </div>
       )}
