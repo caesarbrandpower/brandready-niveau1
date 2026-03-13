@@ -163,11 +163,11 @@ export default function Home() {
             </div>
 
             <h1 className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-4 tracking-tight">
-              Van website naar merkstructuur
+              Maak van je merk een superprompt
             </h1>
 
             <p className="text-lg text-neutral-500 mb-12">
-              Ontdek hoe je merk overkomt — en krijg een superprompt voor je AI
+              Scherper dan je het zelf had beschreven
             </p>
 
             <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
