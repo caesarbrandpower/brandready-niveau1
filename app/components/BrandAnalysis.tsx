@@ -120,7 +120,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       <Diagnosis diagnose={diagnose} />
 
       {/* Sectie B: Superprompt */}
-      <div className="bg-dark rounded-btn overflow-hidden mb-20">
+      <div className="bg-[#202020] rounded-btn overflow-hidden mb-20">
         <div className="p-6 md:p-8 border-b border-white/10 flex items-center justify-between flex-wrap gap-3">
           <div>
             <h3 className="label-style text-white/50">
@@ -264,18 +264,18 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </div>
 
       {/* Upsell: Newfound gesprek */}
-      <div className="border border-[#e0e0e0] rounded-btn p-8 md:p-12 mb-20">
-        <h3 className="font-body text-2xl font-normal text-primary mb-4">
+      <div className="bg-[#202020] text-white rounded-btn p-8 md:p-12 mb-20">
+        <h3 className="font-body text-2xl font-normal text-white mb-4">
           Jouw merk verdient meer dan een websitescan.
         </h3>
-        <p className="text-secondary mb-8 leading-relaxed font-body">
+        <p className="text-white/70 mb-8 leading-relaxed font-body">
           Deze superprompt is gebaseerd op wat je website vertelt. Maar sterke merkcommunicatie gaat verder
           dan één pagina. Bij Newfound kijken we naar het hele plaatje zodat alles wat je zegt, schrijft
           en uitstraalt op elkaar aansluit.
         </p>
         <a
           href="mailto:hello@newfound.agency"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-btn font-body font-medium hover:bg-neutral-100 transition-colors"
         >
           Plan een gesprek van 15 minuten <ArrowRight className="w-4 h-4" />
         </a>

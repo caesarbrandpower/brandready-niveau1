@@ -8,7 +8,7 @@ interface DiagnosisProps {
 
 export default function Diagnosis({ diagnose }: DiagnosisProps) {
   return (
-    <div className="rounded-btn overflow-hidden" style={{ backgroundColor: '#fafaf8', marginBottom: '80px' }}>
+    <div className="rounded-btn overflow-hidden bg-[#f5f5f3]" style={{ marginBottom: '80px' }}>
       <div className="p-6 md:p-8 border-b border-[#e0e0e0]">
         <h3 className="font-body text-lg font-normal text-primary">
           Wat vertelt jouw website over je merk

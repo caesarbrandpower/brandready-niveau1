@@ -163,9 +163,17 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white">
+      {/* Logo */}
+      <div className="flex justify-start px-8 pt-8">
+        <a href="https://newfound.agency" target="_blank">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={28} alt="Newfound" style={{ height: '28px' }} />
+        </a>
+      </div>
+
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="flex flex-col items-center justify-center px-4" style={{ paddingTop: '120px' }}>
+        <div className="flex flex-col items-center justify-center px-4 bg-white" style={{ paddingTop: '80px' }}>
           <div className="w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
             <p className="label-style text-secondary mb-8">Brandprompt</p>
 
