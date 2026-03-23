@@ -128,7 +128,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
 
       {/* Sectie 3: Superprompt — donker */}
-      <section className="bg-[#202020]" style={{ padding: '80px 0' }}>
+      <section className="bg-[#202020] text-white" style={{ padding: '80px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div className="border-b border-white/10 pb-6 mb-8 flex items-center justify-between flex-wrap gap-3">
             <div>
@@ -276,7 +276,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
 
       {/* Sectie 5: Upsell gesprek — donker */}
-      <section className="bg-[#202020]" style={{ padding: '80px 0' }}>
+      <section className="bg-[#202020] text-white" style={{ padding: '80px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <h3 className="font-label text-2xl text-white mb-4">
             Jouw merk verdient meer dan een websitescan.
