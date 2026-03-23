@@ -120,20 +120,20 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       <Diagnosis diagnose={diagnose} />
 
       {/* Sectie B: Superprompt */}
-      <div className="bg-[#202020] rounded-btn overflow-hidden mb-20">
+      <div className="bg-[#202020] text-white rounded-btn overflow-hidden mb-20">
         <div className="p-6 md:p-8 border-b border-white/10 flex items-center justify-between flex-wrap gap-3">
           <div>
-            <h3 className="label-style text-white/50">
+            <h3 className="label-style text-white/70">
               Jouw superprompt
             </h3>
-            <p className="text-white/60 mt-2 font-body">
+            <p className="text-white/70 mt-2 font-body">
               Kopieer dit en laad het in je AI. Vanaf nu communiceert je AI vanuit jouw merk.
             </p>
           </div>
 
           <button
             onClick={handleCopy}
-            className="flex items-center gap-2 px-5 py-2.5 bg-white text-primary rounded-btn font-body font-medium hover:bg-neutral-100 transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-lg font-body font-medium hover:bg-neutral-100 transition-colors"
           >
             {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopiëren</>}
           </button>
@@ -141,42 +141,42 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
         <div className="p-6 md:p-8 space-y-10">
           <section>
-            <h4 className="label-style text-white/40 mb-3">1. Wie je bent</h4>
-            <p className="text-white/80 leading-relaxed font-body">{superprompt.wie_je_bent}</p>
+            <h4 className="label-style text-white/70 mb-3">1. Wie je bent</h4>
+            <p className="text-white leading-relaxed font-body">{superprompt.wie_je_bent}</p>
           </section>
 
           <section>
-            <h4 className="label-style text-white/40 mb-3">2. Wat jou onderscheidt</h4>
+            <h4 className="label-style text-white/70 mb-3">2. Wat jou onderscheidt</h4>
             <ul className="space-y-2">
               {superprompt.wat_jou_onderscheidt.map((punt, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 border border-white/20 rounded-btn flex items-center justify-center text-sm font-body text-white/40 mt-0.5">
+                  <span className="flex-shrink-0 w-6 h-6 border border-white/20 rounded-btn flex items-center justify-center text-sm font-body text-white/70 mt-0.5">
                     {index + 1}
                   </span>
-                  <span className="text-white/80 font-body">{punt}</span>
+                  <span className="text-white font-body">{punt}</span>
                 </li>
               ))}
             </ul>
           </section>
 
           <section>
-            <h4 className="label-style text-white/40 mb-3">3. Jouw klant</h4>
-            <p className="text-white/80 leading-relaxed font-body">{superprompt.jouw_klant}</p>
+            <h4 className="label-style text-white/70 mb-3">3. Jouw klant</h4>
+            <p className="text-white leading-relaxed font-body">{superprompt.jouw_klant}</p>
           </section>
 
           <section>
-            <h4 className="label-style text-white/40 mb-3">4. Zo klink je</h4>
+            <h4 className="label-style text-white/70 mb-3">4. Zo klink je</h4>
             <div className="space-y-3">
               {superprompt.zo_klink_je.map((regel, index) => (
                 <div key={index} className="p-4 border border-white/10 rounded-btn">
-                  <p className="text-white/80 italic font-body">&quot;{regel}&quot;</p>
+                  <p className="text-white italic font-body">&quot;{regel}&quot;</p>
                 </div>
               ))}
             </div>
           </section>
 
           <section>
-            <h4 className="label-style text-white/40 mb-3 flex items-center gap-2">
+            <h4 className="label-style text-white/70 mb-3 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 text-red-400" />
               5. Dit zeg je nooit
             </h4>
@@ -184,15 +184,15 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               {superprompt.dit_zeg_je_nooit.map((punt, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">×</span>
-                  <span className="text-white/80 font-body">{punt}</span>
+                  <span className="text-white font-body">{punt}</span>
                 </li>
               ))}
             </ul>
           </section>
 
           <section>
-            <h4 className="label-style text-white/40 mb-3">6. Jouw verhaal</h4>
-            <p className="text-white/80 leading-relaxed font-body">{superprompt.jouw_verhaal}</p>
+            <h4 className="label-style text-white/70 mb-3">6. Jouw verhaal</h4>
+            <p className="text-white leading-relaxed font-body">{superprompt.jouw_verhaal}</p>
           </section>
         </div>
       </div>
@@ -250,7 +250,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               <button
                 type="submit"
                 disabled={!email.trim() || emailSubmitting}
-                className="px-6 py-3 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 whitespace-nowrap"
+                className="px-6 py-3 bg-black text-white rounded-lg font-body font-medium hover:bg-[#333333] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 whitespace-nowrap"
               >
                 {emailSubmitting ? 'Bezig...' : 'Ontvang mijn superprompt + handleiding'}
               </button>
@@ -275,14 +275,14 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </p>
         <a
           href="mailto:hello@newfound.agency"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-btn font-body font-medium hover:bg-neutral-100 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-lg font-body font-medium hover:bg-neutral-100 transition-colors"
         >
           Plan een gesprek van 15 minuten <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 
       {/* Upsell: Volledig beeld */}
-      <div className="border border-[#e0e0e0] rounded-btn p-8 md:p-12 mb-20">
+      <div className="bg-white text-black border border-[#e0e0e0] rounded-btn p-8 md:p-12 mb-20">
         <h3 className="font-body text-2xl font-normal text-primary mb-4">
           Wil je het volledige beeld?
         </h3>
@@ -328,7 +328,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
         <a
           href="mailto:hello@newfound.agency"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg font-body font-medium hover:bg-[#333333] transition-colors"
         >
           Vertel me hoe het werkt <ArrowRight className="w-4 h-4" />
         </a>
