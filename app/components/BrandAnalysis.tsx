@@ -116,7 +116,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </h2>
 
         <p className="text-neutral-500">
-          Hier is je merk — scherper dan je het zelf had beschreven
+          Hier is je merk, scherper dan je het zelf had beschreven
         </p>
       </div>
 
@@ -136,15 +136,10 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           </div>
 
           <button
-            onClick={emailCaptured ? handleCopy : undefined}
-            disabled={!emailCaptured}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-colors ${
-              emailCaptured
-                ? 'bg-white text-neutral-900 hover:bg-neutral-100 cursor-pointer'
-                : 'bg-neutral-800 text-neutral-500 cursor-not-allowed'
-            }`}
+            onClick={handleCopy}
+            className="flex items-center gap-2 px-5 py-2.5 bg-white text-neutral-900 rounded-lg font-medium hover:bg-neutral-100 transition-colors"
           >
-            {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> {emailCaptured ? 'Kopiëren' : 'Vul je e-mailadres in om te kopiëren'}</>}
+            {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopiëren</>}
           </button>
         </div>
 
@@ -221,7 +216,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             </div>
             <h3 className="text-lg font-semibold text-neutral-900 mb-2">Verstuurd!</h3>
             <p className="text-neutral-600">
-              Check je inbox — je superprompt en handleiding zijn onderweg.
+              Check je inbox. Je superprompt en handleiding zijn onderweg.
             </p>
             <div className="flex flex-wrap justify-center gap-3 mt-6">
               <button
@@ -278,41 +273,41 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         )}
       </div>
 
-      {/* Sectie C — Upsell blok Newfound */}
+      {/* Upsell blok — Newfound gesprek */}
       <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-3xl p-8 md:p-12 border border-neutral-200 mb-8">
         <h3 className="text-2xl font-semibold text-neutral-900 mb-4">
-          Wil je weten wat er écht schuilt achter je merk?
+          Jouw merk verdient meer dan een websitescan.
         </h3>
         <p className="text-neutral-600 mb-6 leading-relaxed">
-          Deze superprompt is een begin — gebaseerd op wat je website vertelt. Bij Newfound gaan we verder.
-          We scherpen je merkfundament aan, ontwikkelen een concept dat blijft hangen en zorgen dat je merk
-          consistent werkt op elk moment dat het telt.
+          Deze superprompt is gebaseerd op wat je website vertelt. Maar sterke merkcommunicatie gaat verder
+          dan één pagina. Bij Newfound kijken we naar het hele plaatje zodat alles wat je zegt, schrijft
+          en uitstraalt op elkaar aansluit.
         </p>
         <a
           href="mailto:hello@newfound.agency"
           className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 transition-colors"
         >
-          Gesprek aanvragen <ArrowRight className="w-4 h-4" />
+          Plan een gesprek van 15 minuten <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 
-      {/* Upsell blok — Niveau 2 */}
+      {/* Upsell blok — Volledig beeld */}
       <div className="bg-white rounded-3xl border border-neutral-200 p-8 md:p-12 mb-8">
         <h3 className="text-2xl font-semibold text-neutral-900 mb-4">
-          Wil je een volledig beeld van je merk?
+          Wil je het volledige beeld?
         </h3>
         <p className="text-neutral-600 mb-6 leading-relaxed">
-          Niveau 1 scant je website. Niveau 2 gaat verder. We analyseren alles wat jouw merk vertelt:
-          je website, je LinkedIn, je offertes en bestaand materiaal. Meerdere bronnen, één compleet beeld.
-          Het resultaat: een superprompt die niet gebaseerd is op wat er publiek staat, maar op wie je écht bent.
-          Aangescherpt door Newfound.
+          Een URL vertelt één kant van je verhaal. Wij analyseren je website, LinkedIn, offertes en bestaand
+          merkmateriaal. Alles wat jouw merk vertelt op één plek. Het resultaat: een superprompt die niet
+          gebaseerd is op wat er publiek staat, maar op wie je écht bent. Aangescherpt door een merkexpert.
         </p>
 
         <ul className="space-y-3 mb-6">
           {[
-            'Scan van website (meerdere pagina\'s), LinkedIn, offertes en documenten',
+            'Scan van website, LinkedIn, offertes en merkdocumenten',
             'Merkaudit: wat klopt, wat mist, wat inconsistent is',
             'Superprompt gebouwd op basis van alle bronnen',
+            'Intake gesprek vooraf: stuur je materiaal op, wij kijken er kritisch naar',
             'Menselijke review door Newfound',
           ].map((item, index) => (
             <li key={index} className="flex items-start gap-3">
@@ -345,7 +340,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           href="mailto:hello@newfound.agency"
           className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 transition-colors"
         >
-          Vertel me meer <ArrowRight className="w-4 h-4" />
+          Vertel me hoe het werkt <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 

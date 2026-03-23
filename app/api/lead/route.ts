@@ -69,7 +69,7 @@ Handleiding: zo gebruik je je superprompt
 https://www.notion.so/3228e9f175cb817e9bc8d6750b4f58aa
 
 Groetjes,
-Caesar — newfound.agency`
+Caesar, newfound.agency`
 
       await transporter.sendMail({
         from: smtpUser,
