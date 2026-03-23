@@ -163,19 +163,19 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-dark">
-      {/* Logo */}
-      <div className="flex justify-start px-8 pt-8">
+      {/* Navbar + Gradient */}
+      <div className="flex justify-start px-6 py-5">
         <a href="https://newfound.agency" target="_blank">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={28} alt="Newfound" style={{ height: '28px' }} />
+          <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={20} alt="Newfound" style={{ height: '20px', opacity: 0.7 }} />
         </a>
       </div>
 
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="flex flex-col items-center min-h-[calc(100vh-76px)] px-4">
-          {/* Gradient band */}
-          <div className="w-full gradient-band-thick animate-gradient mb-0" style={{ marginTop: '-8px' }} />
+        <div className="flex flex-col items-center min-h-[calc(100vh-60px)] px-4">
+          {/* Large gradient band */}
+          <div className="w-full gradient-band-hero animate-gradient" />
 
           <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
             <p className="label-style text-accent mb-10 animate-hero-title">Brandprompt</p>
@@ -225,8 +225,11 @@ export default function Home() {
 
       {/* Loading state */}
       {isLoading && !result && (
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
-          <LoadingState steps={loadingSteps} currentStep={loadingStep} />
+        <div>
+          <div className="w-full gradient-band-hero animate-gradient" />
+          <div className="min-h-[calc(100vh-60px-30vh)] flex items-center justify-center px-4">
+            <LoadingState steps={loadingSteps} currentStep={loadingStep} />
+          </div>
         </div>
       )}
 

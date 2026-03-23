@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check, Copy, Download, RefreshCw, AlertCircle, Mail, ArrowRight } from 'lucide-react'
+import { Check, Copy, Download, RefreshCw, AlertCircle, ArrowRight } from 'lucide-react'
 import Diagnosis from './Diagnosis'
 
 interface BrandAnalysisProps {
@@ -103,59 +103,26 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
   return (
     <div className="animate-slide-up">
-      {/* Gradient divider */}
+      {/* Gradient band top */}
       <div className="gradient-band" />
 
-      {/* Sectie 1: Header */}
-      <section className="bg-dark" style={{ paddingTop: '100px', paddingBottom: '64px' }}>
-        <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <div className="text-center">
-            <p className="label-style text-accent mb-6">Brandprompt</p>
-
-            <h1 className="font-heading text-white mb-4">
-              {result.companyName}
-            </h1>
-
-            <div className="w-12 h-px mx-auto mb-4" style={{ background: 'linear-gradient(90deg, #0E6EFF, #DDB3FF)' }} />
-
-            <p className="text-white/50 font-body" style={{ fontWeight: 300 }}>
-              Hier is je merk, scherper dan je het zelf had beschreven
-            </p>
-          </div>
+      {/* Sectie 1: Company name hero */}
+      <section className="bg-dark" style={{ paddingTop: '80px', paddingBottom: '48px' }}>
+        <div className="mx-auto px-4 text-center" style={{ maxWidth: '680px' }}>
+          <p className="label-style text-accent/60 mb-6">Brandprompt</p>
+          <h1 className="font-heading text-white mb-4">
+            {result.companyName}
+          </h1>
+          <div className="w-12 h-px mx-auto mb-4" style={{ background: 'linear-gradient(90deg, #0E6EFF, #DDB3FF)' }} />
+          <p className="text-white/40 font-body" style={{ fontWeight: 300 }}>
+            Hier is je merk, scherper dan je het zelf had beschreven
+          </p>
         </div>
       </section>
 
-      {/* Sectie 2: Diagnose */}
-      <section className="bg-dark" style={{ paddingBottom: '0' }}>
+      {/* Sectie 2: Superprompt (hero content) */}
+      <section className="bg-dark" style={{ padding: '0 0 64px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <Diagnosis diagnose={diagnose} />
-        </div>
-      </section>
-
-      {/* Gradient divider */}
-      <div className="gradient-band" style={{ margin: '0' }} />
-
-      {/* Sectie 3: Superprompt */}
-      <section className="bg-dark-light text-white" style={{ padding: '96px 0' }}>
-        <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <div className="border-b border-white/10 pb-6 mb-8 flex items-center justify-between flex-wrap gap-3">
-            <div>
-              <h3 className="label-style text-accent/70">
-                Jouw superprompt
-              </h3>
-              <p className="text-white/50 mt-2 font-body">
-                Kopieer dit en laad het in je AI. Vanaf nu communiceert je AI vanuit jouw merk.
-              </p>
-            </div>
-
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-dark rounded-btn font-body font-medium hover:bg-white/90 transition-colors"
-            >
-              {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopiëren</>}
-            </button>
-          </div>
-
           <div className="space-y-10">
             <div>
               <h4 className="label-style text-accent/60 mb-3">1. Wie je bent</h4>
@@ -185,7 +152,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               <h4 className="label-style text-accent/60 mb-3">4. Zo klink je</h4>
               <div className="space-y-3">
                 {superprompt.zo_klink_je.map((regel, index) => (
-                  <div key={index} className="p-4 border border-white/10 rounded-btn bg-dark/50">
+                  <div key={index} className="p-4 border border-white/10 rounded-btn bg-dark-light/50">
                     <p className="text-white/80 italic font-body">&quot;{regel}&quot;</p>
                   </div>
                 ))}
@@ -212,6 +179,32 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               <p className="text-white/80 leading-relaxed font-body">{superprompt.jouw_verhaal}</p>
             </div>
           </div>
+
+          {/* Copy button — prominent, blue */}
+          <div className="mt-12 flex flex-wrap gap-3">
+            <button
+              onClick={handleCopy}
+              className="flex items-center gap-2 px-7 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all"
+            >
+              {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopieer superprompt</>}
+            </button>
+            <button
+              onClick={handleDownload}
+              className="flex items-center gap-2 px-5 py-3.5 border border-white/15 text-white/60 rounded-btn font-body font-medium hover:bg-white/5 transition-colors"
+            >
+              <Download className="w-4 h-4" /> Download .md
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="gradient-band" />
+
+      {/* Sectie 3: Diagnose (compact, max 3 items) */}
+      <section className="bg-dark-light" style={{ padding: '64px 0' }}>
+        <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
+          <Diagnosis diagnose={diagnose.slice(0, 3)} />
         </div>
       </section>
 
