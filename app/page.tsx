@@ -162,7 +162,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-dark">
       {/* Logo */}
       <div className="flex justify-start px-8 pt-8">
         <a href="https://newfound.agency" target="_blank">
@@ -173,19 +173,22 @@ export default function Home() {
 
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="flex flex-col items-center min-h-[calc(100vh-76px)] px-4 bg-white">
-          <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
-            <p className="label-style text-secondary mb-10 animate-hero-title">Brandprompt</p>
+        <div className="flex flex-col items-center min-h-[calc(100vh-76px)] px-4">
+          {/* Gradient band */}
+          <div className="w-full gradient-band-thick animate-gradient mb-0" style={{ marginTop: '-8px' }} />
 
-            <h1 className="font-heading text-primary mb-5 animate-hero-title">
+          <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
+            <p className="label-style text-accent mb-10 animate-hero-title">Brandprompt</p>
+
+            <h1 className="font-heading text-white mb-5 animate-hero-title">
               Maak van je merk<br />een superprompt.
             </h1>
 
-            <h2 className="text-secondary mb-3 animate-hero-subtitle">
+            <h2 className="text-white/60 mb-3 animate-hero-subtitle">
               Jouw AI klinkt niet als jij. Verander dat in 60 seconden.
             </h2>
 
-            <p className="text-secondary mb-20 font-body animate-hero-body" style={{ fontWeight: 300 }}>
+            <p className="text-white/40 mb-20 font-body animate-hero-body" style={{ fontWeight: 300 }}>
               Scherper dan je het zelf had beschreven.
             </p>
 
@@ -194,19 +197,19 @@ export default function Home() {
             </div>
 
             {showManualInput && (
-              <div className="mt-10 p-6 bg-white border border-[#e0e0e0] rounded-btn animate-fade-in text-left">
-                <p className="text-primary mb-4">{error}</p>
+              <div className="mt-10 p-6 bg-dark-light border border-white/10 rounded-btn animate-fade-in text-left">
+                <p className="text-white mb-4">{error}</p>
                 <textarea
                   value={manualInput}
                   onChange={(e) => setManualInput(e.target.value)}
                   placeholder="Beschrijf je bedrijf: wat doe je, voor wie, en wat maakt jullie uniek?"
-                  className="w-full p-4 border border-[#e0e0e0] rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body"
+                  className="w-full p-4 bg-dark border border-white/10 rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all font-body text-white placeholder:text-white/30"
                   rows={5}
                 />
                 <button
                   onClick={handleManualSubmit}
                   disabled={!manualInput.trim() || isLoading}
-                  className="mt-4 w-full py-3 px-6 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="mt-4 w-full py-3 px-6 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                 >
                   Analyseer mijn merk
                 </button>
@@ -214,8 +217,8 @@ export default function Home() {
             )}
           </div>
 
-          <div className="pb-8 text-sm text-secondary animate-hero-footer">
-            Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Newfound</a>
+          <div className="pb-8 text-sm text-white/30 animate-hero-footer">
+            Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white/50 underline hover:text-accent transition-colors">Newfound</a>
           </div>
         </div>
       )}
@@ -231,10 +234,10 @@ export default function Home() {
       {error && !isLoading && !result && !showManualInput && (
         <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
           <div className="text-center max-w-md animate-fade-in">
-            <div className="w-16 h-16 border-2 border-[#e0e0e0] rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-2xl text-primary">!</span>
+            <div className="w-16 h-16 border-2 border-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-2xl text-accent">!</span>
             </div>
-            <h3 className="font-body text-xl font-normal text-primary mb-3">{error}</h3>
+            <h3 className="font-body text-xl font-normal text-white mb-3">{error}</h3>
             <button
               onClick={() => {
                 setError(null)
@@ -242,7 +245,7 @@ export default function Home() {
                 setShowManualInput(false)
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all"
             >
               Probeer opnieuw
             </button>
@@ -266,8 +269,8 @@ export default function Home() {
 
       {/* Footer */}
       {result && (
-        <footer className="py-12 text-center text-sm text-secondary bg-white">
-          Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Newfound</a>
+        <footer className="py-12 text-center text-sm text-white/30 bg-dark">
+          Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white/50 underline hover:text-accent transition-colors">Newfound</a>
         </footer>
       )}
     </main>

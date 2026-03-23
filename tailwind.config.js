@@ -8,9 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#000000',
-        secondary: '#666666',
-        dark: '#1a1a1a',
+        dark: '#202020',
+        'dark-light': '#2a2a2a',
+        'dark-lighter': '#333333',
+        accent: '#DDB3FF',
+        'accent-blue': '#0E6EFF',
+        'accent-pink': '#E8A0BF',
       },
       fontFamily: {
         heading: ['GreedCondensed', 'sans-serif'],
@@ -23,7 +26,6 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
         'slide-up': 'slideUp 0.5s ease-out',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         fadeIn: {

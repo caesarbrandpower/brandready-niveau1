@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Stap 2: @font-face declarations */
+/* @font-face declarations */
 @font-face {
   font-family: 'GreedCondensed';
   src: url('/fonts/GreedCondensed-TRIAL-Bold.otf') format('opentype');
@@ -35,10 +35,10 @@
   font-display: swap;
 }
 
-/* Stap 3 & 4: Base typography and colors */
+/* Base typography — dark theme */
 body {
-  color: #000000;
-  background: #ffffff;
+  color: #ffffff;
+  background: #202020;
   font-family: 'Satoshi', sans-serif;
   font-weight: 300;
   font-size: 16px;
@@ -78,6 +78,25 @@ h3, h4, h5, h6 {
     font-weight: 500;
     font-size: 12px;
   }
+
+  /* Newfound gradient band */
+  .gradient-band {
+    height: 4px;
+    background: linear-gradient(90deg, #0E6EFF 0%, #DDB3FF 50%, #E8A0BF 100%);
+  }
+
+  .gradient-band-thick {
+    height: 80px;
+    background: linear-gradient(90deg, #0E6EFF 0%, #7B61FF 30%, #DDB3FF 60%, #E8A0BF 100%);
+    opacity: 0.9;
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #0E6EFF, #DDB3FF, #E8A0BF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 @layer utilities {
@@ -108,6 +127,12 @@ h3, h4, h5, h6 {
   50% { opacity: 1; }
 }
 
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .animate-hero-title {
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -130,4 +155,9 @@ h3, h4, h5, h6 {
 
 .progress-dot {
   animation: progressPulse 1.5s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
 }
