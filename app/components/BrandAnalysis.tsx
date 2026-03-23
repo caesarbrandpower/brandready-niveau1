@@ -104,14 +104,16 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
   return (
     <div className="animate-slide-up">
       {/* Sectie 1: Header — wit */}
-      <section className="bg-white" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
+      <section className="bg-white" style={{ paddingTop: '100px', paddingBottom: '64px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div className="text-center">
-            <p className="label-style text-secondary mb-6">Brandprompt</p>
+            <p className="label-style text-secondary/50 mb-6">Brandprompt</p>
 
-            <h1 className="font-heading text-primary mb-3">
+            <h1 className="font-heading text-primary mb-4">
               {result.companyName}
             </h1>
+
+            <div className="w-12 h-px bg-[#e0e0e0] mx-auto mb-4" />
 
             <p className="text-secondary font-body" style={{ fontWeight: 300 }}>
               Hier is je merk, scherper dan je het zelf had beschreven
@@ -121,14 +123,14 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
 
       {/* Sectie 2: Diagnose — wit */}
-      <section className="bg-white" style={{ paddingBottom: '80px' }}>
+      <section className="bg-white" style={{ paddingBottom: '0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <Diagnosis diagnose={diagnose} />
         </div>
       </section>
 
       {/* Sectie 3: Superprompt — donker */}
-      <section className="bg-[#202020] text-white" style={{ padding: '80px 0' }}>
+      <section className="bg-[#202020] text-white" style={{ padding: '96px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div className="border-b border-white/10 pb-6 mb-8 flex items-center justify-between flex-wrap gap-3">
             <div>
@@ -207,13 +209,13 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Sectie 4: Email capture — wit */}
-      <section className="bg-white" style={{ padding: '80px 0' }}>
+      {/* Sectie 4: Email capture — lichte achtergrond */}
+      <section className="bg-[#f5f5f3]" style={{ padding: '80px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           {emailCaptured ? (
-            <div className="border border-[#e0e0e0] rounded-btn p-8 text-center animate-fade-in">
-              <div className="w-12 h-12 border border-[#e0e0e0] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-6 h-6 text-primary" />
+            <div className="bg-white rounded-btn p-8 text-center animate-fade-in shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+              <div className="w-12 h-12 bg-[#f5f5f3] rounded-full flex items-center justify-center mx-auto mb-4">
+                <Check className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-label text-lg text-primary mb-2">Verstuurd!</h3>
               <p className="text-secondary font-body">
@@ -228,42 +230,38 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 </button>
                 <button
                   onClick={handleDownload}
-                  className="flex items-center gap-2 px-5 py-2.5 border border-[#e0e0e0] text-primary rounded-btn font-body font-medium hover:bg-neutral-50 transition-colors"
+                  className="flex items-center gap-2 px-5 py-2.5 border border-[#e0e0e0] text-primary rounded-btn font-body font-medium hover:bg-white transition-colors"
                 >
                   <Download className="w-4 h-4" /> Download als .md
                 </button>
               </div>
             </div>
           ) : (
-            <div className="border border-[#e0e0e0] rounded-btn p-6 md:p-8">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="flex-shrink-0 w-10 h-10 border border-[#e0e0e0] rounded-full flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-secondary" />
-                </div>
-                <div>
-                  <h3 className="font-label text-primary mb-1">Ontvang je superprompt + handleiding</h3>
-                  <p className="text-sm text-secondary font-body">
-                    Sla je superprompt op en gebruik hem direct. We sturen je een handleiding hoe je hem in twee minuten instelt in ChatGPT of Claude. Zodat je AI vanaf nu altijd klinkt als jij.
-                  </p>
-                </div>
+            <div className="text-center">
+              <div className="mb-6">
+                <h3 className="font-label text-primary mb-2">Ontvang je superprompt + handleiding</h3>
+                <p className="text-sm text-secondary font-body" style={{ maxWidth: '480px', margin: '0 auto' }}>
+                  We sturen je superprompt en een handleiding om hem in twee minuten in te stellen in ChatGPT of Claude.
+                </p>
               </div>
 
-              <form onSubmit={handleEmailSubmit} className="flex gap-3">
+              <form onSubmit={handleEmailSubmit} className="flex gap-3 max-w-lg mx-auto">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="jouw@emailadres.nl"
-                  className="flex-1 px-4 py-3 border border-[#e0e0e0] rounded-btn focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all font-body"
+                  className="flex-1 px-4 py-3.5 bg-white border border-[#e0e0e0] rounded-btn focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all font-body shadow-[0_1px_4px_rgba(0,0,0,0.04)]"
                   required
                 />
 
                 <button
                   type="submit"
                   disabled={!email.trim() || emailSubmitting}
-                  className="px-6 py-3 bg-black text-white rounded-btn font-body font-medium hover:bg-[#333333] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 whitespace-nowrap"
+                  className="px-6 py-3.5 bg-black text-white rounded-btn font-body font-medium hover:bg-[#333333] disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
                 >
-                  {emailSubmitting ? 'Bezig...' : 'Ontvang mijn superprompt + handleiding'}
+                  {emailSubmitting ? 'Bezig...' : 'Verstuur'}
+                  {!emailSubmitting && <ArrowRight className="w-4 h-4" />}
                 </button>
               </form>
 
@@ -276,19 +274,20 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
 
       {/* Sectie 5: Upsell gesprek — donker */}
-      <section className="bg-[#202020] text-white" style={{ padding: '80px 0' }}>
+      <section className="bg-[#202020] text-white" style={{ padding: '96px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <h3 className="font-label text-2xl text-white mb-4">
+          <p className="label-style text-white/40 mb-6">Volgende stap</p>
+          <h3 className="font-heading text-white mb-6" style={{ fontSize: 'clamp(24px, 3vw, 36px)', lineHeight: 1.15 }}>
             Jouw merk verdient meer dan een websitescan.
           </h3>
-          <p className="text-white font-body mb-8 leading-relaxed" style={{ opacity: 0.7 }}>
+          <p className="text-white/60 font-body mb-10 leading-relaxed">
             Deze superprompt is gebaseerd op wat je website vertelt. Maar sterke merkcommunicatie gaat verder
             dan één pagina. Bij Newfound kijken we naar het hele plaatje zodat alles wat je zegt, schrijft
             en uitstraalt op elkaar aansluit.
           </p>
           <a
             href="mailto:hello@newfound.agency"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-btn font-body font-medium hover:bg-neutral-100 transition-colors"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black rounded-btn font-body font-medium hover:bg-neutral-100 transition-all duration-200"
           >
             Plan een gesprek van 15 minuten <ArrowRight className="w-4 h-4" />
           </a>
@@ -296,57 +295,61 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
 
       {/* Sectie 6: Upsell volledig beeld — wit */}
-      <section className="bg-white" style={{ padding: '80px 0' }}>
+      <section className="bg-white" style={{ padding: '96px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <h3 className="font-label text-2xl text-primary mb-4">
+          <p className="label-style text-secondary/50 mb-6">Volledig beeld</p>
+          <h3 className="font-heading text-primary mb-6" style={{ fontSize: 'clamp(24px, 3vw, 36px)', lineHeight: 1.15 }}>
             Wil je het volledige beeld?
           </h3>
-          <p className="text-secondary mb-8 leading-relaxed font-body">
+          <p className="text-secondary mb-10 leading-relaxed font-body">
             Een URL vertelt één kant van je verhaal. Wij analyseren je website, LinkedIn, offertes en bestaand
             merkmateriaal. Alles wat jouw merk vertelt op één plek. Het resultaat: een superprompt die niet
             gebaseerd is op wat er publiek staat, maar op wie je écht bent. Aangescherpt door een merkexpert.
           </p>
 
-          <ul className="space-y-3 mb-8">
-            {[
-              'Scan van website, LinkedIn, offertes en merkdocumenten',
-              'Merkaudit: wat klopt, wat mist, wat inconsistent is',
-              'Superprompt gebouwd op basis van alle bronnen',
-              'Intake gesprek vooraf: stuur je materiaal op, wij kijken er kritisch naar',
-              'Menselijke review door Newfound',
-            ].map((item, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 border border-[#e0e0e0] rounded-btn flex items-center justify-center text-sm text-secondary mt-0.5 font-body">
-                  {index + 1}
-                </span>
-                <span className="text-primary/80 font-body">{item}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="bg-[#f5f5f3] rounded-btn p-6 md:p-8 mb-10">
+            <ul className="space-y-4">
+              {[
+                'Scan van website, LinkedIn, offertes en merkdocumenten',
+                'Merkaudit: wat klopt, wat mist, wat inconsistent is',
+                'Superprompt gebouwd op basis van alle bronnen',
+                'Intake gesprek vooraf: stuur je materiaal op, wij kijken er kritisch naar',
+                'Menselijke review door Newfound',
+              ].map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-6 h-6 bg-white rounded-full flex items-center justify-center text-sm text-secondary mt-0.5 font-body">
+                    {index + 1}
+                  </span>
+                  <span className="text-primary/80 font-body">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          <div className="border border-[#e0e0e0] rounded-btn p-5 mb-8">
-            <div className="grid md:grid-cols-2 gap-4">
+          <div className="flex items-center justify-between flex-wrap gap-6 mb-10">
+            <div className="grid grid-cols-2 gap-8 flex-1">
               <div>
-                <span className="label-style text-secondary">Van</span>
-                <p className="text-primary/80 mt-1 font-body">Automatische analyse op basis van één URL</p>
+                <span className="label-style text-secondary/50">Van</span>
+                <p className="text-primary/80 mt-1 font-body text-sm">Automatische analyse op basis van één URL</p>
               </div>
               <div>
-                <span className="label-style text-secondary">Naar</span>
-                <p className="text-primary/80 mt-1 font-body">Een scherp merkfundament op basis van alles wat je hebt</p>
+                <span className="label-style text-secondary/50">Naar</span>
+                <p className="text-primary/80 mt-1 font-body text-sm">Een scherp merkfundament op basis van alles wat je hebt</p>
               </div>
             </div>
           </div>
 
-          <p className="text-secondary mb-8 font-body">
-            Investering: <span className="font-body font-medium text-primary">vanaf €1.500</span>
-          </p>
-
-          <a
-            href="mailto:hello@newfound.agency"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-btn font-body font-medium hover:bg-[#333333] transition-colors"
-          >
-            Vertel me hoe het werkt <ArrowRight className="w-4 h-4" />
-          </a>
+          <div className="flex items-center gap-6 flex-wrap">
+            <a
+              href="mailto:hello@newfound.agency"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-black text-white rounded-btn font-body font-medium hover:bg-[#333333] transition-all duration-200"
+            >
+              Vertel me hoe het werkt <ArrowRight className="w-4 h-4" />
+            </a>
+            <span className="text-secondary font-body text-sm">
+              Investering: <span className="text-primary font-medium">vanaf €1.500</span>
+            </span>
+          </div>
         </div>
       </section>
 

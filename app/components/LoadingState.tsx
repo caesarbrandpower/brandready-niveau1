@@ -7,35 +7,52 @@ interface LoadingStateProps {
 
 export default function LoadingState({ steps, currentStep }: LoadingStateProps) {
   return (
-    <div className="text-center max-w-md">
-      <div className="mb-8">
-        <div className="relative w-16 h-16 mx-auto">
-          <div className="absolute inset-0 border-4 border-neutral-100 rounded-full"></div>
-          <div
-            className="absolute inset-0 border-4 border-primary rounded-full border-t-transparent animate-spin"
-            style={{ animationDuration: '1s' }}
-          ></div>
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        {steps.map((step, index) => (
-          <div
-            key={index}
-            className={`
-              transition-all duration-500
-              ${index === currentStep ? 'opacity-100 transform translate-y-0' : ''}
-              ${index < currentStep ? 'opacity-40 transform -translate-y-1' : ''}
-              ${index > currentStep ? 'opacity-0 transform translate-y-2 absolute' : ''}
-            `}
-          >
-            <p className="text-lg font-body font-normal text-primary">{step}</p>
+    <div className="text-center max-w-sm">
+      {/* Progress dots */}
+      <div className="flex items-center justify-center gap-3 mb-12">
+        {steps.map((_, index) => (
+          <div key={index} className="flex items-center gap-3">
+            <div
+              className={`
+                w-2.5 h-2.5 rounded-full transition-all duration-700
+                ${index < currentStep ? 'bg-primary scale-100' : ''}
+                ${index === currentStep ? 'bg-primary scale-125 progress-dot' : ''}
+                ${index > currentStep ? 'bg-[#e0e0e0] scale-100' : ''}
+              `}
+            />
+            {index < steps.length - 1 && (
+              <div
+                className={`
+                  w-12 h-px transition-all duration-700
+                  ${index < currentStep ? 'bg-primary' : 'bg-[#e0e0e0]'}
+                `}
+              />
+            )}
           </div>
         ))}
       </div>
 
-      <p className="mt-8 text-sm text-secondary font-body" style={{ fontWeight: 300 }}>
-        Dit duurt ongeveer 30 seconden
+      {/* Current step text */}
+      <div className="relative h-16">
+        {steps.map((step, index) => (
+          <div
+            key={index}
+            className={`
+              absolute inset-0 flex items-center justify-center
+              transition-all duration-500
+              ${index === currentStep ? 'opacity-100 transform translate-y-0' : ''}
+              ${index < currentStep ? 'opacity-0 transform -translate-y-4' : ''}
+              ${index > currentStep ? 'opacity-0 transform translate-y-4' : ''}
+            `}
+          >
+            <p className="text-xl font-body text-primary" style={{ fontWeight: 400 }}>{step}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Step counter */}
+      <p className="mt-10 text-sm text-secondary/50 font-body" style={{ fontWeight: 300 }}>
+        Stap {currentStep + 1} van {steps.length}
       </p>
     </div>
   )

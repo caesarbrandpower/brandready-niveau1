@@ -173,23 +173,25 @@ export default function Home() {
 
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="flex flex-col items-center justify-center px-4 bg-white" style={{ paddingTop: '80px' }}>
-          <div className="w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
-            <p className="label-style text-secondary mb-8">Brandprompt</p>
+        <div className="flex flex-col items-center min-h-[calc(100vh-76px)] px-4 bg-white">
+          <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
+            <p className="label-style text-secondary mb-10 animate-hero-title">Brandprompt</p>
 
-            <h1 className="font-heading text-primary mb-3">
-              Maak van je merk een superprompt.
+            <h1 className="font-heading text-primary mb-5 animate-hero-title">
+              Maak van je merk<br />een superprompt.
             </h1>
 
-            <h2 className="text-secondary mb-4">
+            <h2 className="text-secondary mb-3 animate-hero-subtitle">
               Jouw AI klinkt niet als jij. Verander dat in 60 seconden.
             </h2>
 
-            <p className="text-secondary mb-16 font-body" style={{ fontWeight: 300 }}>
+            <p className="text-secondary mb-20 font-body animate-hero-body" style={{ fontWeight: 300 }}>
               Scherper dan je het zelf had beschreven.
             </p>
 
-            <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
+            <div className="animate-hero-cta">
+              <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
+            </div>
 
             {showManualInput && (
               <div className="mt-10 p-6 bg-white border border-[#e0e0e0] rounded-btn animate-fade-in text-left">
@@ -212,7 +214,7 @@ export default function Home() {
             )}
           </div>
 
-          <div className="absolute bottom-8 text-sm text-secondary">
+          <div className="pb-8 text-sm text-secondary animate-hero-footer">
             Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Newfound</a>
           </div>
         </div>
