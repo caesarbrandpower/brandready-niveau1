@@ -8,9 +8,9 @@ interface DiagnosisProps {
 
 export default function Diagnosis({ diagnose }: DiagnosisProps) {
   return (
-    <div className="bg-amber-50 rounded-3xl border border-amber-100 overflow-hidden mb-8">
-      <div className="p-6 md:p-8 border-b border-amber-100">
-        <h3 className="text-lg font-semibold text-neutral-900">
+    <div className="border border-neutral-200 rounded-btn overflow-hidden mb-12">
+      <div className="p-6 md:p-8 border-b border-neutral-200">
+        <h3 className="font-heading text-lg font-bold text-primary">
           Wat vertelt jouw website over je merk
         </h3>
       </div>
@@ -19,9 +19,9 @@ export default function Diagnosis({ diagnose }: DiagnosisProps) {
         {diagnose.map((bullet, index) => (
           <div key={index} className="flex items-start gap-3">
             <div className="flex-shrink-0 mt-0.5">
-              <AlertCircle className="w-5 h-5 text-amber-600" />
+              <AlertCircle className="w-5 h-5 text-secondary" />
             </div>
-            <p className="text-neutral-700">{bullet}</p>
+            <p className="text-primary/80 font-body">{bullet}</p>
           </div>
         ))}
       </div>

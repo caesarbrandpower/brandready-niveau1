@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react'
 import UrlInput from './components/UrlInput'
 import LoadingState from './components/LoadingState'
 import BrandAnalysis from './components/BrandAnalysis'
-import { Sparkles } from 'lucide-react'
 
 type AnalysisResult = {
   companyName: string
@@ -53,7 +52,6 @@ export default function Home() {
     setShowManualInput(false)
 
     try {
-      // Scrape met 15s timeout
       const scrapeController = new AbortController()
       const scrapeTimeout = setTimeout(() => scrapeController.abort(), 15000)
 
@@ -80,7 +78,6 @@ export default function Home() {
         return
       }
 
-      // Analyze met 45s timeout
       const analyzeController = new AbortController()
       const analyzeTimeout = setTimeout(() => analyzeController.abort(), 45000)
 
@@ -165,44 +162,41 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-neutral-50">
+    <main className="min-h-screen bg-white">
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="min-h-screen flex flex-col items-center justify-center px-4">
+        <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center px-4">
           <div className="w-full max-w-2xl mx-auto text-center">
-            <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-neutral-200 shadow-sm">
-              <Sparkles className="w-4 h-4 text-neutral-600" />
-              <span className="text-sm text-neutral-600">Brandprompt</span>
-            </div>
+            <p className="text-sm text-secondary mb-8 tracking-wide uppercase">Brandprompt</p>
 
-            <h1 className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-2 tracking-tight">
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-3 tracking-tight">
               Maak van je merk een superprompt.
             </h1>
 
-            <h2 className="text-2xl md:text-3xl font-medium text-neutral-700 mb-4">
+            <h2 className="font-heading text-xl md:text-2xl font-bold text-secondary mb-4">
               Jouw AI klinkt niet als jij. Verander dat in 60 seconden.
             </h2>
 
-            <p className="text-lg text-neutral-500 mb-12">
+            <p className="text-base text-secondary mb-16">
               Scherper dan je het zelf had beschreven.
             </p>
 
             <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
 
             {showManualInput && (
-              <div className="mt-8 p-6 bg-white rounded-2xl border border-neutral-200 shadow-sm animate-fade-in">
-                <p className="text-neutral-700 mb-4">{error}</p>
+              <div className="mt-10 p-6 bg-white border border-neutral-200 rounded-btn animate-fade-in text-left">
+                <p className="text-primary mb-4">{error}</p>
                 <textarea
                   value={manualInput}
                   onChange={(e) => setManualInput(e.target.value)}
                   placeholder="Beschrijf je bedrijf: wat doe je, voor wie, en wat maakt jullie uniek?"
-                  className="w-full p-4 border border-neutral-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                  className="w-full p-4 border border-neutral-200 rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body"
                   rows={5}
                 />
                 <button
                   onClick={handleManualSubmit}
                   disabled={!manualInput.trim() || isLoading}
-                  className="mt-4 w-full py-3 px-6 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="mt-4 w-full py-3 px-6 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Analyseer mijn merk
                 </button>
@@ -210,27 +204,27 @@ export default function Home() {
             )}
           </div>
 
-          <div className="absolute bottom-8 text-sm text-neutral-400">
-            Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="underline hover:text-neutral-600">Newfound</a>
+          <div className="absolute bottom-8 text-sm text-secondary">
+            Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Newfound</a>
           </div>
         </div>
       )}
 
       {/* Loading state */}
       {isLoading && !result && (
-        <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
           <LoadingState steps={loadingSteps} currentStep={loadingStep} />
         </div>
       )}
 
       {/* Error state */}
       {error && !isLoading && !result && !showManualInput && (
-        <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
           <div className="text-center max-w-md animate-fade-in">
-            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-2xl">!</span>
+            <div className="w-16 h-16 border-2 border-neutral-200 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-2xl text-primary">!</span>
             </div>
-            <h3 className="text-xl font-semibold text-neutral-900 mb-3">{error}</h3>
+            <h3 className="font-heading text-xl font-bold text-primary mb-3">{error}</h3>
             <button
               onClick={() => {
                 setError(null)
@@ -238,9 +232,9 @@ export default function Home() {
                 setShowManualInput(false)
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark transition-colors"
             >
-              Probeer opnieuw →
+              Probeer opnieuw
             </button>
           </div>
         </div>
@@ -248,7 +242,7 @@ export default function Home() {
 
       {/* Resultaat */}
       {result && (
-        <div ref={resultRef} className="py-16 px-4">
+        <div ref={resultRef} className="py-20 px-4">
           <div className="max-w-4xl mx-auto">
             <BrandAnalysis
               result={result}
@@ -260,6 +254,13 @@ export default function Home() {
             />
           </div>
         </div>
+      )}
+
+      {/* Footer */}
+      {result && (
+        <footer className="pb-12 text-center text-sm text-secondary">
+          Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Newfound</a>
+        </footer>
       )}
     </main>
   )

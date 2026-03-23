@@ -12,7 +12,7 @@ export default function LoadingState({ steps, currentStep }: LoadingStateProps) 
         <div className="relative w-16 h-16 mx-auto">
           <div className="absolute inset-0 border-4 border-neutral-100 rounded-full"></div>
           <div
-            className="absolute inset-0 border-4 border-neutral-900 rounded-full border-t-transparent animate-spin"
+            className="absolute inset-0 border-4 border-primary rounded-full border-t-transparent animate-spin"
             style={{ animationDuration: '1s' }}
           ></div>
         </div>
@@ -29,12 +29,12 @@ export default function LoadingState({ steps, currentStep }: LoadingStateProps) 
               ${index > currentStep ? 'opacity-0 transform translate-y-2 absolute' : ''}
             `}
           >
-            <p className="text-lg font-medium text-neutral-900">{step}</p>
+            <p className="text-lg font-heading font-bold text-primary">{step}</p>
           </div>
         ))}
       </div>
 
-      <p className="mt-8 text-sm text-neutral-400">
+      <p className="mt-8 text-sm text-secondary">
         Dit duurt ongeveer 30 seconden
       </p>
     </div>

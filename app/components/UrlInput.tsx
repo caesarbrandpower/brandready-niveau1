@@ -16,7 +16,6 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
     e.preventDefault()
     if (!url.trim()) return
 
-    // Normalize URL
     let normalizedUrl = url.trim()
     if (!normalizedUrl.startsWith('http')) {
       normalizedUrl = 'https://' + normalizedUrl
@@ -29,12 +28,12 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
     <form onSubmit={handleSubmit} className="w-full">
       <div
         className={`
-          relative flex items-center bg-white rounded-2xl border transition-all duration-200
-          ${isFocused ? 'border-neutral-900 ring-2 ring-neutral-100' : 'border-neutral-200'}
+          relative flex items-center bg-white rounded-btn border transition-all duration-200
+          ${isFocused ? 'border-primary ring-1 ring-neutral-200' : 'border-neutral-200'}
         `}
       >
         <div className="pl-5">
-          <Globe className="w-5 h-5 text-neutral-400" />
+          <Globe className="w-5 h-5 text-secondary" />
         </div>
 
         <input
@@ -44,21 +43,21 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="Voer je website-URL in"
-          className="flex-1 py-5 px-4 text-lg bg-transparent border-none outline-none placeholder:text-neutral-400"
+          className="flex-1 py-5 px-4 text-lg bg-transparent border-none outline-none placeholder:text-secondary/50 font-body"
           disabled={isLoading}
         />
 
         <button
           type="submit"
           disabled={!url.trim() || isLoading}
-          className="mr-2 py-3 px-6 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          className="mr-2 py-3 px-6 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
         >
           {isLoading ? 'Bezig...' : 'Analyseer mijn merk'}
           {!isLoading && <ArrowRight className="w-4 h-4" />}
         </button>
       </div>
 
-      <p className="mt-3 text-sm text-neutral-400">
+      <p className="mt-3 text-sm text-secondary">
         Bijvoorbeeld: newfound.agency of www.jouwsite.nl
       </p>
     </form>

@@ -7,8 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#000000',
+        secondary: '#535353',
+        dark: '#202020',
+      },
       fontFamily: {
-        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        heading: ['Satoshi', 'sans-serif'],
+        body: ['Open Sans', 'sans-serif'],
+      },
+      borderRadius: {
+        btn: '4px',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

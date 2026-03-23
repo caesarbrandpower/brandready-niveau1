@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check, Copy, Download, RefreshCw, Sparkles, AlertCircle, Mail, ArrowRight } from 'lucide-react'
-import SuperPrompt from './SuperPrompt'
+import { Check, Copy, Download, RefreshCw, AlertCircle, Mail, ArrowRight } from 'lucide-react'
 import Diagnosis from './Diagnosis'
 
 interface BrandAnalysisProps {
@@ -105,87 +104,79 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
   return (
     <div className="animate-slide-up">
       {/* Header */}
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 rounded-full mb-6">
-          <Sparkles className="w-4 h-4 text-neutral-600" />
-          <span className="text-sm text-neutral-600">Brandprompt</span>
-        </div>
+      <div className="text-center mb-16">
+        <p className="text-sm text-secondary mb-6 tracking-wide uppercase">Brandprompt</p>
 
-        <h2 className="text-3xl md:text-4xl font-semibold text-neutral-900 mb-3">
+        <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-3">
           {result.companyName}
         </h2>
 
-        <p className="text-neutral-500">
+        <p className="text-secondary">
           Hier is je merk, scherper dan je het zelf had beschreven
         </p>
       </div>
 
-      {/* Sectie A — Diagnose (altijd zichtbaar) */}
+      {/* Sectie A: Diagnose */}
       <Diagnosis diagnose={diagnose} />
 
-      {/* Sectie B — Superprompt (leesbaar, kopieerknop gated) */}
-      <div className="bg-neutral-900 rounded-3xl overflow-hidden mb-8">
-        <div className="p-6 md:p-8 border-b border-neutral-800 flex items-center justify-between flex-wrap gap-3">
+      {/* Sectie B: Superprompt */}
+      <div className="bg-dark rounded-btn overflow-hidden mb-12">
+        <div className="p-6 md:p-8 border-b border-white/10 flex items-center justify-between flex-wrap gap-3">
           <div>
-            <h3 className="text-sm font-medium text-neutral-400 uppercase tracking-wider">
+            <h3 className="font-heading text-sm font-bold text-white/50 uppercase tracking-wider">
               Jouw superprompt
             </h3>
-            <p className="text-neutral-300 mt-2">
+            <p className="text-white/60 mt-2 font-body">
               Kopieer dit en laad het in je AI. Vanaf nu communiceert je AI vanuit jouw merk.
             </p>
           </div>
 
           <button
             onClick={handleCopy}
-            className="flex items-center gap-2 px-5 py-2.5 bg-white text-neutral-900 rounded-lg font-medium hover:bg-neutral-100 transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 bg-white text-primary rounded-btn font-heading font-bold hover:bg-neutral-100 transition-colors"
           >
             {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopiëren</>}
           </button>
         </div>
 
-        <div className="p-6 md:p-8 space-y-8">
-          {/* 1. Wie je bent */}
+        <div className="p-6 md:p-8 space-y-10">
           <section>
-            <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-3">1. Wie je bent</h4>
-            <p className="text-neutral-200 leading-relaxed">{superprompt.wie_je_bent}</p>
+            <h4 className="font-heading text-xs font-bold text-white/40 uppercase tracking-wider mb-3">1. Wie je bent</h4>
+            <p className="text-white/80 leading-relaxed font-body">{superprompt.wie_je_bent}</p>
           </section>
 
-          {/* 2. Wat jou onderscheidt */}
           <section>
-            <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-3">2. Wat jou onderscheidt</h4>
+            <h4 className="font-heading text-xs font-bold text-white/40 uppercase tracking-wider mb-3">2. Wat jou onderscheidt</h4>
             <ul className="space-y-2">
               {superprompt.wat_jou_onderscheidt.map((punt, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 bg-neutral-800 rounded-full flex items-center justify-center text-sm font-medium text-neutral-400 mt-0.5">
+                  <span className="flex-shrink-0 w-6 h-6 border border-white/20 rounded-btn flex items-center justify-center text-sm font-body text-white/40 mt-0.5">
                     {index + 1}
                   </span>
-                  <span className="text-neutral-200">{punt}</span>
+                  <span className="text-white/80 font-body">{punt}</span>
                 </li>
               ))}
             </ul>
           </section>
 
-          {/* 3. Jouw klant */}
           <section>
-            <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-3">3. Jouw klant</h4>
-            <p className="text-neutral-200 leading-relaxed">{superprompt.jouw_klant}</p>
+            <h4 className="font-heading text-xs font-bold text-white/40 uppercase tracking-wider mb-3">3. Jouw klant</h4>
+            <p className="text-white/80 leading-relaxed font-body">{superprompt.jouw_klant}</p>
           </section>
 
-          {/* 4. Zo klink je */}
           <section>
-            <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-3">4. Zo klink je</h4>
+            <h4 className="font-heading text-xs font-bold text-white/40 uppercase tracking-wider mb-3">4. Zo klink je</h4>
             <div className="space-y-3">
               {superprompt.zo_klink_je.map((regel, index) => (
-                <div key={index} className="p-4 bg-neutral-800 rounded-xl">
-                  <p className="text-neutral-200 italic">&quot;{regel}&quot;</p>
+                <div key={index} className="p-4 border border-white/10 rounded-btn">
+                  <p className="text-white/80 italic font-body">&quot;{regel}&quot;</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* 5. Dit zeg je nooit */}
           <section>
-            <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <h4 className="font-heading text-xs font-bold text-white/40 uppercase tracking-wider mb-3 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 text-red-400" />
               5. Dit zeg je nooit
             </h4>
@@ -193,55 +184,54 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               {superprompt.dit_zeg_je_nooit.map((punt, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <span className="text-red-400 mt-1">×</span>
-                  <span className="text-neutral-200">{punt}</span>
+                  <span className="text-white/80 font-body">{punt}</span>
                 </li>
               ))}
             </ul>
           </section>
 
-          {/* 6. Jouw verhaal */}
           <section>
-            <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-3">6. Jouw verhaal</h4>
-            <p className="text-neutral-200 leading-relaxed">{superprompt.jouw_verhaal}</p>
+            <h4 className="font-heading text-xs font-bold text-white/40 uppercase tracking-wider mb-3">6. Jouw verhaal</h4>
+            <p className="text-white/80 leading-relaxed font-body">{superprompt.jouw_verhaal}</p>
           </section>
         </div>
       </div>
 
-      {/* Email capture — onder superprompt */}
-      <div className="mb-8">
+      {/* Email capture */}
+      <div className="mb-12">
         {emailCaptured ? (
-          <div className="bg-green-50 rounded-2xl p-8 text-center border border-green-100 animate-fade-in">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Mail className="w-6 h-6 text-green-600" />
+          <div className="border border-neutral-200 rounded-btn p-8 text-center animate-fade-in">
+            <div className="w-12 h-12 border border-neutral-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Mail className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-neutral-900 mb-2">Verstuurd!</h3>
-            <p className="text-neutral-600">
+            <h3 className="font-heading text-lg font-bold text-primary mb-2">Verstuurd!</h3>
+            <p className="text-secondary font-body">
               Check je inbox. Je superprompt en handleiding zijn onderweg.
             </p>
             <div className="flex flex-wrap justify-center gap-3 mt-6">
               <button
                 onClick={handleCopy}
-                className="flex items-center gap-2 px-5 py-2.5 bg-neutral-900 text-white rounded-lg font-medium hover:bg-neutral-800 transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark transition-colors"
               >
                 {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopiëren</>}
               </button>
               <button
                 onClick={handleDownload}
-                className="flex items-center gap-2 px-5 py-2.5 border border-neutral-200 text-neutral-900 rounded-lg font-medium hover:bg-neutral-100 transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 border border-neutral-200 text-primary rounded-btn font-heading font-bold hover:bg-neutral-50 transition-colors"
               >
                 <Download className="w-4 h-4" /> Download als .md
               </button>
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-neutral-200 p-6 md:p-8">
+          <div className="border border-neutral-200 rounded-btn p-6 md:p-8">
             <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-10 h-10 bg-neutral-100 rounded-full flex items-center justify-center">
-                <Mail className="w-5 h-5 text-neutral-600" />
+              <div className="flex-shrink-0 w-10 h-10 border border-neutral-200 rounded-full flex items-center justify-center">
+                <Mail className="w-5 h-5 text-secondary" />
               </div>
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-1">Ontvang je superprompt + handleiding</h3>
-                <p className="text-sm text-neutral-500">
+                <h3 className="font-heading font-bold text-primary mb-1">Ontvang je superprompt + handleiding</h3>
+                <p className="text-sm text-secondary font-body">
                   Sla je superprompt op en gebruik hem direct. We sturen je een handleiding hoe je hem in twee minuten instelt in ChatGPT of Claude. Zodat je AI vanaf nu altijd klinkt als jij.
                 </p>
               </div>
@@ -253,56 +243,56 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="jouw@emailadres.nl"
-                className="flex-1 px-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                className="flex-1 px-4 py-3 border border-neutral-200 rounded-btn focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all font-body"
                 required
               />
 
               <button
                 type="submit"
                 disabled={!email.trim() || emailSubmitting}
-                className="px-6 py-3 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 whitespace-nowrap"
+                className="px-6 py-3 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 whitespace-nowrap"
               >
                 {emailSubmitting ? 'Bezig...' : 'Ontvang mijn superprompt + handleiding'}
               </button>
             </form>
 
             {emailError && (
-              <p className="mt-3 text-sm text-red-500">{emailError}</p>
+              <p className="mt-3 text-sm text-red-600 font-body">{emailError}</p>
             )}
           </div>
         )}
       </div>
 
-      {/* Upsell blok — Newfound gesprek */}
-      <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-3xl p-8 md:p-12 border border-neutral-200 mb-8">
-        <h3 className="text-2xl font-semibold text-neutral-900 mb-4">
+      {/* Upsell: Newfound gesprek */}
+      <div className="border border-neutral-200 rounded-btn p-8 md:p-12 mb-12">
+        <h3 className="font-heading text-2xl font-bold text-primary mb-4">
           Jouw merk verdient meer dan een websitescan.
         </h3>
-        <p className="text-neutral-600 mb-6 leading-relaxed">
+        <p className="text-secondary mb-8 leading-relaxed font-body">
           Deze superprompt is gebaseerd op wat je website vertelt. Maar sterke merkcommunicatie gaat verder
           dan één pagina. Bij Newfound kijken we naar het hele plaatje zodat alles wat je zegt, schrijft
           en uitstraalt op elkaar aansluit.
         </p>
         <a
           href="mailto:hello@newfound.agency"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark transition-colors"
         >
           Plan een gesprek van 15 minuten <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 
-      {/* Upsell blok — Volledig beeld */}
-      <div className="bg-white rounded-3xl border border-neutral-200 p-8 md:p-12 mb-8">
-        <h3 className="text-2xl font-semibold text-neutral-900 mb-4">
+      {/* Upsell: Volledig beeld */}
+      <div className="border border-neutral-200 rounded-btn p-8 md:p-12 mb-12">
+        <h3 className="font-heading text-2xl font-bold text-primary mb-4">
           Wil je het volledige beeld?
         </h3>
-        <p className="text-neutral-600 mb-6 leading-relaxed">
+        <p className="text-secondary mb-8 leading-relaxed font-body">
           Een URL vertelt één kant van je verhaal. Wij analyseren je website, LinkedIn, offertes en bestaand
           merkmateriaal. Alles wat jouw merk vertelt op één plek. Het resultaat: een superprompt die niet
           gebaseerd is op wat er publiek staat, maar op wie je écht bent. Aangescherpt door een merkexpert.
         </p>
 
-        <ul className="space-y-3 mb-6">
+        <ul className="space-y-3 mb-8">
           {[
             'Scan van website, LinkedIn, offertes en merkdocumenten',
             'Merkaudit: wat klopt, wat mist, wat inconsistent is',
@@ -311,44 +301,44 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             'Menselijke review door Newfound',
           ].map((item, index) => (
             <li key={index} className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-sm font-medium text-neutral-600 mt-0.5">
+              <span className="flex-shrink-0 w-6 h-6 border border-neutral-200 rounded-btn flex items-center justify-center text-sm text-secondary mt-0.5 font-body">
                 {index + 1}
               </span>
-              <span className="text-neutral-700">{item}</span>
+              <span className="text-primary/80 font-body">{item}</span>
             </li>
           ))}
         </ul>
 
-        <div className="bg-neutral-50 rounded-xl p-5 mb-6">
+        <div className="border border-neutral-200 rounded-btn p-5 mb-8">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <span className="text-sm font-medium text-neutral-400 uppercase">Van</span>
-              <p className="text-neutral-700 mt-1">Automatische analyse op basis van één URL</p>
+              <span className="font-heading text-xs font-bold text-secondary uppercase">Van</span>
+              <p className="text-primary/80 mt-1 font-body">Automatische analyse op basis van één URL</p>
             </div>
             <div>
-              <span className="text-sm font-medium text-neutral-400 uppercase">Naar</span>
-              <p className="text-neutral-700 mt-1">Een scherp merkfundament op basis van alles wat je hebt</p>
+              <span className="font-heading text-xs font-bold text-secondary uppercase">Naar</span>
+              <p className="text-primary/80 mt-1 font-body">Een scherp merkfundament op basis van alles wat je hebt</p>
             </div>
           </div>
         </div>
 
-        <p className="text-neutral-500 mb-6">
-          Investering: <span className="font-semibold text-neutral-900">vanaf €1.500</span>
+        <p className="text-secondary mb-8 font-body">
+          Investering: <span className="font-heading font-bold text-primary">vanaf €1.500</span>
         </p>
 
         <a
           href="mailto:hello@newfound.agency"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark transition-colors"
         >
           Vertel me hoe het werkt <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 
       {/* Nieuwe analyse */}
-      <div className="text-center mt-12">
+      <div className="text-center mt-16">
         <button
           onClick={onReset}
-          className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-900 transition-colors"
+          className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors font-body"
         >
           <RefreshCw className="w-4 h-4" />
           Analyseer een andere website
