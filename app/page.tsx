@@ -53,11 +53,18 @@ export default function Home() {
     setShowManualInput(false)
 
     try {
+      // Scrape met 15s timeout
+      const scrapeController = new AbortController()
+      const scrapeTimeout = setTimeout(() => scrapeController.abort(), 15000)
+
       const scrapeResponse = await fetch('/api/scrape', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: submittedUrl }),
+        signal: scrapeController.signal,
       })
+
+      clearTimeout(scrapeTimeout)
 
       if (!scrapeResponse.ok) {
         const errorData = await scrapeResponse.json()
@@ -73,6 +80,10 @@ export default function Home() {
         return
       }
 
+      // Analyze met 45s timeout
+      const analyzeController = new AbortController()
+      const analyzeTimeout = setTimeout(() => analyzeController.abort(), 45000)
+
       const analyzeResponse = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -80,7 +91,10 @@ export default function Home() {
           content: scrapeData.content,
           url: submittedUrl
         }),
+        signal: analyzeController.signal,
       })
+
+      clearTimeout(analyzeTimeout)
 
       if (!analyzeResponse.ok) {
         const errorData = await analyzeResponse.json()
@@ -94,7 +108,12 @@ export default function Home() {
         resultRef.current?.scrollIntoView({ behavior: 'smooth' })
       }, 100)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Er ging iets mis')
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        setError('De analyse duurde te lang. Probeer het opnieuw met een andere URL.')
+      } else {
+        setError(err instanceof Error ? err.message : 'Er ging iets mis')
+      }
+    } finally {
       setIsLoading(false)
     }
   }
@@ -107,6 +126,9 @@ export default function Home() {
     setError(null)
 
     try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 45000)
+
       const analyzeResponse = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -114,7 +136,10 @@ export default function Home() {
           content: manualInput,
           url: url
         }),
+        signal: controller.signal,
       })
+
+      clearTimeout(timeout)
 
       if (!analyzeResponse.ok) {
         const errorData = await analyzeResponse.json()
@@ -129,7 +154,11 @@ export default function Home() {
         resultRef.current?.scrollIntoView({ behavior: 'smooth' })
       }, 100)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Er ging iets mis')
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        setError('De analyse duurde te lang. Probeer het opnieuw met een andere URL.')
+      } else {
+        setError(err instanceof Error ? err.message : 'Er ging iets mis')
+      }
     } finally {
       setIsLoading(false)
     }
@@ -138,7 +167,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-50">
       {/* Hero sectie */}
-      {!result && !isLoading && (
+      {!result && !isLoading && (!error || showManualInput) && (
         <div className="min-h-screen flex flex-col items-center justify-center px-4">
           <div className="w-full max-w-2xl mx-auto text-center">
             <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-neutral-200 shadow-sm">
@@ -191,6 +220,29 @@ export default function Home() {
       {isLoading && !result && (
         <div className="min-h-screen flex items-center justify-center px-4">
           <LoadingState steps={loadingSteps} currentStep={loadingStep} />
+        </div>
+      )}
+
+      {/* Error state */}
+      {error && !isLoading && !result && !showManualInput && (
+        <div className="min-h-screen flex items-center justify-center px-4">
+          <div className="text-center max-w-md animate-fade-in">
+            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-2xl">!</span>
+            </div>
+            <h3 className="text-xl font-semibold text-neutral-900 mb-3">{error}</h3>
+            <button
+              onClick={() => {
+                setError(null)
+                setUrl('')
+                setShowManualInput(false)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 transition-colors"
+            >
+              Probeer opnieuw →
+            </button>
+          </div>
         </div>
       )}
 
