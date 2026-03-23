@@ -4,30 +4,19 @@ import { useState, useRef, useEffect } from 'react'
 import UrlInput from './components/UrlInput'
 import LoadingState from './components/LoadingState'
 import BrandAnalysis from './components/BrandAnalysis'
-
 import { Sparkles } from 'lucide-react'
 
 type AnalysisResult = {
-  brandStructure: {
-    wieZijnWe: string
-    watMaaktOnderscheidend: string[]
-    voorWieZijnWeEr: string
-    zoKlinkenWe: string[]
-    ditZeggenWeNooit: string[]
-    onsVerhaal: string
-    perKanaal: {
-      linkedin: string
-      offerte: string
-      email: string
-    }
-  }
-  superPrompt: string
-  diagnose: {
-    sterk: string
-    mist: string
-    implicatie: string
-  }
   companyName: string
+  diagnose: string[]
+  superprompt: {
+    wie_je_bent: string
+    wat_jou_onderscheidt: string[]
+    jouw_klant: string
+    zo_klink_je: string[]
+    dit_zeg_je_nooit: string[]
+    jouw_verhaal: string
+  }
 }
 
 export default function Home() {
@@ -64,7 +53,6 @@ export default function Home() {
     setShowManualInput(false)
 
     try {
-      // Stap 1: Scrape de website
       const scrapeResponse = await fetch('/api/scrape', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -78,7 +66,6 @@ export default function Home() {
 
       const scrapeData = await scrapeResponse.json()
 
-      // Check op fallback (te weinig content)
       if (scrapeData.wordCount < 200) {
         setIsLoading(false)
         setShowManualInput(true)
@@ -86,7 +73,6 @@ export default function Home() {
         return
       }
 
-      // Stap 2: Analyseer met Claude
       const analyzeResponse = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -104,7 +90,6 @@ export default function Home() {
       const analysisData = await analyzeResponse.json()
       setResult(analysisData)
 
-      // Scroll naar resultaat
       setTimeout(() => {
         resultRef.current?.scrollIntoView({ behavior: 'smooth' })
       }, 100)
@@ -118,7 +103,7 @@ export default function Home() {
     if (!manualInput.trim()) return
 
     setIsLoading(true)
-    setLoadingStep(1) // Start bij stap 2 (analyse)
+    setLoadingStep(1)
     setError(null)
 
     try {
@@ -158,19 +143,19 @@ export default function Home() {
           <div className="w-full max-w-2xl mx-auto text-center">
             <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-neutral-200 shadow-sm">
               <Sparkles className="w-4 h-4 text-neutral-600" />
-              <span className="text-sm text-neutral-600">Niveau 1 van BrandReady</span>
+              <span className="text-sm text-neutral-600">Brandprompt</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-2 tracking-tight">
-              Is jouw merk AI ready?
+              Maak van je merk een superprompt.
             </h1>
 
             <h2 className="text-2xl md:text-3xl font-medium text-neutral-700 mb-4">
-              Maak van je merk een superprompt.
+              Jouw AI klinkt niet als jij. Verander dat in 60 seconden.
             </h2>
 
             <p className="text-lg text-neutral-500 mb-12">
-              Scherper dan je het zelf had beschreven — in 60 seconden.
+              Scherper dan je het zelf had beschreven.
             </p>
 
             <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
@@ -221,7 +206,6 @@ export default function Home() {
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             />
-
           </div>
         </div>
       )}
