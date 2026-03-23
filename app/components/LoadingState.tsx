@@ -29,12 +29,12 @@ export default function LoadingState({ steps, currentStep }: LoadingStateProps) 
               ${index > currentStep ? 'opacity-0 transform translate-y-2 absolute' : ''}
             `}
           >
-            <p className="text-lg font-heading font-bold text-primary">{step}</p>
+            <p className="text-lg font-body font-normal text-primary">{step}</p>
           </div>
         ))}
       </div>
 
-      <p className="mt-8 text-sm text-secondary">
+      <p className="mt-8 text-sm text-secondary font-body" style={{ fontWeight: 300 }}>
         Dit duurt ongeveer 30 seconden
       </p>
     </div>

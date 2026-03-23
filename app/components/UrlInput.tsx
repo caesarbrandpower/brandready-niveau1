@@ -29,7 +29,7 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
       <div
         className={`
           relative flex items-center bg-white rounded-btn border transition-all duration-200
-          ${isFocused ? 'border-primary ring-1 ring-neutral-200' : 'border-neutral-200'}
+          ${isFocused ? 'border-primary ring-1 ring-[#e0e0e0]' : 'border-[#e0e0e0]'}
         `}
       >
         <div className="pl-5">
@@ -50,14 +50,14 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
         <button
           type="submit"
           disabled={!url.trim() || isLoading}
-          className="mr-2 py-3 px-6 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          className="mr-2 py-3 px-6 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
         >
           {isLoading ? 'Bezig...' : 'Analyseer mijn merk'}
           {!isLoading && <ArrowRight className="w-4 h-4" />}
         </button>
       </div>
 
-      <p className="mt-3 text-sm text-secondary">
+      <p className="mt-3 text-sm text-secondary font-body" style={{ fontWeight: 300 }}>
         Bijvoorbeeld: newfound.agency of www.jouwsite.nl
       </p>
     </form>

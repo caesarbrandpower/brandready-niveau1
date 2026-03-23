@@ -165,38 +165,38 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center px-4">
-          <div className="w-full max-w-2xl mx-auto text-center">
-            <p className="text-sm text-secondary mb-8 tracking-wide uppercase">Brandprompt</p>
+        <div className="flex flex-col items-center justify-center px-4" style={{ paddingTop: '120px' }}>
+          <div className="w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
+            <p className="label-style text-secondary mb-8">Brandprompt</p>
 
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-3 tracking-tight">
+            <h1 className="font-heading text-primary mb-3">
               Maak van je merk een superprompt.
             </h1>
 
-            <h2 className="font-heading text-xl md:text-2xl font-bold text-secondary mb-4">
+            <h2 className="text-secondary mb-4">
               Jouw AI klinkt niet als jij. Verander dat in 60 seconden.
             </h2>
 
-            <p className="text-base text-secondary mb-16">
+            <p className="text-secondary mb-16 font-body" style={{ fontWeight: 300 }}>
               Scherper dan je het zelf had beschreven.
             </p>
 
             <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
 
             {showManualInput && (
-              <div className="mt-10 p-6 bg-white border border-neutral-200 rounded-btn animate-fade-in text-left">
+              <div className="mt-10 p-6 bg-white border border-[#e0e0e0] rounded-btn animate-fade-in text-left">
                 <p className="text-primary mb-4">{error}</p>
                 <textarea
                   value={manualInput}
                   onChange={(e) => setManualInput(e.target.value)}
                   placeholder="Beschrijf je bedrijf: wat doe je, voor wie, en wat maakt jullie uniek?"
-                  className="w-full p-4 border border-neutral-200 rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body"
+                  className="w-full p-4 border border-[#e0e0e0] rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-body"
                   rows={5}
                 />
                 <button
                   onClick={handleManualSubmit}
                   disabled={!manualInput.trim() || isLoading}
-                  className="mt-4 w-full py-3 px-6 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="mt-4 w-full py-3 px-6 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Analyseer mijn merk
                 </button>
@@ -221,10 +221,10 @@ export default function Home() {
       {error && !isLoading && !result && !showManualInput && (
         <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
           <div className="text-center max-w-md animate-fade-in">
-            <div className="w-16 h-16 border-2 border-neutral-200 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 border-2 border-[#e0e0e0] rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-2xl text-primary">!</span>
             </div>
-            <h3 className="font-heading text-xl font-bold text-primary mb-3">{error}</h3>
+            <h3 className="font-body text-xl font-normal text-primary mb-3">{error}</h3>
             <button
               onClick={() => {
                 setError(null)
@@ -232,7 +232,7 @@ export default function Home() {
                 setShowManualInput(false)
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-btn font-heading font-bold hover:bg-dark transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-btn font-body font-medium hover:bg-[#333333] transition-colors"
             >
               Probeer opnieuw
             </button>
@@ -242,8 +242,8 @@ export default function Home() {
 
       {/* Resultaat */}
       {result && (
-        <div ref={resultRef} className="py-20 px-4">
-          <div className="max-w-4xl mx-auto">
+        <div ref={resultRef} className="px-4" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
+          <div className="mx-auto" style={{ maxWidth: '680px' }}>
             <BrandAnalysis
               result={result}
               onReset={() => {

@@ -9,12 +9,13 @@ module.exports = {
     extend: {
       colors: {
         primary: '#000000',
-        secondary: '#535353',
-        dark: '#202020',
+        secondary: '#666666',
+        dark: '#1a1a1a',
       },
       fontFamily: {
-        heading: ['Satoshi', 'sans-serif'],
-        body: ['Open Sans', 'sans-serif'],
+        heading: ['GreedCondensed', 'sans-serif'],
+        body: ['Satoshi', 'sans-serif'],
+        label: ['KansasNew', 'sans-serif'],
       },
       borderRadius: {
         btn: '4px',

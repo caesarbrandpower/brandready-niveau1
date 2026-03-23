@@ -8,9 +8,9 @@ interface DiagnosisProps {
 
 export default function Diagnosis({ diagnose }: DiagnosisProps) {
   return (
-    <div className="border border-neutral-200 rounded-btn overflow-hidden mb-12">
-      <div className="p-6 md:p-8 border-b border-neutral-200">
-        <h3 className="font-heading text-lg font-bold text-primary">
+    <div className="rounded-btn overflow-hidden" style={{ backgroundColor: '#fafaf8', marginBottom: '80px' }}>
+      <div className="p-6 md:p-8 border-b border-[#e0e0e0]">
+        <h3 className="font-body text-lg font-normal text-primary">
           Wat vertelt jouw website over je merk
         </h3>
       </div>
