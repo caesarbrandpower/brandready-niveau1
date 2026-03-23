@@ -76,7 +76,7 @@ export default function Home() {
       if (scrapeData.wordCount < 200) {
         setIsLoading(false)
         setShowManualInput(true)
-        setError('We konden je website niet goed lezen. Beschrijf je merk kort in eigen woorden.')
+        setError('Jouw website blokkeert automatische toegang waarschijnlijk door een beveiligingslaag. Beschrijf je merk kort, dan analyseren we alsnog.')
         return
       }
 
