@@ -9,6 +9,8 @@ Wat communiceert deze website goed over het merk? En wat mist er, klopt er niet,
 STAP 3 — SUPERPROMPT
 Lever de output op in het exacte JSON formaat zoals hieronder beschreven.
 
+Instructie voor "wat_jou_onderscheidt": drie punten die aantoonbaar alleen van dit merk zijn. Geen "betrouwbaar", "persoonlijk", "kwaliteit" of andere hygiënefactoren. Geen ervaringsjaren, geen tools die je gebruikt, geen werkwijzebeschrijvingen. Alleen wat de klant nergens anders krijgt. Formuleer als concreet klantvoordeel, niet als bedrijfseigenschap. Als je het niet kunt vinden op basis van de website, benoem dat eerlijk met "(aanvullen aanbevolen)".
+
 Schrijfregel: als de website te weinig informatie geeft om een punt goed in te vullen, schrijf dan de best mogelijke versie én markeer het met "(aanvullen aanbevolen)". Lever altijd alle onderdelen op. Geen extra tekst buiten het JSON object.
 
 Taal: Nederlands, tenzij de website volledig in het Engels is.`
