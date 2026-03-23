@@ -240,9 +240,9 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 <Mail className="w-5 h-5 text-neutral-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-1">Ontvang je superprompt als bestand + handleiding</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Ontvang je superprompt + handleiding</h3>
                 <p className="text-sm text-neutral-500">
-                  We sturen je de superprompt als .md bestand, plus een korte handleiding: zo gebruik je hem direct in ChatGPT, Claude en je andere AI-tools.
+                  Sla je superprompt op en gebruik hem direct. We sturen je een handleiding hoe je hem in twee minuten instelt in ChatGPT of Claude. Zodat je AI vanaf nu altijd klinkt als jij.
                 </p>
               </div>
             </div>
@@ -262,7 +262,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 disabled={!email.trim() || emailSubmitting}
                 className="px-6 py-3 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 whitespace-nowrap"
               >
-                {emailSubmitting ? 'Bezig...' : 'Ontvang je superprompt als bestand + handleiding →'}
+                {emailSubmitting ? 'Bezig...' : 'Ontvang mijn superprompt + handleiding'}
               </button>
             </form>
 
