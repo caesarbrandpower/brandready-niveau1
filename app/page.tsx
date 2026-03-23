@@ -250,23 +250,21 @@ export default function Home() {
 
       {/* Resultaat */}
       {result && (
-        <div ref={resultRef} className="px-4" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
-          <div className="mx-auto" style={{ maxWidth: '680px' }}>
-            <BrandAnalysis
-              result={result}
-              onReset={() => {
-                setResult(null)
-                setUrl('')
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-              }}
-            />
-          </div>
+        <div ref={resultRef}>
+          <BrandAnalysis
+            result={result}
+            onReset={() => {
+              setResult(null)
+              setUrl('')
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+          />
         </div>
       )}
 
       {/* Footer */}
       {result && (
-        <footer className="pb-12 text-center text-sm text-secondary">
+        <footer className="py-12 text-center text-sm text-secondary bg-white">
           Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">Newfound</a>
         </footer>
       )}

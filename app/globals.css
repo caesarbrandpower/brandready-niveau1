@@ -54,10 +54,11 @@ h1 {
 }
 
 h2 {
-  font-family: 'Satoshi', sans-serif;
-  font-weight: 400;
+  font-family: 'KansasNew', sans-serif;
+  font-weight: 500;
   font-size: clamp(18px, 2.5vw, 24px);
   line-height: 1.4;
+  text-transform: none;
 }
 
 h3, h4, h5, h6 {

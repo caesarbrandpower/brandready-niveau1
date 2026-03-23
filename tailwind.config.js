@@ -18,7 +18,7 @@ module.exports = {
         label: ['KansasNew', 'sans-serif'],
       },
       borderRadius: {
-        btn: '8px',
+        btn: '6px',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
