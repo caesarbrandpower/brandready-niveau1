@@ -1,11 +1,26 @@
 'use client'
 
+import { useState, useEffect } from 'react'
+
 interface LoadingStateProps {
   steps: string[]
   currentStep: number
 }
 
 export default function LoadingState({ steps, currentStep }: LoadingStateProps) {
+  const [showReassurance, setShowReassurance] = useState(false)
+  const isLastStep = currentStep === steps.length - 1
+
+  useEffect(() => {
+    if (!isLastStep) {
+      setShowReassurance(false)
+      return
+    }
+
+    const timer = setTimeout(() => setShowReassurance(true), 8000)
+    return () => clearTimeout(timer)
+  }, [isLastStep])
+
   return (
     <div className="text-center max-w-sm">
       {/* Progress dots */}
@@ -48,6 +63,13 @@ export default function LoadingState({ steps, currentStep }: LoadingStateProps) 
             <p className="text-xl font-body text-white" style={{ fontWeight: 400 }}>{step}</p>
           </div>
         ))}
+      </div>
+
+      {/* Reassurance text */}
+      <div className={`transition-opacity duration-700 ${showReassurance ? 'opacity-100' : 'opacity-0'}`} style={{ height: '24px' }}>
+        <p className="text-sm text-white/50 font-body" style={{ fontWeight: 300 }}>
+          Nog even, bijna klaar…
+        </p>
       </div>
 
       {/* Step counter */}
