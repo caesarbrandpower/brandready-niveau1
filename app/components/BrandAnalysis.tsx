@@ -52,12 +52,14 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
   const superpromptText = buildSuperpromptText(result.companyName, result.superprompt)
 
   const handleCopy = async () => {
+    if (!emailCaptured) return
     await navigator.clipboard.writeText(superpromptText)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
   const handleDownload = () => {
+    if (!emailCaptured) return
     const blob = new Blob([superpromptText], { type: 'text/markdown' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -137,10 +139,14 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           </p>
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all text-lg"
+            disabled={!emailCaptured}
+            className={`inline-flex items-center gap-2 px-8 py-4 rounded-btn font-body font-medium transition-all text-lg ${emailCaptured ? 'bg-accent-blue text-white hover:brightness-110' : 'bg-white/10 text-white/40 cursor-not-allowed'}`}
           >
             {copied ? <><Check className="w-5 h-5" /> Gekopieerd!</> : <><Copy className="w-5 h-5" /> Kopieer superprompt</>}
           </button>
+          {!emailCaptured && (
+            <p className="mt-3 text-white/40 font-body" style={{ fontSize: '13px' }}>Vul je e-mailadres in om te kopiëren en downloaden</p>
+          )}
         </div>
       </section>
 

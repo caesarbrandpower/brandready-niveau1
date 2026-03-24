@@ -186,7 +186,7 @@ export default function Home() {
             </h2>
 
             <p className="text-white/60 mb-16 font-body animate-hero-body" style={{ fontWeight: 300 }}>
-              Scherper dan je het zelf had beschreven.
+              Vertaal je website naar een prompt waar je AI mee kan werken.
             </p>
 
             <div className="animate-hero-cta">
