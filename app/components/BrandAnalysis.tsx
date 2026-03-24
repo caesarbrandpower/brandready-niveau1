@@ -228,7 +228,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             </div>
           ) : (
             <div className="text-center">
-              <h3 className="font-label text-white mb-4" style={{ fontSize: '2.2rem', textTransform: 'uppercase' as const }}>
+              <h3 className="font-label text-white mb-4" style={{ fontSize: '2.2rem' }}>
                 Ontvang jouw superprompt op mail
               </h3>
               <p className="text-white font-body mb-8 leading-relaxed" style={{ maxWidth: '560px', margin: '0 auto 32px', fontSize: '17px' }}>
@@ -236,20 +236,20 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               </p>
 
               <div className="flex flex-col items-center gap-3 mb-8">
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0" />
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Je superprompt, klaar om te gebruiken</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0" />
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Je superprompt als .md bestand, direct klaar voor gebruik in ChatGPT, Claude of elk ander AI-systeem</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0" />
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Stap-voor-stap handleiding, ook als je nog nooit met AI hebt gewerkt</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0" />
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Gratis, we sturen het gelijk op</span>
                 </div>
               </div>
@@ -369,20 +369,9 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
       {/* Newfound afsluitsectie */}
       <section style={{ padding: '60px 0', background: 'rgba(255,255,255,0.04)' }}>
-        <div className="mx-auto px-4 text-center" style={{ maxWidth: '680px' }}>
-          <img
-            src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg"
-            alt="Newfound"
-            style={{ height: '36px', margin: '0 auto 12px' }}
-          />
-          <p className="font-label text-accent mb-2" style={{ fontSize: '14px' }}>
-            Een product van
-          </p>
-          <h3 className="font-heading text-white mb-4" style={{ fontSize: '2rem', textTransform: 'uppercase' as const }}>
-            Newfound
-          </h3>
-          <p className="text-white font-body mb-8 leading-relaxed" style={{ fontSize: '17px', maxWidth: '500px', margin: '0 auto 32px' }}>
-            Het branding bureau voor groei. Strategie, creatie en slimme AI-tools die jouw merk elke dag laten werken.
+        <div className="mx-auto px-4 text-center" style={{ maxWidth: '540px' }}>
+          <p className="text-white font-body leading-relaxed mb-8" style={{ fontSize: '17px' }}>
+            Gemaakt door Newfound. Het branding bureau voor groei. Strategie, creatie en slimme AI-tools die jouw merk elke dag laten werken. Meer weten? Bel of mail ons gerust.
           </p>
           <a
             href="https://newfound.agency"
@@ -410,7 +399,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           onClick={onReset}
           className="inline-flex items-center gap-2 text-white/50 hover:text-accent transition-colors font-body"
         >
-          Maak nieuwe superprompt <ArrowRight className="w-4 h-4" />
+          Analyseer een nieuw merk <ArrowRight className="w-4 h-4" />
         </button>
       </section>
     </div>

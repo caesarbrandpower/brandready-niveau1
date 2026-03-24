@@ -264,12 +264,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Footer */}
-      {result && (
-        <footer className="py-12 text-center text-sm text-white/50 bg-dark">
-          Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-accent transition-colors">Newfound</a>
-        </footer>
-      )}
     </main>
   )
 }
