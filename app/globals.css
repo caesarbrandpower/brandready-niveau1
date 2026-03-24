@@ -79,9 +79,21 @@ h3, h4, h5, h6 {
     font-size: 12px;
   }
 
-  /* Newfound gradient navbar */
+  /* Newfound gradient navbar — full bleed, no gaps */
   .gradient-navbar {
     background: linear-gradient(90deg, #0E6EFF 0%, #7B61FF 35%, #DDB3FF 65%, #E8A0BF 100%);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Thin gradient line for section dividers */
+  .gradient-line {
+    height: 2px;
+    background: linear-gradient(90deg, #0E6EFF 0%, #DDB3FF 50%, #E8A0BF 100%);
+    width: 100%;
   }
 
   .gradient-text {

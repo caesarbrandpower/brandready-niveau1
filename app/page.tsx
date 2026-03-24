@@ -163,8 +163,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-dark">
-      {/* Navbar with gradient background */}
-      <nav className="gradient-navbar flex items-center px-6" style={{ height: '72px' }}>
+      {/* Navbar with gradient background — full bleed */}
+      <nav className="gradient-navbar" style={{ height: '72px', paddingLeft: '24px', paddingRight: '24px' }}>
         <a href="https://newfound.agency" target="_blank">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={18} alt="Newfound" style={{ height: '18px' }} />
