@@ -1,6 +1,6 @@
 'use client'
 
-import { Check, X, ArrowRight } from 'lucide-react'
+import { Check, X } from 'lucide-react'
 
 interface DiagnosisProps {
   diagnose: string[]
@@ -41,16 +41,9 @@ export default function Diagnosis({ diagnose }: DiagnosisProps) {
         ))}
       </div>
 
-      <p className="text-white/70 font-body mb-4" style={{ fontSize: '15px' }}>
-        Samen scherper naar je merk kijken?
+      <p className="text-white/70 font-body" style={{ fontSize: '15px' }}>
+        Samen scherper naar je merk kijken? We helpen je graag. <a href="mailto:hello@newfound.agency" className="text-accent underline hover:text-accent/80 transition-colors">Mail ons</a>.
       </p>
-      <a
-        href="mailto:hello@newfound.agency"
-        className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white rounded-btn font-body hover:bg-white/5 transition-colors"
-        style={{ fontSize: '15px' }}
-      >
-        Neem contact op <ArrowRight className="w-4 h-4" />
-      </a>
     </div>
   )
 }
