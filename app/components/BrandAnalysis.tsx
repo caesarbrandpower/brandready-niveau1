@@ -129,9 +129,12 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       {/* Label + Copy button */}
       <section className="bg-dark" style={{ paddingBottom: '64px' }}>
         <div className="mx-auto px-4 text-center" style={{ maxWidth: '680px' }}>
-          <h2 className="font-heading text-white mb-8" style={{ fontSize: 'clamp(18px, 2.5vw, 28px)', fontFamily: 'GreedCondensed, sans-serif', fontWeight: 700, textTransform: 'uppercase' as const }}>
+          <h2 className="font-heading text-white mb-4" style={{ fontSize: 'clamp(18px, 2.5vw, 28px)', fontFamily: 'GreedCondensed, sans-serif', fontWeight: 700, textTransform: 'uppercase' as const }}>
             Jouw merk als superprompt
           </h2>
+          <p className="text-white font-body mb-8" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto 32px' }}>
+            Een superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Jouw toon, jouw taal, jouw merk.
+          </p>
           <button
             onClick={handleCopy}
             className="inline-flex items-center gap-2 px-8 py-4 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all text-lg"
