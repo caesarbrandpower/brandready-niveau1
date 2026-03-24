@@ -367,6 +367,43 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
+      {/* Newfound afsluitsectie */}
+      <section style={{ padding: '60px 0', background: 'rgba(255,255,255,0.04)' }}>
+        <div className="mx-auto px-4 text-center" style={{ maxWidth: '680px' }}>
+          <img
+            src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg"
+            alt="Newfound"
+            style={{ height: '36px', margin: '0 auto 12px' }}
+          />
+          <p className="font-label text-accent mb-2" style={{ fontSize: '14px' }}>
+            Een product van
+          </p>
+          <h3 className="font-heading text-white mb-4" style={{ fontSize: '2rem', textTransform: 'uppercase' as const }}>
+            Newfound
+          </h3>
+          <p className="text-white font-body mb-8 leading-relaxed" style={{ fontSize: '17px', maxWidth: '500px', margin: '0 auto 32px' }}>
+            Het branding bureau voor groei. Strategie, creatie en slimme AI-tools die jouw merk elke dag laten werken.
+          </p>
+          <a
+            href="https://newfound.agency"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-7 py-3.5 border border-white text-white rounded-btn font-body hover:bg-white/5 transition-colors mb-4"
+          >
+            Bekijk wat we doen <ArrowRight className="w-4 h-4" />
+          </a>
+          <p>
+            <a
+              href="tel:+31627525635"
+              className="text-white font-body hover:text-white/80 transition-colors"
+              style={{ fontSize: '15px', opacity: 0.6 }}
+            >
+              Of bel direct: +31 6 27 52 56 35
+            </a>
+          </p>
+        </div>
+      </section>
+
       {/* Nieuwe superprompt */}
       <section className="bg-dark py-16 text-center">
         <button
