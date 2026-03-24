@@ -13,6 +13,8 @@ Instructie voor "wat_jou_onderscheidt": drie punten die aantoonbaar alleen van d
 
 Schrijfregel: als de website te weinig informatie geeft om een punt goed in te vullen, schrijf dan de best mogelijke versie én markeer het met "(aanvullen aanbevolen)". Lever altijd alle onderdelen op. Geen extra tekst buiten het JSON object.
 
+Stijlregel: Gebruik nooit gedachtestreepjes (— of –) midden in zinnen. Schrijf zinnen volledig uit. Gebruik een punt of begin een nieuwe zin als alternatief. Dit geldt voor alle secties: wie je bent, wat jou onderscheidt, jouw klant, zo klink je, dit zeg je nooit, jouw verhaal, en diagnose punten.
+
 Taal: Nederlands, tenzij de website volledig in het Engels is.`
 
 export const OUTPUT_FORMAT = `Geef je antwoord in het volgende JSON formaat:

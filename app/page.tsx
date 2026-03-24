@@ -163,21 +163,18 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-dark">
-      {/* Navbar — subtle, flush with gradient */}
-      <div className="flex justify-start px-6 py-4">
+      {/* Navbar with gradient background */}
+      <nav className="gradient-navbar flex items-center px-6" style={{ height: '72px' }}>
         <a href="https://newfound.agency" target="_blank">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={18} alt="Newfound" style={{ height: '18px', opacity: 0.6 }} />
+          <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={18} alt="Newfound" style={{ height: '18px' }} />
         </a>
-      </div>
+      </nav>
 
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="flex flex-col items-center min-h-[calc(100vh-50px)]">
-          {/* Large gradient band — 35%+ viewport */}
-          <div className="w-full gradient-band-hero animate-gradient" />
-
-          <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center px-4" style={{ maxWidth: '680px', marginTop: '-40px' }}>
+        <div className="flex flex-col items-center min-h-[calc(100vh-72px)]">
+          <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center px-4" style={{ maxWidth: '680px' }}>
             <p className="label-style text-accent mb-6 animate-hero-title">Brandprompt</p>
 
             <h1 className="font-heading text-white mb-5 animate-hero-title">
@@ -225,17 +222,14 @@ export default function Home() {
 
       {/* Loading state */}
       {isLoading && !result && (
-        <div>
-          <div className="w-full gradient-band-thin" />
-          <div className="min-h-[calc(100vh-60px)] flex items-center justify-center px-4">
-            <LoadingState steps={loadingSteps} currentStep={loadingStep} />
-          </div>
+        <div className="min-h-[calc(100vh-72px)] flex items-center justify-center px-4">
+          <LoadingState steps={loadingSteps} currentStep={loadingStep} />
         </div>
       )}
 
       {/* Error state */}
       {error && !isLoading && !result && !showManualInput && (
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center px-4">
+        <div className="min-h-[calc(100vh-72px)] flex items-center justify-center px-4">
           <div className="text-center max-w-md animate-fade-in">
             <div className="w-16 h-16 border-2 border-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-2xl text-accent">!</span>

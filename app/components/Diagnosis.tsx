@@ -9,9 +9,10 @@ interface DiagnosisProps {
 export default function Diagnosis({ diagnose }: DiagnosisProps) {
   return (
     <div>
-      <h3 className="font-heading text-white mb-6" style={{ fontSize: 'clamp(20px, 2.5vw, 32px)', textTransform: 'uppercase' as const }}>
+      <h3 className="font-heading text-white mb-2" style={{ fontSize: 'clamp(20px, 2.5vw, 32px)', textTransform: 'uppercase' as const }}>
         Wat vertelt jouw website over je merk
       </h3>
+      <p className="label-style text-accent mb-6">Korte analyse — wat beter kan</p>
       <div className="space-y-4">
         {diagnose.map((bullet, index) => (
           <div key={index} className="flex items-start gap-3">

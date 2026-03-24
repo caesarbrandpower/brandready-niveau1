@@ -84,30 +84,30 @@ function generateMockData(url: string) {
   return {
     companyName,
     diagnose: [
-      'De website communiceert een duidelijke focus op persoonlijke service, maar gebruikt brancheclichés als "ontzorgen" en "maatwerk" zonder ze concreet te maken.',
-      'De doelgroep is te breed gedefinieerd,"ondernemers en organisaties" zegt niets over wie je écht het beste helpt.',
+      'De website communiceert een duidelijke focus op persoonlijke service. Tegelijkertijd worden brancheclichés als "ontzorgen" en "maatwerk" gebruikt zonder ze concreet te maken.',
+      'De doelgroep is te breed gedefinieerd. "Ondernemers en organisaties" zegt niets over wie je écht het beste helpt.',
       'Er ontbreken concrete voorbeelden of resultaten die de belofte onderbouwen.',
       'De tone of voice wisselt tussen formeel en informeel, wat het merk inconsistent maakt.'
     ],
     superprompt: {
       wie_je_bent: `${companyName} is het bedrijf waar je terechtkomt als je klaar bent met bureaus die meer praten dan doen. Wij leveren werkbare oplossingen, niet dikke rapporten.`,
       wat_jou_onderscheidt: [
-        'We beginnen bij het probleem, niet bij de oplossing,en zeggen eerlijk als iets niet bij ons past',
-        'Geen projectmanagers tussen jou en het werk,je praat met de mensen die het maken',
+        'We beginnen bij het probleem, niet bij de oplossing. En zeggen eerlijk als iets niet bij ons past.',
+        'Geen projectmanagers tussen jou en het werk. Je praat met de mensen die het maken.',
         'We meten succes in resultaat voor de klant, niet in geleverde uren (aanvullen aanbevolen)'
       ],
-      jouw_klant: `Ondernemers die weten dat ze professioneler moeten communiceren, maar vastlopen op de vraag: hoe dan? Ze hebben geen tijd voor merktrajecten van maanden, maar willen wel dat hun verhaal klopt.`,
+      jouw_klant: `Ondernemers die weten dat ze professioneler moeten communiceren, maar vastlopen op de vraag: hoe dan? Ze hebben geen tijd voor merktrajecten van maanden. Ze willen wel dat hun verhaal klopt.`,
       zo_klink_je: [
-        'Direct en eerlijk,"Dit kunnen we, dit niet. En dit is waarom."',
-        'Warm maar niet soft,"We denken met je mee, maar zeggen ook als iets niet werkt."',
-        'Concreet,"Geen vage beloftes. Dit is wat je krijgt, en wanneer."',
-        'Menselijk,"We schrijven zoals we praten. Geen jargon, geen afstandelijkheid."',
-        'Zelfverzekerd zonder arrogantie,"We zijn goed in wat we doen, en dat laten we zien in ons werk."'
+        'Direct en eerlijk. "Dit kunnen we, dit niet. En dit is waarom."',
+        'Warm maar niet soft. "We denken met je mee, maar zeggen ook als iets niet werkt."',
+        'Concreet. "Geen vage beloftes. Dit is wat je krijgt, en wanneer."',
+        'Menselijk. "We schrijven zoals we praten. Geen jargon, geen afstandelijkheid."',
+        'Zelfverzekerd zonder arrogantie. "We zijn goed in wat we doen, en dat laten we zien in ons werk."'
       ],
       dit_zeg_je_nooit: [
         'Holle marketingtaal zoals "we ontzorgen u" of "uw partner in succes"',
-        'Beloftes zonder bewijs,nooit "de beste" of "uniek" zonder het waar te maken',
-        'Negatief over concurrenten,we laten ons eigen werk spreken'
+        'Beloftes zonder bewijs. Nooit "de beste" of "uniek" zonder het waar te maken.',
+        'Negatief over concurrenten. We laten ons eigen werk spreken.'
       ],
       jouw_verhaal: `${companyName} is begonnen omdat we zagen dat te veel bedrijven goed werk leveren maar het niet goed weten te vertellen. Niet omdat ze dat niet willen, maar omdat niemand ze ooit heeft geholpen het scherp te krijgen. Dat doen wij nu. Niet met dikke merkboeken, maar met heldere keuzes die je morgen al kunt gebruiken.`
     }
