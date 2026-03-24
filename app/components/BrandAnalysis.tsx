@@ -298,17 +298,26 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
       <div className="gradient-line" />
 
-      {/* Upsell — Brandprompt Plus */}
-      <section className="bg-dark" style={{ padding: '96px 0' }}>
+      {/* Bruggetje naar upsell */}
+      <section className="bg-dark" style={{ padding: '0 0 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <h3 className="font-heading text-white mb-3" style={{ fontSize: '2rem', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
-            Brandprompt Plus
+          <p className="text-white font-body leading-relaxed" style={{ fontSize: '17px', opacity: 0.85 }}>
+            Wil je nog scherpere resultaten? Met Brandprompt Plus maken we jouw Merk AI-Paspoort. Niet op basis van één URL, maar op basis van alles wat jouw merk vertelt.
+          </p>
+        </div>
+      </section>
+
+      {/* Upsell — Brandprompt Plus */}
+      <section className="bg-dark" style={{ padding: '48px 0 96px' }}>
+        <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
+          <h3 className="font-heading text-white mb-3" style={{ fontSize: 'clamp(28px, 4vw, 48px)', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
+            Jouw Merk AI-Paspoort.
           </h3>
           <p className="font-label text-accent mb-6" style={{ fontSize: '1rem' }}>
-            Jouw Merk AI-Paspoort
+            Brandprompt Plus
           </p>
           <p className="text-white font-body mb-10" style={{ fontSize: '17px' }}>
-            Niet op basis van één URL, maar op basis van alles wat jouw merk vertelt. Zodat elke tekst die je schrijft klinkt zoals jij bent, niet zoals een AI denkt dat jij bent.
+            Zodat elke tekst die je schrijft klinkt zoals jij bent, niet zoals een AI denkt dat jij bent.
           </p>
 
           {/* Van/Naar in kader */}
