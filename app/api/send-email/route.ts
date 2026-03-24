@@ -70,11 +70,24 @@ www.newfound.agency
 
     // 2. Opslaan in Airtable (secundair — mag niet falen voor de gebruiker)
     const airtableApiKey = process.env.AIRTABLE_API_KEY
-    debugLog.push(`Airtable API key set: ${!!airtableApiKey}`)
+    console.log('[AIRTABLE] API key aanwezig:', airtableApiKey ? 'ja' : 'ONTBREEKT')
+    console.log('[AIRTABLE] API key length:', airtableApiKey?.length ?? 0)
+    console.log('[AIRTABLE] API key prefix:', airtableApiKey?.substring(0, 6) ?? 'n/a')
+    debugLog.push(`Airtable API key: ${airtableApiKey ? 'aanwezig (' + airtableApiKey.length + ' chars)' : 'ONTBREEKT'}`)
 
     if (airtableApiKey) {
       try {
         const airtableUrl = 'https://api.airtable.com/v0/appQ8PADMp8Sc7mXT/Brandprompt%20Leads'
+        const airtablePayload = {
+          fields: {
+            Email: email,
+            Superprompt: (superprompt || '').slice(0, 500),
+            Datum: new Date().toISOString().split('T')[0],
+          },
+        }
+
+        console.log('[AIRTABLE] URL:', airtableUrl)
+        console.log('[AIRTABLE] Payload:', JSON.stringify(airtablePayload))
 
         const airtableRes = await fetch(airtableUrl, {
           method: 'POST',
@@ -82,29 +95,22 @@ www.newfound.agency
             'Authorization': `Bearer ${airtableApiKey}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            fields: {
-              Email: email,
-              Superprompt: (superprompt || '').slice(0, 500),
-              Datum: new Date().toISOString().split('T')[0],
-            },
-          }),
+          body: JSON.stringify(airtablePayload),
         })
 
         const airtableBody = await airtableRes.text()
+        console.log('[AIRTABLE] Status:', airtableRes.status)
+        console.log('[AIRTABLE] Response:', airtableBody)
         debugLog.push(`Airtable status: ${airtableRes.status}`)
         debugLog.push(`Airtable response: ${airtableBody.substring(0, 500)}`)
-
-        if (!airtableRes.ok) {
-          console.error('Airtable error response:', airtableBody)
-        }
       } catch (airtableError) {
         const msg = airtableError instanceof Error ? airtableError.message : String(airtableError)
+        console.error('[AIRTABLE] Exception:', msg)
         debugLog.push(`Airtable exception: ${msg}`)
-        console.error('Airtable error:', airtableError)
       }
     } else {
-      debugLog.push('Airtable API key niet geconfigureerd')
+      console.log('[AIRTABLE] Overgeslagen — API key ontbreekt in environment variables')
+      debugLog.push('Airtable API key ONTBREEKT in env vars')
     }
 
     console.log('send-email debug:', debugLog)
