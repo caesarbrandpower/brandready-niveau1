@@ -243,7 +243,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           ) : (
             <div className="text-center">
               <h3 className="font-label text-white mb-4" style={{ fontSize: '2.2rem' }}>
-                Ontvang jouw superprompt op mail
+                Ontvang jouw superprompt + handleiding
               </h3>
               <p className="text-white font-body mb-8 leading-relaxed" style={{ maxWidth: '560px', margin: '0 auto 32px', fontSize: '17px' }}>
                 Kopieer hem in ChatGPT, Claude of een andere AI. Vanaf nu klinkt jouw AI alsof jij het zelf schrijft. We sturen ook een stap-voor-stap handleiding mee zodat je binnen twee minuten aan de slag kunt.
@@ -301,19 +301,18 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       {/* Upsell — Brandprompt Plus */}
       <section className="bg-dark" style={{ padding: '96px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <p className="label-style text-accent mb-6">Brandprompt Plus</p>
-          <h3 className="font-heading text-white mb-3" style={{ fontSize: 'clamp(28px, 4vw, 48px)', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
-            Jouw Merk AI-paspoort.
+          <h3 className="font-heading text-white mb-3" style={{ fontSize: '2rem', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
+            Brandprompt Plus
           </h3>
-          <p className="text-white font-body mb-4" style={{ fontSize: '1.1rem' }}>
-            Jouw AI kent je merk van binnen en buiten.
+          <p className="font-label text-accent mb-6" style={{ fontSize: '1rem' }}>
+            Jouw Merk AI-Paspoort
           </p>
           <p className="text-white font-body mb-10" style={{ fontSize: '17px' }}>
             Niet op basis van één URL, maar op basis van alles wat jouw merk vertelt. Zodat elke tekst die je schrijft klinkt zoals jij bent, niet zoals een AI denkt dat jij bent.
           </p>
 
-          {/* Van/Naar — compact, direct under body text */}
-          <div className="grid grid-cols-2 gap-8 mb-10">
+          {/* Van/Naar in kader */}
+          <div className="grid grid-cols-2 gap-8 mb-10" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '24px' }}>
             <div>
               <span className="label-style text-accent">Van</span>
               <p className="text-white mt-2 font-body" style={{ fontSize: '1.1rem' }}>Automatische analyse op basis van één URL</p>
@@ -355,7 +354,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 'Merkaudit: wat klopt, wat mist, wat inconsistent is',
                 'Superprompt gebouwd op basis van alle bronnen',
                 'Intake gesprek vooraf: stuur je materiaal op, wij kijken er kritisch naar',
-                'Menselijke review door Newfound',
+                'Menselijke review door merkexpert',
               ].map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 bg-accent/10 rounded-full flex items-center justify-center text-accent mt-0.5 font-body" style={{ fontSize: '14px' }}>
@@ -374,8 +373,8 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             >
               Stuur me meer info <ArrowRight className="w-4 h-4" />
             </a>
-            <span className="text-white font-body" style={{ fontSize: '1.1rem' }}>
-              Investering: <span className="font-medium" style={{ fontWeight: 700 }}>vanaf €1.500</span>
+            <span className="text-white font-body" style={{ fontSize: '1.1rem', fontWeight: 700 }}>
+              Vanaf €1.500
             </span>
           </div>
         </div>

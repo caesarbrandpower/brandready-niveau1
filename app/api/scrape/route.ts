@@ -61,6 +61,31 @@ function parseHtml(html: string, pageUrl: string): { title: string; content: str
   return { title, content }
 }
 
+async function fetchViaJina(pageUrl: string): Promise<string | null> {
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 15000)
+
+    const response = await fetch(`https://r.jina.ai/${encodeURIComponent(pageUrl)}`, {
+      headers: {
+        'Accept': 'text/plain',
+      },
+      signal: controller.signal,
+    })
+
+    clearTimeout(timeout)
+
+    if (!response.ok) return null
+
+    const text = await response.text()
+    if (text.length < 100) return null
+
+    return text
+  } catch {
+    return null
+  }
+}
+
 async function fetchDirect(pageUrl: string): Promise<string | null> {
   try {
     const controller = new AbortController()
@@ -79,27 +104,6 @@ async function fetchDirect(pageUrl: string): Promise<string | null> {
     if (!contentType.includes('text/html')) return null
 
     return await response.text()
-  } catch {
-    return null
-  }
-}
-
-async function fetchViaProxy(pageUrl: string): Promise<string | null> {
-  try {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 12000)
-
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(pageUrl)}`
-    const response = await fetch(proxyUrl, {
-      signal: controller.signal,
-    })
-
-    clearTimeout(timeout)
-
-    if (!response.ok) return null
-
-    const data = await response.json()
-    return data.contents || null
   } catch {
     return null
   }
@@ -138,45 +142,34 @@ export async function POST(request: NextRequest) {
       `${baseUrl}/contact`,
     ]
 
-    // Try direct fetch first
+    // 1. Try Jina AI first (primary)
+    console.log('Trying Jina AI for:', url)
     for (const pageUrl of pagesToScrape.slice(0, 6)) {
-      const html = await fetchDirect(pageUrl)
-      if (!html) continue
-
-      const parsed = parseHtml(html, pageUrl)
-      if (parsed) {
-        scrapedPages.push({ url: pageUrl, ...parsed })
+      const text = await fetchViaJina(pageUrl)
+      if (text) {
+        const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || pageUrl
+        scrapedPages.push({ url: pageUrl, title, content: text })
       }
-
       if (scrapedPages.length >= 4) break
     }
 
-    // Fallback: try allOrigins proxy if direct fetch yielded nothing
+    // 2. Fallback: direct fetch with browser headers
     if (scrapedPages.length === 0) {
-      console.log('Direct fetch failed, trying allOrigins proxy for:', url)
-      const html = await fetchViaProxy(url)
-      if (html) {
-        const parsed = parseHtml(html, url)
-        if (parsed) {
-          scrapedPages.push({ url, ...parsed })
-        }
-      }
+      console.log('Jina failed, trying direct fetch for:', url)
+      for (const pageUrl of pagesToScrape.slice(0, 6)) {
+        const html = await fetchDirect(pageUrl)
+        if (!html) continue
 
-      // Also try subpages via proxy
-      if (scrapedPages.length === 0) {
-        for (const pageUrl of pagesToScrape.slice(1, 4)) {
-          const subHtml = await fetchViaProxy(pageUrl)
-          if (subHtml) {
-            const parsed = parseHtml(subHtml, pageUrl)
-            if (parsed) {
-              scrapedPages.push({ url: pageUrl, ...parsed })
-              break
-            }
-          }
+        const parsed = parseHtml(html, pageUrl)
+        if (parsed) {
+          scrapedPages.push({ url: pageUrl, ...parsed })
         }
+
+        if (scrapedPages.length >= 4) break
       }
     }
 
+    // 3. Nothing worked — return error so frontend shows manual input
     if (scrapedPages.length === 0) {
       return NextResponse.json({
         error: 'We konden deze website helaas niet lezen. Sommige websites staan automatische analyse niet toe. Probeer een andere URL of neem contact op via hello@newfound.agency',
