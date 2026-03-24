@@ -163,32 +163,32 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-dark">
-      {/* Navbar + Gradient */}
-      <div className="flex justify-start px-6 py-5">
+      {/* Navbar — subtle, flush with gradient */}
+      <div className="flex justify-start px-6 py-4">
         <a href="https://newfound.agency" target="_blank">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={20} alt="Newfound" style={{ height: '20px', opacity: 0.7 }} />
+          <img src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg" height={18} alt="Newfound" style={{ height: '18px', opacity: 0.6 }} />
         </a>
       </div>
 
       {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
-        <div className="flex flex-col items-center min-h-[calc(100vh-60px)] px-4">
-          {/* Large gradient band */}
+        <div className="flex flex-col items-center min-h-[calc(100vh-50px)]">
+          {/* Large gradient band — 35%+ viewport */}
           <div className="w-full gradient-band-hero animate-gradient" />
 
-          <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center" style={{ maxWidth: '680px' }}>
-            <p className="label-style text-accent mb-10 animate-hero-title">Brandprompt</p>
+          <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center px-4" style={{ maxWidth: '680px', marginTop: '-40px' }}>
+            <p className="label-style text-accent mb-6 animate-hero-title">Brandprompt</p>
 
             <h1 className="font-heading text-white mb-5 animate-hero-title">
               Maak van je merk<br />een superprompt.
             </h1>
 
-            <h2 className="text-white/60 mb-3 animate-hero-subtitle">
+            <h2 className="text-white mb-3 animate-hero-subtitle">
               Jouw AI klinkt niet als jij. Verander dat in 60 seconden.
             </h2>
 
-            <p className="text-white/40 mb-20 font-body animate-hero-body" style={{ fontWeight: 300 }}>
+            <p className="text-white/60 mb-16 font-body animate-hero-body" style={{ fontWeight: 300 }}>
               Scherper dan je het zelf had beschreven.
             </p>
 
@@ -203,7 +203,7 @@ export default function Home() {
                   value={manualInput}
                   onChange={(e) => setManualInput(e.target.value)}
                   placeholder="Beschrijf je bedrijf: wat doe je, voor wie, en wat maakt jullie uniek?"
-                  className="w-full p-4 bg-dark border border-white/10 rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all font-body text-white placeholder:text-white/30"
+                  className="w-full p-4 bg-dark border border-white/20 rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all font-body text-white placeholder:text-white/50"
                   rows={5}
                 />
                 <button
@@ -217,8 +217,8 @@ export default function Home() {
             )}
           </div>
 
-          <div className="pb-8 text-sm text-white/30 animate-hero-footer">
-            Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white/50 underline hover:text-accent transition-colors">Newfound</a>
+          <div className="pb-8 text-sm text-white/50 animate-hero-footer">
+            Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-accent transition-colors">Newfound</a>
           </div>
         </div>
       )}
@@ -226,8 +226,8 @@ export default function Home() {
       {/* Loading state */}
       {isLoading && !result && (
         <div>
-          <div className="w-full gradient-band-hero animate-gradient" />
-          <div className="min-h-[calc(100vh-60px-30vh)] flex items-center justify-center px-4">
+          <div className="w-full gradient-band-thin" />
+          <div className="min-h-[calc(100vh-60px)] flex items-center justify-center px-4">
             <LoadingState steps={loadingSteps} currentStep={loadingStep} />
           </div>
         </div>
@@ -272,8 +272,8 @@ export default function Home() {
 
       {/* Footer */}
       {result && (
-        <footer className="py-12 text-center text-sm text-white/30 bg-dark">
-          Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white/50 underline hover:text-accent transition-colors">Newfound</a>
+        <footer className="py-12 text-center text-sm text-white/50 bg-dark">
+          Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-accent transition-colors">Newfound</a>
         </footer>
       )}
     </main>

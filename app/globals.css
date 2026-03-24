@@ -92,11 +92,16 @@ h3, h4, h5, h6 {
   }
 
   .gradient-band-hero {
-    height: 30vh;
-    min-height: 200px;
+    height: 35vh;
+    min-height: 220px;
     max-height: 40vh;
     background: linear-gradient(180deg, #0E6EFF 0%, #7B61FF 25%, #DDB3FF 55%, #E8A0BF 75%, transparent 100%);
     opacity: 0.85;
+  }
+
+  .gradient-band-thin {
+    height: 6px;
+    background: linear-gradient(90deg, #0E6EFF 0%, #7B61FF 30%, #DDB3FF 60%, #E8A0BF 100%);
   }
 
   .gradient-text {

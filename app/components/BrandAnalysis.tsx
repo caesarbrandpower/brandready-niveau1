@@ -103,124 +103,115 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
   return (
     <div className="animate-slide-up">
-      {/* Gradient band top */}
-      <div className="gradient-band" />
+      {/* 1. Thin gradient band under navbar */}
+      <div className="gradient-band-thin" />
 
-      {/* Sectie 1: Company name hero */}
-      <section className="bg-dark" style={{ paddingTop: '80px', paddingBottom: '48px' }}>
+      {/* 2. Company name — GreedCondensed, ALL CAPS, large */}
+      <section className="bg-dark" style={{ paddingTop: '80px', paddingBottom: '24px' }}>
         <div className="mx-auto px-4 text-center" style={{ maxWidth: '680px' }}>
-          <p className="label-style text-accent/60 mb-6">Brandprompt</p>
-          <h1 className="font-heading text-white mb-4">
+          <h1 className="font-heading text-white" style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}>
             {result.companyName}
           </h1>
-          <div className="w-12 h-px mx-auto mb-4" style={{ background: 'linear-gradient(90deg, #0E6EFF, #DDB3FF)' }} />
-          <p className="text-white/40 font-body" style={{ fontWeight: 300 }}>
-            Hier is je merk, scherper dan je het zelf had beschreven
-          </p>
         </div>
       </section>
 
-      {/* Sectie 2: Superprompt (hero content) */}
-      <section className="bg-dark" style={{ padding: '0 0 64px' }}>
+      {/* 3. Label + 4. Copy button */}
+      <section className="bg-dark" style={{ paddingBottom: '64px' }}>
+        <div className="mx-auto px-4 text-center" style={{ maxWidth: '680px' }}>
+          <h2 className="font-heading text-white mb-8" style={{ fontSize: 'clamp(18px, 2.5vw, 28px)', fontFamily: 'GreedCondensed, sans-serif', fontWeight: 700, textTransform: 'uppercase' as const }}>
+            Jouw merk als superprompt
+          </h2>
+          <button
+            onClick={handleCopy}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all text-lg"
+          >
+            {copied ? <><Check className="w-5 h-5" /> Gekopieerd!</> : <><Copy className="w-5 h-5" /> Kopieer superprompt</>}
+          </button>
+        </div>
+      </section>
+
+      {/* 5. Superprompt content */}
+      <section className="bg-dark" style={{ padding: '0 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <div className="space-y-10">
+          <div className="space-y-12">
             <div>
-              <h4 className="label-style text-accent/60 mb-3">1. Wie je bent</h4>
-              <p className="text-white/80 leading-relaxed font-body">{superprompt.wie_je_bent}</p>
+              <h4 className="label-style text-accent mb-3" style={{ fontSize: '1.4rem', fontWeight: 500 }}>1. Wie je bent</h4>
+              <p className="text-white leading-relaxed font-body">{superprompt.wie_je_bent}</p>
             </div>
 
             <div>
-              <h4 className="label-style text-accent/60 mb-3">2. Wat jou onderscheidt</h4>
-              <ul className="space-y-2">
+              <h4 className="label-style text-accent mb-3" style={{ fontSize: '1.4rem', fontWeight: 500 }}>2. Wat jou onderscheidt</h4>
+              <ul className="space-y-3">
                 {superprompt.wat_jou_onderscheidt.map((punt, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 border border-accent/30 rounded-btn flex items-center justify-center text-sm font-body text-accent/60 mt-0.5">
+                    <span className="flex-shrink-0 w-6 h-6 border border-accent/40 rounded-btn flex items-center justify-center text-sm font-body text-accent mt-0.5">
                       {index + 1}
                     </span>
-                    <span className="text-white/80 font-body">{punt}</span>
+                    <span className="text-white font-body">{punt}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h4 className="label-style text-accent/60 mb-3">3. Jouw klant</h4>
-              <p className="text-white/80 leading-relaxed font-body">{superprompt.jouw_klant}</p>
+              <h4 className="label-style text-accent mb-3" style={{ fontSize: '1.4rem', fontWeight: 500 }}>3. Jouw klant</h4>
+              <p className="text-white leading-relaxed font-body">{superprompt.jouw_klant}</p>
             </div>
 
             <div>
-              <h4 className="label-style text-accent/60 mb-3">4. Zo klink je</h4>
+              <h4 className="label-style text-accent mb-3" style={{ fontSize: '1.4rem', fontWeight: 500 }}>4. Zo klink je</h4>
               <div className="space-y-3">
                 {superprompt.zo_klink_je.map((regel, index) => (
                   <div key={index} className="p-4 border border-white/10 rounded-btn bg-dark-light/50">
-                    <p className="text-white/80 italic font-body">&quot;{regel}&quot;</p>
+                    <p className="text-white italic font-body">&quot;{regel}&quot;</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div>
-              <h4 className="label-style text-accent/60 mb-3 flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-accent-pink" />
+              <h4 className="label-style text-accent mb-3 flex items-center gap-2" style={{ fontSize: '1.4rem', fontWeight: 500 }}>
+                <AlertCircle className="w-5 h-5 text-accent-pink" />
                 5. Dit zeg je nooit
               </h4>
               <ul className="space-y-2">
                 {superprompt.dit_zeg_je_nooit.map((punt, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <span className="text-accent-pink mt-1">×</span>
-                    <span className="text-white/80 font-body">{punt}</span>
+                    <span className="text-white font-body">{punt}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h4 className="label-style text-accent/60 mb-3">6. Jouw verhaal</h4>
-              <p className="text-white/80 leading-relaxed font-body">{superprompt.jouw_verhaal}</p>
+              <h4 className="label-style text-accent mb-3" style={{ fontSize: '1.4rem', fontWeight: 500 }}>6. Jouw verhaal</h4>
+              <p className="text-white leading-relaxed font-body">{superprompt.jouw_verhaal}</p>
             </div>
-          </div>
-
-          {/* Copy button — prominent, blue */}
-          <div className="mt-12 flex flex-wrap gap-3">
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 px-7 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all"
-            >
-              {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopieer superprompt</>}
-            </button>
-            <button
-              onClick={handleDownload}
-              className="flex items-center gap-2 px-5 py-3.5 border border-white/15 text-white/60 rounded-btn font-body font-medium hover:bg-white/5 transition-colors"
-            >
-              <Download className="w-4 h-4" /> Download .md
-            </button>
           </div>
         </div>
       </section>
 
-      {/* Gradient divider */}
-      <div className="gradient-band" />
-
-      {/* Sectie 3: Diagnose (compact, max 3 items) */}
-      <section className="bg-dark-light" style={{ padding: '64px 0' }}>
+      {/* 6. Diagnosis — compact */}
+      <section className="bg-dark" style={{ padding: '64px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <Diagnosis diagnose={diagnose.slice(0, 3)} />
         </div>
       </section>
 
-      {/* Sectie 4: Email capture */}
-      <section className="bg-dark" style={{ padding: '80px 0' }}>
+      {/* 7. Email lead sectie */}
+      <section style={{ padding: '80px 0', background: 'rgba(255,255,255,0.04)' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           {emailCaptured ? (
-            <div className="bg-dark-light border border-white/10 rounded-btn p-8 text-center animate-fade-in">
+            <div className="text-center animate-fade-in">
               <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Check className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-label text-lg text-white mb-2">Verstuurd!</h3>
-              <p className="text-white/50 font-body">
+              <h3 className="font-heading text-white mb-2" style={{ fontSize: 'clamp(24px, 3vw, 36px)', textTransform: 'uppercase' as const }}>Verstuurd!</h3>
+              <p className="text-white font-body mb-6">
                 Check je inbox. Je superprompt en handleiding zijn onderweg.
               </p>
-              <div className="flex flex-wrap justify-center gap-3 mt-6">
+              <div className="flex flex-wrap justify-center gap-3">
                 <button
                   onClick={handleCopy}
                   className="flex items-center gap-2 px-5 py-2.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all"
@@ -229,7 +220,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 </button>
                 <button
                   onClick={handleDownload}
-                  className="flex items-center gap-2 px-5 py-2.5 border border-white/20 text-white rounded-btn font-body font-medium hover:bg-white/5 transition-colors"
+                  className="flex items-center gap-2 px-5 py-2.5 border border-white/30 text-white rounded-btn font-body font-medium hover:bg-white/5 transition-colors"
                 >
                   <Download className="w-4 h-4" /> Download als .md
                 </button>
@@ -237,11 +228,27 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             </div>
           ) : (
             <div className="text-center">
-              <div className="mb-6">
-                <h3 className="font-label text-white mb-2">Ontvang je superprompt + handleiding</h3>
-                <p className="text-sm text-white/40 font-body" style={{ maxWidth: '480px', margin: '0 auto' }}>
-                  We sturen je superprompt en een handleiding om hem in twee minuten in te stellen in ChatGPT of Claude.
-                </p>
+              <h3 className="font-heading text-white mb-4" style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', textTransform: 'uppercase' as const }}>
+                Ontvang jouw superprompt op mail
+              </h3>
+              <p className="text-white font-body mb-8 leading-relaxed" style={{ maxWidth: '560px', margin: '0 auto 32px' }}>
+                Kopieer hem in ChatGPT, Claude of een andere AI — en vanaf nu klinkt jouw AI alsof jij het zelf schrijft. We sturen ook een stap-voor-stap handleiding mee zodat je binnen twee minuten aan de slag kunt, ook als je nog nooit met AI hebt gewerkt.
+              </p>
+
+              {/* Checkmarks */}
+              <div className="flex flex-col items-center gap-3 mb-8">
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white" />
+                  <span className="text-white font-body">Je superprompt, klaar om te gebruiken</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white" />
+                  <span className="text-white font-body">Stap-voor-stap handleiding voor ChatGPT én Claude</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white" />
+                  <span className="text-white font-body">Gratis — geen creditcard, geen gedoe</span>
+                </div>
               </div>
 
               <form onSubmit={handleEmailSubmit} className="flex gap-3 max-w-lg mx-auto">
@@ -250,7 +257,8 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="jouw@emailadres.nl"
-                  className="flex-1 px-4 py-3.5 bg-dark-light border border-white/10 rounded-btn focus:outline-none focus:ring-1 focus:ring-accent/40 focus:border-accent/30 transition-all font-body text-white placeholder:text-white/30"
+                  className="flex-1 px-4 py-3.5 border border-white/30 rounded-btn focus:outline-none focus:ring-1 focus:ring-accent/40 focus:border-white/60 transition-all font-body text-white placeholder:text-white/50"
+                  style={{ background: 'rgba(255,255,255,0.05)' }}
                   required
                 />
 
@@ -259,7 +267,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                   disabled={!email.trim() || emailSubmitting}
                   className="px-6 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
                 >
-                  {emailSubmitting ? 'Bezig...' : 'Verstuur'}
+                  {emailSubmitting ? 'Bezig...' : 'Stuur me de superprompt'}
                   {!emailSubmitting && <ArrowRight className="w-4 h-4" />}
                 </button>
               </form>
@@ -272,47 +280,24 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Gradient divider */}
-      <div className="gradient-band" />
-
-      {/* Sectie 5: Upsell gesprek */}
-      <section className="bg-dark-light text-white" style={{ padding: '96px 0' }}>
-        <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <p className="label-style text-accent/50 mb-6">Volgende stap</p>
-          <h3 className="font-heading text-white mb-6" style={{ fontSize: 'clamp(24px, 3vw, 36px)', lineHeight: 1.15 }}>
-            Jouw merk verdient meer dan een websitescan.
-          </h3>
-          <p className="text-white/50 font-body mb-10 leading-relaxed">
-            Deze superprompt is gebaseerd op wat je website vertelt. Maar sterke merkcommunicatie gaat verder
-            dan één pagina. Bij Newfound kijken we naar het hele plaatje zodat alles wat je zegt, schrijft
-            en uitstraalt op elkaar aansluit.
-          </p>
-          <a
-            href="mailto:hello@newfound.agency"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all duration-200"
-          >
-            Plan een gesprek van 15 minuten <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </section>
-
-      {/* Sectie 6: Upsell volledig beeld */}
+      {/* 8. Upsell — Brandprompt Plus */}
       <section className="bg-dark" style={{ padding: '96px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <p className="label-style text-accent/50 mb-6">Volledig beeld</p>
-          <h3 className="font-heading text-white mb-6" style={{ fontSize: 'clamp(24px, 3vw, 36px)', lineHeight: 1.15 }}>
-            Wil je het volledige beeld?
+          <p className="label-style text-accent mb-6">Brandprompt Plus</p>
+          <h3 className="font-heading text-white mb-3" style={{ fontSize: 'clamp(28px, 4vw, 48px)', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
+            Klaar voor het volledige plaatje?
           </h3>
-          <p className="text-white/50 mb-10 leading-relaxed font-body">
-            Een URL vertelt één kant van je verhaal. Wij analyseren je website, LinkedIn, offertes en bestaand
-            merkmateriaal. Alles wat jouw merk vertelt op één plek. Het resultaat: een superprompt die niet
-            gebaseerd is op wat er publiek staat, maar op wie je écht bent. Aangescherpt door een merkexpert.
+          <h4 className="font-heading text-white mb-8" style={{ fontSize: 'clamp(20px, 2.5vw, 32px)', textTransform: 'uppercase' as const, lineHeight: 1.1 }}>
+            Zet alles naar je hand.
+          </h4>
+          <p className="text-white mb-10 leading-relaxed font-body">
+            Een URL vertelt één kant van je verhaal. Wij analyseren je website, LinkedIn, presentaties, merkdocumenten en andere communicatie. Alles wat jouw merk vertelt op één plek. Het resultaat: een superprompt die niet gebaseerd is op wat er publiek staat, maar op wie je écht bent. Aangescherpt door een merkexpert.
           </p>
 
           <div className="bg-dark-light rounded-btn p-6 md:p-8 mb-10 border border-white/5">
             <ul className="space-y-4">
               {[
-                'Scan van website, LinkedIn, offertes en merkdocumenten',
+                'Scan van website, LinkedIn, presentaties en merkdocumenten',
                 'Merkaudit: wat klopt, wat mist, wat inconsistent is',
                 'Superprompt gebouwd op basis van alle bronnen',
                 'Intake gesprek vooraf: stuur je materiaal op, wij kijken er kritisch naar',
@@ -322,7 +307,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                   <span className="flex-shrink-0 w-6 h-6 bg-accent/10 rounded-full flex items-center justify-center text-sm text-accent mt-0.5 font-body">
                     {index + 1}
                   </span>
-                  <span className="text-white/70 font-body">{item}</span>
+                  <span className="text-white font-body">{item}</span>
                 </li>
               ))}
             </ul>
@@ -331,12 +316,12 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           <div className="flex items-center justify-between flex-wrap gap-6 mb-10">
             <div className="grid grid-cols-2 gap-8 flex-1">
               <div>
-                <span className="label-style text-white/30">Van</span>
-                <p className="text-white/60 mt-1 font-body text-sm">Automatische analyse op basis van één URL</p>
+                <span className="label-style text-accent">Van</span>
+                <p className="text-white mt-1 font-body" style={{ fontSize: '1.05rem' }}>Automatische analyse op basis van één URL</p>
               </div>
               <div>
-                <span className="label-style text-white/30">Naar</span>
-                <p className="text-white/60 mt-1 font-body text-sm">Een scherp merkfundament op basis van alles wat je hebt</p>
+                <span className="label-style text-accent">Naar</span>
+                <p className="text-white mt-1 font-body" style={{ fontSize: '1.05rem' }}>Een scherp merkfundament op basis van alles wat je hebt — aangescherpt door een merkexpert</p>
               </div>
             </div>
           </div>
@@ -346,10 +331,10 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               href="mailto:hello@newfound.agency"
               className="inline-flex items-center gap-2 px-7 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all duration-200"
             >
-              Vertel me hoe het werkt <ArrowRight className="w-4 h-4" />
+              Kom in contact <ArrowRight className="w-4 h-4" />
             </a>
-            <span className="text-white/40 font-body text-sm">
-              Investering: <span className="text-accent font-medium">vanaf €1.500</span>
+            <span className="text-white font-body" style={{ fontSize: '1.1rem' }}>
+              Investering: <span className="font-medium" style={{ fontWeight: 700 }}>vanaf €1.500</span>
             </span>
           </div>
         </div>
@@ -359,7 +344,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       <section className="bg-dark py-16 text-center">
         <button
           onClick={onReset}
-          className="inline-flex items-center gap-2 text-white/40 hover:text-accent transition-colors font-body"
+          className="inline-flex items-center gap-2 text-white/50 hover:text-accent transition-colors font-body"
         >
           <RefreshCw className="w-4 h-4" />
           Analyseer een andere website

@@ -51,7 +51,7 @@ export default function LoadingState({ steps, currentStep }: LoadingStateProps) 
       </div>
 
       {/* Step counter */}
-      <p className="mt-10 text-sm text-white/30 font-body" style={{ fontWeight: 300 }}>
+      <p className="mt-10 text-sm text-white/50 font-body" style={{ fontWeight: 300 }}>
         Stap {currentStep + 1} van {steps.length}
       </p>
     </div>
