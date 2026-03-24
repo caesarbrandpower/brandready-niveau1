@@ -60,16 +60,11 @@ export default function LoadingState({ steps, currentStep }: LoadingStateProps) 
               ${index > currentStep ? 'opacity-0 transform translate-y-4' : ''}
             `}
           >
-            <p className="text-xl font-body text-white" style={{ fontWeight: 400 }}>{step}</p>
+            <p className="text-xl font-body text-white" style={{ fontWeight: 400 }}>
+              {index === steps.length - 1 && showReassurance ? 'Nog heel even, bijna klaar…' : step}
+            </p>
           </div>
         ))}
-      </div>
-
-      {/* Reassurance text */}
-      <div className={`transition-opacity duration-700 ${showReassurance ? 'opacity-100' : 'opacity-0'}`} style={{ height: '24px' }}>
-        <p className="text-sm text-white/50 font-body" style={{ fontWeight: 300 }}>
-          Nog even, bijna klaar…
-        </p>
       </div>
 
       {/* Step counter */}
