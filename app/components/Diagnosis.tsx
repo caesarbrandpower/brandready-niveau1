@@ -1,12 +1,15 @@
 'use client'
 
-import { AlertCircle } from 'lucide-react'
+import { Check, X, ArrowRight } from 'lucide-react'
 
 interface DiagnosisProps {
   diagnose: string[]
 }
 
 export default function Diagnosis({ diagnose }: DiagnosisProps) {
+  const sterke = diagnose.slice(0, 2)
+  const verbeter = diagnose.slice(2, 4)
+
   return (
     <div>
       <h3 className="font-heading text-white mb-2" style={{ fontSize: '32px', textTransform: 'uppercase' as const }}>
@@ -15,16 +18,39 @@ export default function Diagnosis({ diagnose }: DiagnosisProps) {
       <p className="font-label text-accent mb-8" style={{ fontSize: '15px' }}>
         Wat vertelt jouw website over je merk?
       </p>
-      <div className="space-y-4">
-        {diagnose.map((bullet, index) => (
+
+      <div className="space-y-4 mb-6">
+        {sterke.map((bullet, index) => (
           <div key={index} className="flex items-start gap-3">
             <div className="flex-shrink-0 mt-0.5">
-              <AlertCircle className="w-5 h-5 text-accent" />
+              <Check className="w-5 h-5 text-accent" />
             </div>
             <p className="text-white font-body" style={{ fontSize: '17px' }}>{bullet}</p>
           </div>
         ))}
       </div>
+
+      <div className="space-y-4 mb-10">
+        {verbeter.map((bullet, index) => (
+          <div key={index} className="flex items-start gap-3">
+            <div className="flex-shrink-0 mt-0.5">
+              <X className="w-5 h-5 text-accent-pink" />
+            </div>
+            <p className="text-white font-body" style={{ fontSize: '17px' }}>{bullet}</p>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-white/70 font-body mb-4" style={{ fontSize: '15px' }}>
+        Samen scherper naar je merk kijken?
+      </p>
+      <a
+        href="mailto:hello@newfound.agency"
+        className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white rounded-btn font-body hover:bg-white/5 transition-colors"
+        style={{ fontSize: '15px' }}
+      >
+        Neem contact op <ArrowRight className="w-4 h-4" />
+      </a>
     </div>
   )
 }

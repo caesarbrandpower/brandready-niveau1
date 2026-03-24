@@ -6,7 +6,7 @@ STAP 1 — BRANCHESCAN
 Identificeer in welke branche dit bedrijf zit. Benoem de drie meest voorkomende clichés in die branche. Dingen die bijna ieder bedrijf in dit segment belooft. Dit zijn de valkuilen die de superprompt moet vermijden.
 
 STAP 2 — DIAGNOSE
-Wat communiceert deze website goed over het merk? En wat mist er, klopt er niet, of is te vaag? Maximaal 4 bullets. Wees direct. Gebruik klanttaal. Benoem specifiek waar de website in branchejargon vervalt of een te brede doelgroep aanspreekt.
+Lever exact 4 bullets. De eerste 2 zijn sterke punten: wat communiceert deze website goed over het merk? De laatste 2 zijn verbeterpunten: wat mist er, klopt er niet, of is te vaag? Wees direct. Gebruik klanttaal. Benoem specifiek waar de website in branchejargon vervalt of een te brede doelgroep aanspreekt.
 
 STAP 3 — SUPERPROMPT
 Lever de output op in het exacte JSON formaat zoals hieronder beschreven. Elke sectie is een instructie aan de AI, niet een beschrijving van het merk.
@@ -37,7 +37,7 @@ export const OUTPUT_FORMAT = `Geef je antwoord in het volgende JSON formaat:
 
 {
   "companyName": "Bedrijfsnaam",
-  "diagnose": ["bullet 1", "bullet 2", "bullet 3", "bullet 4"],
+  "diagnose": ["sterk punt 1", "sterk punt 2", "verbeterpunt 1", "verbeterpunt 2"],
   "superprompt": {
     "wie_je_bent": "Je schrijft altijd namens [bedrijfsnaam], een [type bedrijf]. Schrijf in de wij-vorm. Nooit in de ik-vorm. [Kernhouding].",
     "wat_jou_onderscheidt": ["Benoem altijd [X]. Koppel altijd aan [Y], nooit aan [Z].", "instructie 2", "instructie 3"],

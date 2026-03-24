@@ -210,7 +210,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       <section className="bg-dark" style={{ padding: '48px 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '48px 40px' }}>
-            <Diagnosis diagnose={diagnose.slice(0, 3)} />
+            <Diagnosis diagnose={diagnose.slice(0, 4)} />
           </div>
         </div>
       </section>
