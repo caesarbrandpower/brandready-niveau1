@@ -28,32 +28,34 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
     <form onSubmit={handleSubmit} className="w-full">
       <div
         className={`
-          relative flex items-center bg-dark-light rounded-btn border transition-all duration-300
+          relative flex flex-col sm:flex-row sm:items-center bg-dark-light rounded-btn border transition-all duration-300
           ${isFocused
             ? 'border-white/60 shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_4px_24px_rgba(0,0,0,0.3)]'
             : 'border-white/30 shadow-[0_2px_12px_rgba(0,0,0,0.2)]'
           }
         `}
       >
-        <div className="pl-5">
-          <Globe className={`w-5 h-5 transition-colors duration-300 ${isFocused ? 'text-accent' : 'text-white/50'}`} />
-        </div>
+        <div className="flex items-center flex-1">
+          <div className="pl-5">
+            <Globe className={`w-5 h-5 transition-colors duration-300 ${isFocused ? 'text-accent' : 'text-white/50'}`} />
+          </div>
 
-        <input
-          type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          placeholder="Voer je website-URL in"
-          className="flex-1 py-5 px-4 text-lg bg-transparent border-none outline-none text-white placeholder:text-white/50 font-body"
-          disabled={isLoading}
-        />
+          <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholder="Voer je website-URL in"
+            className="flex-1 py-5 px-4 text-lg bg-transparent border-none outline-none text-white placeholder:text-white/50 font-body"
+            disabled={isLoading}
+          />
+        </div>
 
         <button
           type="submit"
           disabled={!url.trim() || isLoading}
-          className="mr-2.5 py-3.5 px-7 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center gap-2"
+          className="w-full sm:w-auto m-2.5 py-3.5 px-7 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
         >
           {isLoading ? 'Bezig...' : 'Analyseer mijn merk'}
           {!isLoading && <ArrowRight className="w-4 h-4" />}
