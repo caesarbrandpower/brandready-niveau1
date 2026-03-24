@@ -14,15 +14,67 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email is verplicht' }, { status: 400 })
     }
 
-    // 1. Opslaan in Airtable
-    const airtableBaseId = process.env.AIRTABLE_BASE_ID
-    const airtableApiKey = process.env.AIRTABLE_API_KEY
-    debugLog.push(`Airtable configured: ${!!(airtableBaseId && airtableApiKey)}`)
+    // 1. Verstuur email via Nodemailer (primair)
+    const smtpUser = process.env.SMTP_USER
+    const smtpPass = process.env.SMTP_PASS
+    debugLog.push(`SMTP configured: ${!!(smtpUser && smtpPass)}`)
 
-    if (airtableBaseId && airtableApiKey) {
+    if (smtpUser && smtpPass) {
       try {
-        const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/Brandprompt%20Leads`
-        debugLog.push(`Airtable URL: ${airtableUrl}`)
+        const transporter = nodemailer.createTransport({
+          host: 'mail.mijndomein.nl',
+          port: 465,
+          secure: true,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+          connectionTimeout: 10000,
+          socketTimeout: 10000,
+        })
+
+        await transporter.verify()
+        debugLog.push('SMTP connection verified OK')
+
+        const emailBody = `Hoi,
+
+Hier is jouw superprompt. Kopieer hem in ChatGPT of Claude om direct on-brand te schrijven.
+
+${superprompt}
+
+Groetjes,
+Caesar van Newfound
+www.newfound.agency
++31 6 27 52 56 35`
+
+        const info = await transporter.sendMail({
+          from: `"Newfound" <${smtpUser}>`,
+          to: email,
+          bcc: 'hello@newfound.agency',
+          subject: 'Jouw superprompt van Brandprompt',
+          text: emailBody,
+        })
+        debugLog.push(`Email sent: ${info.messageId}`)
+      } catch (smtpError) {
+        const msg = smtpError instanceof Error ? smtpError.message : String(smtpError)
+        debugLog.push(`SMTP error: ${msg}`)
+        console.error('SMTP full error:', smtpError)
+        return NextResponse.json({
+          error: `SMTP fout: ${msg}`,
+          debug: debugLog,
+        }, { status: 500 })
+      }
+    } else {
+      debugLog.push('SMTP niet geconfigureerd, email niet verstuurd')
+    }
+
+    // 2. Opslaan in Airtable (secundair — mag niet falen voor de gebruiker)
+    const airtableApiKey = process.env.AIRTABLE_API_KEY
+    debugLog.push(`Airtable API key set: ${!!airtableApiKey}`)
+
+    if (airtableApiKey) {
+      try {
+        const airtableUrl = 'https://api.airtable.com/v0/appQ8PADMp8Sc7mXT/Brandprompt%20Leads'
 
         const airtableRes = await fetch(airtableUrl, {
           method: 'POST',
@@ -31,15 +83,11 @@ export async function POST(request: NextRequest) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            records: [
-              {
-                fields: {
-                  Email: email,
-                  Superprompt: (superprompt || '').substring(0, 500),
-                  Datum: new Date().toISOString().split('T')[0],
-                },
-              },
-            ],
+            fields: {
+              Email: email,
+              Superprompt: (superprompt || '').slice(0, 500),
+              Datum: new Date().toISOString().split('T')[0],
+            },
           }),
         })
 
@@ -55,65 +103,8 @@ export async function POST(request: NextRequest) {
         debugLog.push(`Airtable exception: ${msg}`)
         console.error('Airtable error:', airtableError)
       }
-    }
-
-    // 2. Verstuur email via Nodemailer
-    const smtpUser = process.env.SMTP_USER
-    const smtpPass = process.env.SMTP_PASS
-    debugLog.push(`SMTP configured: ${!!(smtpUser && smtpPass)}`)
-    debugLog.push(`SMTP_USER: ${smtpUser ? smtpUser.substring(0, 3) + '***' : 'NOT SET'}`)
-
-    if (smtpUser && smtpPass) {
-      try {
-        debugLog.push('Creating SMTP transporter...')
-        const transporter = nodemailer.createTransport({
-          host: 'mail.mijndomein.nl',
-          port: 465,
-          secure: true,
-          auth: {
-            user: smtpUser,
-            pass: smtpPass,
-          },
-          connectionTimeout: 10000,
-          socketTimeout: 10000,
-        })
-
-        debugLog.push('Verifying SMTP connection...')
-        await transporter.verify()
-        debugLog.push('SMTP connection verified OK')
-
-        const emailBody = `Hoi,
-
-Hier is jouw superprompt. Kopieer hem in ChatGPT of Claude om direct on-brand te schrijven.
-
-${superprompt}
-
-Groetjes,
-Caesar van Newfound
-www.newfound.agency
-+31 6 27 52 56 35`
-
-        debugLog.push('Sending email...')
-        const info = await transporter.sendMail({
-          from: `"Newfound" <${smtpUser}>`,
-          to: email,
-          bcc: 'hello@newfound.agency',
-          subject: 'Jouw superprompt van Brandprompt',
-          text: emailBody,
-        })
-        debugLog.push(`Email sent: ${info.messageId}`)
-      } catch (smtpError) {
-        const msg = smtpError instanceof Error ? smtpError.message : String(smtpError)
-        debugLog.push(`SMTP error: ${msg}`)
-        console.error('SMTP full error:', smtpError)
-        // Don't throw — return the debug info
-        return NextResponse.json({
-          error: `SMTP fout: ${msg}`,
-          debug: debugLog,
-        }, { status: 500 })
-      }
     } else {
-      debugLog.push('SMTP niet geconfigureerd, email niet verstuurd')
+      debugLog.push('Airtable API key niet geconfigureerd')
     }
 
     console.log('send-email debug:', debugLog)
