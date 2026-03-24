@@ -83,13 +83,12 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
     setEmailError(null)
 
     try {
-      const response = await fetch('/api/lead', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
-          superPrompt: superpromptText,
-          companyName: result.companyName,
+          superprompt: superpromptText,
         }),
       })
 
