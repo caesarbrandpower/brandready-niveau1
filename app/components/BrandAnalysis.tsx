@@ -73,6 +73,12 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
     e.preventDefault()
     if (!email.trim()) return
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email.trim())) {
+      setEmailError('Vul een geldig e-mailadres in')
+      return
+    }
+
     setEmailSubmitting(true)
     setEmailError(null)
 
@@ -209,7 +215,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               </div>
               <h3 className="font-heading text-white mb-2" style={{ fontSize: 'clamp(24px, 3vw, 36px)', textTransform: 'uppercase' as const }}>Verstuurd!</h3>
               <p className="text-white font-body mb-6" style={{ fontSize: '17px' }}>
-                Check je inbox. Je superprompt en handleiding zijn onderweg.
+                Je superprompt is onderweg! Check je inbox.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 <button

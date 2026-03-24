@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
               {
                 fields: {
                   email,
-                  bericht: 'Superprompt tool gebruiker',
-                  status: 'Nieuw',
+                  superprompt: (superPrompt || '').substring(0, 500),
+                  datum: new Date().toISOString().split('T')[0],
                 },
               },
             ],
@@ -55,9 +55,9 @@ export async function POST(request: NextRequest) {
         },
       })
 
-      const emailBody = `Hoi!
+      const emailBody = `Hi,
 
-Hier is je superprompt voor ${companyName}. Kopieer het onderstaande en plak het als systeeminstructie in ChatGPT, Claude of een andere AI-tool.
+Hier is jouw superprompt. Kopieer hem in ChatGPT of Claude om direct on-brand te schrijven.
 
 ---
 
@@ -65,16 +65,17 @@ ${superPrompt}
 
 ---
 
-Handleiding: zo gebruik je je superprompt
-https://www.notion.so/3228e9f175cb817e9bc8d6750b4f58aa
+Groet!
 
-Groetjes,
-Caesar, newfound.agency`
+Caesar van Newfound
+www.newfound.agency
++31 6 27 52 56 35`
 
       await transporter.sendMail({
-        from: smtpUser,
+        from: 'hello@newfound.agency',
         to: email,
-        subject: 'Je superprompt + hoe je hem gebruikt',
+        bcc: 'hello@newfound.agency',
+        subject: 'Jouw superprompt van Brandprompt',
         text: emailBody,
       })
     } else {
