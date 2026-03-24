@@ -59,7 +59,7 @@ www.newfound.agency
           from: `"Newfound" <${smtpUser}>`,
           to: email,
           bcc: 'hello@newfound.agency',
-          subject: 'Jouw superprompt van Brandprompt',
+          subject: 'Jouw superprompt van Newfound',
           text: emailBody,
         })
         debugLog.push(`Email sent: ${info.messageId}`)
