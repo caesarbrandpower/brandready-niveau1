@@ -28,7 +28,7 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
     <form onSubmit={handleSubmit} className="w-full">
       <div
         className={`
-          relative flex flex-col sm:flex-row sm:items-center bg-dark-light rounded-btn border transition-all duration-300
+          relative flex flex-col sm:flex-row sm:items-center overflow-hidden bg-dark-light rounded-btn border transition-all duration-300
           ${isFocused
             ? 'border-white/60 shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_4px_24px_rgba(0,0,0,0.3)]'
             : 'border-white/30 shadow-[0_2px_12px_rgba(0,0,0,0.2)]'
@@ -55,7 +55,7 @@ export default function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
         <button
           type="submit"
           disabled={!url.trim() || isLoading}
-          className="w-full sm:w-auto m-2.5 py-3.5 px-7 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
+          className="w-full sm:w-auto py-3.5 px-7 bg-accent-blue text-white font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2 rounded-none sm:rounded-none sm:m-2.5 sm:rounded-btn"
         >
           {isLoading ? 'Bezig...' : 'Analyseer mijn merk'}
           {!isLoading && <ArrowRight className="w-4 h-4" />}
