@@ -238,6 +238,15 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 >
                   <Download className="w-4 h-4" /> Download als .md
                 </button>
+                <a
+                  href="/brandprompt-handleiding.pdf"
+                  download="brandprompt-handleiding.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-5 py-2.5 border border-white/40 text-white rounded-btn font-body font-medium hover:bg-white/5 transition-colors"
+                >
+                  Download handleiding <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             </div>
           ) : (

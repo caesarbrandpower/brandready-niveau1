@@ -42,6 +42,14 @@ Hier is jouw superprompt. Kopieer hem in ChatGPT of Claude om direct on-brand te
 
 ${superprompt}
 
+---
+
+Stap-voor-stap handleiding om je superprompt in 2 minuten in te stellen in ChatGPT of Claude, ook als je nog nooit met AI hebt gewerkt:
+
+https://brandprompt.newfound.agency/brandprompt-handleiding.pdf
+
+---
+
 Groetjes,
 Caesar van Newfound
 www.newfound.agency
