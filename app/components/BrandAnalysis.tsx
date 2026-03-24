@@ -127,13 +127,13 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Superprompt content — section titles: Satoshi 1.4rem white, body: pure white */}
+      {/* Superprompt content */}
       <section className="bg-dark" style={{ padding: '0 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div className="space-y-12">
             <div>
               <h4 className="text-white mb-3 font-body" style={{ fontSize: '1.4rem', fontWeight: 500 }}>1. Wie je bent</h4>
-              <p className="text-white leading-relaxed font-body">{superprompt.wie_je_bent}</p>
+              <p className="text-white leading-relaxed font-body" style={{ fontSize: '17px' }}>{superprompt.wie_je_bent}</p>
             </div>
 
             <div>
@@ -141,10 +141,10 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               <ul className="space-y-3">
                 {superprompt.wat_jou_onderscheidt.map((punt, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 border border-accent/40 rounded-btn flex items-center justify-center text-sm font-body text-accent mt-0.5">
+                    <span className="flex-shrink-0 w-6 h-6 border border-accent/40 rounded-btn flex items-center justify-center font-body text-accent mt-0.5" style={{ fontSize: '14px' }}>
                       {index + 1}
                     </span>
-                    <span className="text-white font-body">{punt}</span>
+                    <span className="text-white font-body" style={{ fontSize: '17px' }}>{punt}</span>
                   </li>
                 ))}
               </ul>
@@ -152,7 +152,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
             <div>
               <h4 className="text-white mb-3 font-body" style={{ fontSize: '1.4rem', fontWeight: 500 }}>3. Jouw klant</h4>
-              <p className="text-white leading-relaxed font-body">{superprompt.jouw_klant}</p>
+              <p className="text-white leading-relaxed font-body" style={{ fontSize: '17px' }}>{superprompt.jouw_klant}</p>
             </div>
 
             <div>
@@ -160,7 +160,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               <div className="space-y-3">
                 {superprompt.zo_klink_je.map((regel, index) => (
                   <div key={index} className="p-4 border border-white/10 rounded-btn bg-dark-light/50">
-                    <p className="text-white italic font-body">&quot;{regel}&quot;</p>
+                    <p className="text-white italic font-body" style={{ fontSize: '17px' }}>&quot;{regel}&quot;</p>
                   </div>
                 ))}
               </div>
@@ -175,7 +175,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 {superprompt.dit_zeg_je_nooit.map((punt, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <span className="text-accent-pink mt-1">×</span>
-                    <span className="text-white font-body">{punt}</span>
+                    <span className="text-white font-body" style={{ fontSize: '17px' }}>{punt}</span>
                   </li>
                 ))}
               </ul>
@@ -183,14 +183,15 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
             <div>
               <h4 className="text-white mb-3 font-body" style={{ fontSize: '1.4rem', fontWeight: 500 }}>6. Jouw verhaal</h4>
-              <p className="text-white leading-relaxed font-body">{superprompt.jouw_verhaal}</p>
+              <p className="text-white leading-relaxed font-body" style={{ fontSize: '17px' }}>{superprompt.jouw_verhaal}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Diagnosis */}
-      <section style={{ padding: '80px 0', background: 'rgba(255,255,255,0.03)' }}>
+      {/* Diagnosis — gradient line top, distinct bg, roomy padding */}
+      <div className="gradient-line" />
+      <section style={{ padding: '96px 0', background: 'rgba(255,255,255,0.03)' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <Diagnosis diagnose={diagnose.slice(0, 3)} />
         </div>
@@ -206,7 +207,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 <Check className="w-6 h-6 text-accent" />
               </div>
               <h3 className="font-heading text-white mb-2" style={{ fontSize: 'clamp(24px, 3vw, 36px)', textTransform: 'uppercase' as const }}>Verstuurd!</h3>
-              <p className="text-white font-body mb-6">
+              <p className="text-white font-body mb-6" style={{ fontSize: '17px' }}>
                 Check je inbox. Je superprompt en handleiding zijn onderweg.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
@@ -229,22 +230,22 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               <h3 className="font-label text-white mb-4" style={{ fontSize: '1.8rem' }}>
                 Ontvang jouw superprompt op mail
               </h3>
-              <p className="text-white font-body mb-8 leading-relaxed" style={{ maxWidth: '560px', margin: '0 auto 32px' }}>
+              <p className="text-white font-body mb-8 leading-relaxed" style={{ maxWidth: '560px', margin: '0 auto 32px', fontSize: '17px' }}>
                 Kopieer hem in ChatGPT, Claude of een andere AI. Vanaf nu klinkt jouw AI alsof jij het zelf schrijft. We sturen ook een stap-voor-stap handleiding mee zodat je binnen twee minuten aan de slag kunt, ook als je nog nooit met AI hebt gewerkt.
               </p>
 
               <div className="flex flex-col items-center gap-3 mb-8">
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-white" />
-                  <span className="text-white font-body">Je superprompt, klaar om te gebruiken</span>
+                  <span className="text-white font-body" style={{ fontSize: '17px' }}>Je superprompt, klaar om te gebruiken</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-white" />
-                  <span className="text-white font-body">Stap-voor-stap handleiding voor ChatGPT én Claude</span>
+                  <span className="text-white font-body" style={{ fontSize: '17px' }}>Stap-voor-stap handleiding voor ChatGPT én Claude</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-white" />
-                  <span className="text-white font-body">Gratis. Alleen je e-mailadres, we sturen het gelijk op</span>
+                  <span className="text-white font-body" style={{ fontSize: '17px' }}>Gratis. Alleen je e-mailadres, we sturen het gelijk op</span>
                 </div>
               </div>
 
@@ -285,23 +286,46 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           <h3 className="font-heading text-white mb-3" style={{ fontSize: 'clamp(28px, 4vw, 48px)', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
             Jouw AI kent je merk van binnen en buiten.
           </h3>
-          <p className="text-white font-body mb-10" style={{ fontSize: '1.1rem' }}>
-            Alles wat je schrijft, klinkt zoals jij.
+          <p className="text-white font-body mb-10" style={{ fontSize: '17px' }}>
+            Dit is jouw Merk AI-paspoort, gemaakt met een merkexpert. Niet op basis van één URL, maar op basis van alles wat jouw merk vertelt. Zodat elke tekst die je schrijft klinkt zoals jij bent, niet zoals een AI denkt dat jij bent.
           </p>
+
+          {/* Wat je ontvangt — checklijst */}
+          <h4 className="font-heading text-white mb-4" style={{ fontSize: '1rem', textTransform: 'uppercase' as const }}>
+            Wat je ontvangt
+          </h4>
+          <ul className="space-y-3 mb-10">
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Jouw Merk AI-paspoort. Volledig uitgewerkt document, klaar om te laden in elk AI-systeem</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Gemaakt op basis van website, LinkedIn, presentaties en merkdocumenten</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Aangescherpt door Caesar van Newfound als merkexpert</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Handleiding om het in ChatGPT en Claude in te stellen</span>
+            </li>
+          </ul>
 
           {/* Van/Naar */}
           <div className="grid grid-cols-2 gap-8 mb-10">
             <div>
               <span className="label-style text-accent">Van</span>
-              <p className="text-white mt-2 font-body" style={{ fontSize: '1.1rem' }}>Automatische analyse op basis van één URL</p>
+              <p className="text-white mt-2 font-body" style={{ fontSize: '17px' }}>Automatische analyse op basis van één URL</p>
             </div>
             <div>
               <span className="label-style text-accent">Naar</span>
-              <p className="text-white mt-2 font-body" style={{ fontSize: '1.1rem' }}>Een AI die jouw merk van binnen kent. Op basis van alles wat je hebt, aangescherpt door een merkexpert</p>
+              <p className="text-white mt-2 font-body" style={{ fontSize: '17px' }}>Een AI die jouw merk van binnen kent. Op basis van alles wat je hebt, aangescherpt door een merkexpert</p>
             </div>
           </div>
 
-          {/* Stappenlijst — purple numbers, white text */}
+          {/* Stappenlijst */}
           <div className="bg-dark-light rounded-btn p-6 md:p-8 mb-10 border border-white/5">
             <ul className="space-y-4">
               {[
@@ -312,31 +336,12 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 'Menselijke review door Newfound',
               ].map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 bg-accent/10 rounded-full flex items-center justify-center text-sm text-accent mt-0.5 font-body">
+                  <span className="flex-shrink-0 w-6 h-6 bg-accent/10 rounded-full flex items-center justify-center text-accent mt-0.5 font-body" style={{ fontSize: '14px' }}>
                     {index + 1}
                   </span>
-                  <span className="text-white font-body">{item}</span>
+                  <span className="text-white font-body" style={{ fontSize: '17px' }}>{item}</span>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Wat je ontvangt */}
-          <div className="mb-10">
-            <p className="label-style text-accent mb-4">Wat je ontvangt</p>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <span className="text-accent mt-1">•</span>
-                <span className="text-white font-body">Jouw Merk AI-paspoort. Volledig uitgewerkt document, klaar om te laden in elk AI-systeem</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-accent mt-1">•</span>
-                <span className="text-white font-body">Handleiding voor ChatGPT en Claude</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-accent mt-1">•</span>
-                <span className="text-white font-body">Gemaakt op basis van website, LinkedIn, presentaties en merkdocumenten. Aangescherpt door een merkexpert</span>
-              </li>
             </ul>
           </div>
 
@@ -345,7 +350,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               href="mailto:hello@newfound.agency"
               className="inline-flex items-center gap-2 px-7 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all duration-200"
             >
-              Kom in contact <ArrowRight className="w-4 h-4" />
+              Stuur me meer info <ArrowRight className="w-4 h-4" />
             </a>
             <span className="text-white font-body" style={{ fontSize: '1.1rem' }}>
               Investering: <span className="font-medium" style={{ fontWeight: 700 }}>vanaf €1.500</span>
@@ -354,14 +359,13 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Nieuwe analyse */}
+      {/* Nieuwe superprompt */}
       <section className="bg-dark py-16 text-center">
         <button
           onClick={onReset}
           className="inline-flex items-center gap-2 text-white/50 hover:text-accent transition-colors font-body"
         >
-          <RefreshCw className="w-4 h-4" />
-          Analyseer een andere website
+          Maak nieuwe superprompt <ArrowRight className="w-4 h-4" />
         </button>
       </section>
     </div>
