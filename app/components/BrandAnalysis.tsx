@@ -92,13 +92,22 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         }),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error('Verzenden mislukt')
+        const detail = data?.error || 'Verzenden mislukt'
+        console.error('send-email debug:', data?.debug)
+        throw new Error(detail)
+      }
+
+      if (data?.debug) {
+        console.log('send-email debug:', data.debug)
       }
 
       setEmailCaptured(true)
-    } catch {
-      setEmailError('Er ging iets mis. Probeer het opnieuw.')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Er ging iets mis'
+      setEmailError(`${msg}. Probeer het opnieuw.`)
     } finally {
       setEmailSubmitting(false)
     }
