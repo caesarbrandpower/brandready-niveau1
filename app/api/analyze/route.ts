@@ -90,26 +90,26 @@ function generateMockData(url: string) {
       'De tone of voice wisselt tussen formeel en informeel, wat het merk inconsistent maakt.'
     ],
     superprompt: {
-      wie_je_bent: `${companyName} is het bedrijf waar je terechtkomt als je klaar bent met bureaus die meer praten dan doen. Wij leveren werkbare oplossingen, niet dikke rapporten.`,
+      wie_je_bent: `Je schrijft altijd namens ${companyName}, een bureau dat bedrijven helpt hun communicatie scherp te krijgen. Schrijf in de wij-vorm. Nooit in de ik-vorm. Wij leveren werkbare oplossingen, geen dikke rapporten.`,
       wat_jou_onderscheidt: [
-        'We beginnen bij het probleem, niet bij de oplossing. En zeggen eerlijk als iets niet bij ons past.',
-        'Geen projectmanagers tussen jou en het werk. Je praat met de mensen die het maken.',
-        'We meten succes in resultaat voor de klant, niet in geleverde uren (aanvullen aanbevolen)'
+        'Benoem altijd dat we beginnen bij het probleem, niet bij de oplossing. Koppel aan het resultaat dat de klant sneller weet waar die aan toe is. Nooit beloven dat we "alles kunnen".',
+        'Benoem altijd het directe contact. Geen projectmanagers ertussen. Koppel aan het resultaat dat de klant praat met de mensen die het werk doen. Nooit abstracte termen als "korte lijnen".',
+        'Benoem altijd dat we succes meten in resultaat voor de klant, niet in geleverde uren (aanvullen aanbevolen).'
       ],
-      jouw_klant: `Ondernemers die weten dat ze professioneler moeten communiceren, maar vastlopen op de vraag: hoe dan? Ze hebben geen tijd voor merktrajecten van maanden. Ze willen wel dat hun verhaal klopt.`,
+      jouw_klant: `Je schrijft altijd voor ondernemers die weten dat ze professioneler moeten communiceren, maar vastlopen op de vraag: hoe dan? Gebruik hun taalgebruik. Spreek hun frustratie aan: ze hebben geen tijd voor merktrajecten van maanden, maar willen wel dat hun verhaal klopt. Schrijf nooit vanuit het bureau-perspectief.`,
       zo_klink_je: [
-        'Direct en eerlijk. "Dit kunnen we, dit niet. En dit is waarom."',
-        'Warm maar niet soft. "We denken met je mee, maar zeggen ook als iets niet werkt."',
-        'Concreet. "Geen vage beloftes. Dit is wat je krijgt, en wanneer."',
-        'Menselijk. "We schrijven zoals we praten. Geen jargon, geen afstandelijkheid."',
-        'Zelfverzekerd zonder arrogantie. "We zijn goed in wat we doen, en dat laten we zien in ons werk."'
+        'Schrijf direct en eerlijk. "Dit kunnen we, dit niet. En dit is waarom."',
+        'Schrijf warm maar niet soft. "We denken met je mee, maar zeggen ook als iets niet werkt."',
+        'Schrijf concreet. "Geen vage beloftes. Dit is wat je krijgt, en wanneer."',
+        'Schrijf menselijk. "We schrijven zoals we praten. Geen jargon, geen afstandelijkheid."',
+        'Toets elke zin die je schrijft aan deze regels voordat je hem plaatst.'
       ],
       dit_zeg_je_nooit: [
-        'Holle marketingtaal zoals "we ontzorgen u" of "uw partner in succes"',
-        'Beloftes zonder bewijs. Nooit "de beste" of "uniek" zonder het waar te maken.',
-        'Negatief over concurrenten. We laten ons eigen werk spreken.'
+        'Gebruik nooit "ontzorgen", "uw partner in succes" of "totaaloplossing". Zeg in plaats daarvan concreet wat we doen en wat het oplevert.',
+        'Gebruik nooit "de beste" of "uniek" zonder het waar te maken. Zeg in plaats daarvan wat het specifieke resultaat is.',
+        'Schrijf nooit negatief over concurrenten. Laat ons eigen werk spreken.'
       ],
-      jouw_verhaal: `${companyName} is begonnen omdat we zagen dat te veel bedrijven goed werk leveren maar het niet goed weten te vertellen. Niet omdat ze dat niet willen, maar omdat niemand ze ooit heeft geholpen het scherp te krijgen. Dat doen wij nu. Niet met dikke merkboeken, maar met heldere keuzes die je morgen al kunt gebruiken.`
+      jouw_verhaal: `Context: ${companyName} helpt bedrijven die goed werk leveren maar het niet goed weten te vertellen. Ze doen dat met heldere keuzes, niet met dikke merkboeken. Gebruik deze context alleen als het relevant is voor wat je schrijft. Schrijf er niet over tenzij ernaar gevraagd wordt.`
     }
   }
 }
