@@ -286,13 +286,13 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 </div>
               </div>
 
-              <form onSubmit={handleEmailSubmit} className="flex gap-3 max-w-lg mx-auto">
+              <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="jouw@emailadres.nl"
-                  className="flex-1 px-4 py-3.5 border border-white/30 rounded-btn focus:outline-none focus:ring-1 focus:ring-accent/40 focus:border-white/60 transition-all font-body text-white placeholder:text-white/50"
+                  className="w-full sm:flex-1 px-4 py-3.5 border border-white/30 rounded-btn focus:outline-none focus:ring-1 focus:ring-accent/40 focus:border-white/60 transition-all font-body text-white placeholder:text-white/50"
                   style={{ background: 'rgba(255,255,255,0.05)' }}
                   required
                 />
@@ -300,7 +300,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                 <button
                   type="submit"
                   disabled={!email.trim() || emailSubmitting}
-                  className="px-6 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+                  className="w-full sm:w-auto px-6 py-3.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
                 >
                   {emailSubmitting ? 'Bezig...' : 'Stuur me de superprompt'}
                   {!emailSubmitting && <ArrowRight className="w-4 h-4" />}
