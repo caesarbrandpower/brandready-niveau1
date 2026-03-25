@@ -134,19 +134,9 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           <h2 className="font-heading text-white mb-4" style={{ fontSize: 'clamp(18px, 2.5vw, 28px)', fontFamily: 'GreedCondensed, sans-serif', fontWeight: 700, textTransform: 'uppercase' as const }}>
             Jouw merk als superprompt
           </h2>
-          <p className="text-white font-body mb-8" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto 32px' }}>
-            Een superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Jouw toon, jouw taal, jouw merk.
+          <p className="text-white font-body" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto' }}>
+            Jouw superprompt staat hieronder. Laat je e-mailadres achter om hem te kopiëren of te downloaden.
           </p>
-          <button
-            onClick={handleCopy}
-            disabled={!emailCaptured}
-            className={`inline-flex items-center gap-2 px-8 py-4 rounded-btn font-body font-medium transition-all text-lg ${emailCaptured ? 'bg-accent-blue text-white hover:brightness-110' : 'bg-accent-blue/40 text-white/50 cursor-not-allowed'}`}
-          >
-            {copied ? <><Check className="w-5 h-5" /> Gekopieerd!</> : <><Copy className="w-5 h-5" /> Kopieer superprompt</>}
-          </button>
-          {!emailCaptured && (
-            <p className="mt-3 text-white/40 font-body" style={{ fontSize: '13px' }}>Vul je e-mailadres in om te kopiëren en downloaden</p>
-          )}
         </div>
       </section>
 
