@@ -203,9 +203,9 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
 
       {/* Diagnosis — card-like rapport block */}
-      <section className="bg-dark" style={{ padding: '64px 0' }}>
+      <section className="bg-dark" style={{ padding: '0 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
-          <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '48px 40px' }}>
+          <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '40px' }}>
             <Diagnosis diagnose={diagnose.slice(0, 4)} />
           </div>
         </div>
@@ -313,7 +313,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             Brandprompt Plus
           </p>
           <h3 className="font-heading text-white mb-6" style={{ fontSize: 'clamp(28px, 4vw, 48px)', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
-            Nog scherper met jouw Merk AI-Paspoort
+            Jouw Merk AI-Paspoort
           </h3>
           <p className="text-white font-body mb-10" style={{ fontSize: '17px' }}>
             Wil je nog scherpere resultaten? Met Brandprompt Plus maken we jouw Merk AI-Paspoort. Niet op basis van één URL, maar op basis van alles wat jouw merk vertelt.
