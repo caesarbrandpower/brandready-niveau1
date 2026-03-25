@@ -43,8 +43,8 @@ export default function Diagnosis({ diagnose, implicatie }: DiagnosisProps) {
       </div>
 
       {implicatie && (
-        <div className="mb-10 pl-4" style={{ borderLeft: '2px solid rgba(255,255,255,0.1)' }}>
-          <p className="text-white/60 font-body italic" style={{ fontSize: '15px' }}>
+        <div className="mb-10 pl-4" style={{ borderLeft: '1px solid rgba(255,255,255,0.2)' }}>
+          <p className="text-white font-body italic" style={{ fontSize: '15px' }}>
             {implicatie}
           </p>
         </div>
