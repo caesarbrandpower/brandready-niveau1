@@ -203,7 +203,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
 
       {/* Diagnosis — card-like rapport block */}
-      <section className="bg-dark" style={{ padding: '48px 0 80px' }}>
+      <section className="bg-dark" style={{ padding: '64px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '48px 40px' }}>
             <Diagnosis diagnose={diagnose.slice(0, 4)} />
@@ -259,19 +259,19 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
               <div className="flex flex-col items-center gap-3 mb-8">
                 <div className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
+                  <Check className="w-4 h-4 text-accent flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Je superprompt, klaar om te gebruiken</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
+                  <Check className="w-4 h-4 text-accent flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Je superprompt als .md bestand, direct klaar voor gebruik in ChatGPT, Claude of elk ander AI-systeem</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
+                  <Check className="w-4 h-4 text-accent flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Stap-voor-stap handleiding, ook als je nog nooit met AI hebt gewerkt</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0 mt-1" />
+                  <Check className="w-4 h-4 text-accent flex-shrink-0 mt-1" />
                   <span className="text-white font-body" style={{ fontSize: '17px' }}>Gratis, we sturen het gelijk op</span>
                 </div>
               </div>
@@ -313,7 +313,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             Brandprompt Plus
           </p>
           <h3 className="font-heading text-white mb-6" style={{ fontSize: 'clamp(28px, 4vw, 48px)', textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
-            Jouw Merk AI-Paspoort.
+            Nog scherper met jouw Merk AI-Paspoort
           </h3>
           <p className="text-white font-body mb-10" style={{ fontSize: '17px' }}>
             Wil je nog scherpere resultaten? Met Brandprompt Plus maken we jouw Merk AI-Paspoort. Niet op basis van één URL, maar op basis van alles wat jouw merk vertelt.
