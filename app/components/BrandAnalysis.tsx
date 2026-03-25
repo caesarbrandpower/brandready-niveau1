@@ -134,11 +134,8 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           <h2 className="font-heading text-white mb-4" style={{ fontSize: 'clamp(18px, 2.5vw, 28px)', fontFamily: 'GreedCondensed, sans-serif', fontWeight: 700, textTransform: 'uppercase' as const }}>
             Jouw merk als superprompt
           </h2>
-          <p className="text-white font-body mb-4" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto 16px' }}>
-            Een superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Jouw toon, jouw taal, jouw merk.
-          </p>
-          <p className="text-white font-body" style={{ fontSize: '14px', opacity: 0.5, maxWidth: '520px', margin: '0 auto' }}>
-            Jouw superprompt staat hieronder. Laat je e-mailadres achter om hem te kopiëren of te downloaden.
+          <p className="text-white font-body" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto' }}>
+            Jouw superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Laat je e-mailadres achter om hem te kopiëren of te downloaden.
           </p>
         </div>
       </section>
