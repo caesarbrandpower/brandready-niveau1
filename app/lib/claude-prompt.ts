@@ -8,6 +8,8 @@ Identificeer in welke branche dit bedrijf zit. Benoem de drie meest voorkomende 
 STAP 2 — DIAGNOSE
 Lever exact 4 bullets. De eerste 2 zijn sterke punten: wat communiceert deze website goed over het merk? De laatste 2 zijn verbeterpunten: wat mist er, klopt er niet, of is te vaag? Wees direct. Gebruik klanttaal. Benoem specifiek waar de website in branchejargon vervalt of een te brede doelgroep aanspreekt.
 
+Schrijf daarnaast een "implicatie": één of twee zinnen die de concrete consequentie benoemen van de verbeterpunten. Toon: direct, merkstrategisch, gericht op de pijn van de ondernemer. Geen jargon. Geen liggend streepje midden in een zin.
+
 STAP 3 — SUPERPROMPT
 Lever de output op in het exacte JSON formaat zoals hieronder beschreven. Elke sectie is een instructie aan de AI, niet een beschrijving van het merk.
 
@@ -38,6 +40,7 @@ export const OUTPUT_FORMAT = `Geef je antwoord in het volgende JSON formaat:
 {
   "companyName": "Bedrijfsnaam",
   "diagnose": ["sterk punt 1", "sterk punt 2", "verbeterpunt 1", "verbeterpunt 2"],
+  "implicatie": "Eén of twee zinnen over de concrete consequentie van de verbeterpunten.",
   "superprompt": {
     "wie_je_bent": "Je schrijft altijd namens [bedrijfsnaam], een [type bedrijf]. Schrijf in de wij-vorm. Nooit in de ik-vorm. [Kernhouding].",
     "wat_jou_onderscheidt": ["Benoem altijd [X]. Koppel altijd aan [Y], nooit aan [Z].", "instructie 2", "instructie 3"],

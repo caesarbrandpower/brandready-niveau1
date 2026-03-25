@@ -89,6 +89,7 @@ function generateMockData(url: string) {
       'Er ontbreken concrete voorbeelden of resultaten die de belofte onderbouwen.',
       'De tone of voice wisselt tussen formeel en informeel, wat het merk inconsistent maakt.'
     ],
+    implicatie: 'Een merk dat klinkt als alle anderen trekt ook dezelfde klanten als alle anderen. Of geen.',
     superprompt: {
       wie_je_bent: `Je schrijft altijd namens ${companyName}, een bureau dat bedrijven helpt hun communicatie scherp te krijgen. Schrijf in de wij-vorm. Nooit in de ik-vorm. Wij leveren werkbare oplossingen, geen dikke rapporten.`,
       wat_jou_onderscheidt: [

@@ -8,6 +8,7 @@ import BrandAnalysis from './components/BrandAnalysis'
 type AnalysisResult = {
   companyName: string
   diagnose: string[]
+  implicatie?: string
   superprompt: {
     wie_je_bent: string
     wat_jou_onderscheidt: string[]
