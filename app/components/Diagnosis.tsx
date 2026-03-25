@@ -51,7 +51,7 @@ export default function Diagnosis({ diagnose, implicatie }: DiagnosisProps) {
       )}
 
       <p className="text-white font-body" style={{ fontSize: '16px' }}>
-        Samen scherper naar je merk kijken? We helpen je graag. <a href="mailto:hello@newfound.agency" className="underline hover:opacity-80 transition-opacity" style={{ color: '#8463ff' }}>Mail ons</a>.
+        Samen scherper naar je merk kijken? We helpen je graag. <a href="mailto:hello@newfound.agency" className="text-accent underline hover:opacity-80 transition-opacity">Mail ons</a>.
       </p>
     </div>
   )
