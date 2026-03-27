@@ -61,25 +61,19 @@ function parseHtml(html: string, pageUrl: string): { title: string; content: str
   return { title, content }
 }
 
-async function fetchViaJina(pageUrl: string, maxRetries = 3): Promise<string | null> {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      const response = await fetch(`https://r.jina.ai/${encodeURIComponent(pageUrl)}`, {
-        headers: { 'Accept': 'text/plain' },
-        signal: AbortSignal.timeout(20000),
-      })
+async function fetchViaJina(pageUrl: string): Promise<string | null> {
+  try {
+    const response = await fetch(`https://r.jina.ai/${encodeURIComponent(pageUrl)}`, {
+      headers: { 'Accept': 'text/plain' },
+      signal: AbortSignal.timeout(8000),
+    })
 
-      if (response.ok) {
-        const text = await response.text()
-        if (text && text.length > 200) return text
-      }
-    } catch (error) {
-      if (attempt === maxRetries) {
-        console.error('Jina failed after retries:', error)
-        return null
-      }
-      await new Promise(resolve => setTimeout(resolve, 1000 * attempt))
+    if (response.ok) {
+      const text = await response.text()
+      if (text && text.length > 200) return text
     }
+  } catch (error) {
+    console.error('Jina failed for', pageUrl, error)
   }
   return null
 }
@@ -167,29 +161,43 @@ export async function POST(request: NextRequest) {
       `${baseUrl}/contact`,
     ]
 
-    // 1. Try Jina AI first (primary)
+    // 1. Try Jina AI first (primary) — with 15s hard limit on entire phase
     console.log('Trying Jina AI for:', url)
-    for (const pageUrl of pagesToScrape.slice(0, 6)) {
-      const text = await fetchViaJina(pageUrl)
-      if (text && text.split(/\s+/).length >= 200) {
-        const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || pageUrl
-        scrapedPages.push({ url: pageUrl, title, content: text })
+    const jinaUrls = pagesToScrape.slice(0, 4)
+    try {
+      const jinaResults = await Promise.race([
+        Promise.all(jinaUrls.map(async (pageUrl) => {
+          const text = await fetchViaJina(pageUrl)
+          return { pageUrl, text }
+        })),
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Jina phase timeout')), 15000)),
+      ])
+
+      for (const { pageUrl, text } of jinaResults) {
+        if (text && text.split(/\s+/).length >= 200) {
+          const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || pageUrl
+          scrapedPages.push({ url: pageUrl, title, content: text })
+        }
+        if (scrapedPages.length >= 4) break
       }
-      if (scrapedPages.length >= 4) break
+    } catch {
+      console.log('Jina phase timed out, moving to fallback')
     }
 
     // 2. Fallback: direct fetch with cheerio parsing
     if (scrapedPages.length === 0) {
       console.log('Jina failed, trying direct HTML fetch for:', url)
-      for (const pageUrl of pagesToScrape.slice(0, 6)) {
-        const html = await fetchDirectHtml(pageUrl)
-        if (!html) continue
+      const htmlResults = await Promise.all(
+        pagesToScrape.slice(0, 6).map(async (pageUrl) => {
+          const html = await fetchDirectHtml(pageUrl)
+          if (!html) return null
+          const parsed = parseHtml(html, pageUrl)
+          return parsed ? { url: pageUrl, ...parsed } : null
+        })
+      )
 
-        const parsed = parseHtml(html, pageUrl)
-        if (parsed) {
-          scrapedPages.push({ url: pageUrl, ...parsed })
-        }
-
+      for (const result of htmlResults) {
+        if (result) scrapedPages.push(result)
         if (scrapedPages.length >= 4) break
       }
     }
