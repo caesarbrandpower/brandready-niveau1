@@ -61,29 +61,27 @@ function parseHtml(html: string, pageUrl: string): { title: string; content: str
   return { title, content }
 }
 
-async function fetchViaJina(pageUrl: string): Promise<string | null> {
-  try {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 15000)
+async function fetchViaJina(pageUrl: string, maxRetries = 3): Promise<string | null> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await fetch(`https://r.jina.ai/${encodeURIComponent(pageUrl)}`, {
+        headers: { 'Accept': 'text/plain' },
+        signal: AbortSignal.timeout(25000),
+      })
 
-    const response = await fetch(`https://r.jina.ai/${encodeURIComponent(pageUrl)}`, {
-      headers: {
-        'Accept': 'text/plain',
-      },
-      signal: controller.signal,
-    })
-
-    clearTimeout(timeout)
-
-    if (!response.ok) return null
-
-    const text = await response.text()
-    if (text.length < 100) return null
-
-    return text
-  } catch {
-    return null
+      if (response.ok) {
+        const text = await response.text()
+        if (text && text.length > 200) return text
+      }
+    } catch (error) {
+      if (attempt === maxRetries) {
+        console.error('Jina failed after retries:', error)
+        return null
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt))
+    }
   }
+  return null
 }
 
 async function fetchDirect(pageUrl: string): Promise<string | null> {
