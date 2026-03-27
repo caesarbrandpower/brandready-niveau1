@@ -84,7 +84,7 @@ async function fetchViaJina(pageUrl: string, maxRetries = 3): Promise<string | n
   return null
 }
 
-async function fetchDirect(pageUrl: string): Promise<string | null> {
+async function fetchDirectHtml(pageUrl: string): Promise<string | null> {
   try {
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 12000)
@@ -102,6 +102,33 @@ async function fetchDirect(pageUrl: string): Promise<string | null> {
     if (!contentType.includes('text/html')) return null
 
     return await response.text()
+  } catch {
+    return null
+  }
+}
+
+async function fetchDirectPlain(pageUrl: string): Promise<string | null> {
+  try {
+    const response = await fetch(pageUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+      },
+      signal: AbortSignal.timeout(15000),
+    })
+
+    if (!response.ok) return null
+
+    const html = await response.text()
+    const text = html
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .substring(0, 10000)
+    if (text.split(/\s+/).length < 200) return null
+
+    return text
   } catch {
     return null
   }
@@ -144,18 +171,18 @@ export async function POST(request: NextRequest) {
     console.log('Trying Jina AI for:', url)
     for (const pageUrl of pagesToScrape.slice(0, 6)) {
       const text = await fetchViaJina(pageUrl)
-      if (text) {
+      if (text && text.split(/\s+/).length >= 200) {
         const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || pageUrl
         scrapedPages.push({ url: pageUrl, title, content: text })
       }
       if (scrapedPages.length >= 4) break
     }
 
-    // 2. Fallback: direct fetch with browser headers
+    // 2. Fallback: direct fetch with cheerio parsing
     if (scrapedPages.length === 0) {
-      console.log('Jina failed, trying direct fetch for:', url)
+      console.log('Jina failed, trying direct HTML fetch for:', url)
       for (const pageUrl of pagesToScrape.slice(0, 6)) {
-        const html = await fetchDirect(pageUrl)
+        const html = await fetchDirectHtml(pageUrl)
         if (!html) continue
 
         const parsed = parseHtml(html, pageUrl)
@@ -164,6 +191,15 @@ export async function POST(request: NextRequest) {
         }
 
         if (scrapedPages.length >= 4) break
+      }
+    }
+
+    // 3. Fallback: Googlebot plain text fetch
+    if (scrapedPages.length === 0) {
+      console.log('Direct HTML failed, trying Googlebot fetch for:', url)
+      const text = await fetchDirectPlain(url)
+      if (text) {
+        scrapedPages.push({ url, title: url, content: text })
       }
     }
 
