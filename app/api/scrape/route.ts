@@ -170,7 +170,7 @@ export async function POST(request: NextRequest) {
     // 3. Nothing worked — return error so frontend shows manual input
     if (scrapedPages.length === 0) {
       return NextResponse.json({
-        error: 'We konden deze website helaas niet lezen. Sommige websites staan automatische analyse niet toe. Probeer een andere URL of neem contact op via hello@newfound.agency',
+        error: 'Deze website laadt te langzaam of staat automatische analyse niet toe. Probeer het opnieuw of gebruik een andere URL.',
         wordCount: 0,
         content: ''
       }, { status: 200 })
