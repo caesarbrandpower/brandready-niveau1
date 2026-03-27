@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import * as cheerio from 'cheerio'
 
-export const maxDuration = 30
+export const maxDuration = 60
 
 interface ScrapedPage {
   url: string
@@ -66,7 +66,7 @@ async function fetchViaJina(pageUrl: string, maxRetries = 3): Promise<string | n
     try {
       const response = await fetch(`https://r.jina.ai/${encodeURIComponent(pageUrl)}`, {
         headers: { 'Accept': 'text/plain' },
-        signal: AbortSignal.timeout(25000),
+        signal: AbortSignal.timeout(20000),
       })
 
       if (response.ok) {
