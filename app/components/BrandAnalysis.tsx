@@ -136,7 +136,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             Jouw merk als superprompt
           </h2>
           <p className="text-white font-body" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto' }}>
-            Jouw superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Laat je e-mailadres achter om hem te kopi\u00ebren of te downloaden.
+            Jouw superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Laat je e-mailadres achter om hem te kopiëren of te downloaden.
           </p>
         </div>
       </section>
@@ -203,7 +203,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Diagnosis */}
+      {/* Diagnosis — card-like rapport block */}
       <section className="bg-dark" style={{ padding: '0 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '40px' }}>
@@ -212,7 +212,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Email lead sectie */}
+      {/* Email lead sectie — gradient lines top/bottom, distinct bg */}
       <div className="gradient-line" />
       <section style={{ padding: '80px 0', background: 'rgba(255,255,255,0.04)' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
@@ -230,7 +230,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                   onClick={handleCopy}
                   className="flex items-center gap-2 px-5 py-2.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all"
                 >
-                  {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopi\u00ebren</>}
+                  {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopiëren</>}
                 </button>
                 <button
                   onClick={handleDownload}
@@ -307,7 +307,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
       <div className="gradient-line" />
 
-      {/* Upsell - Brandprompt Plus */}
+      {/* Upsell — Brandprompt Plus */}
       <section className="bg-dark" style={{ padding: '96px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <h3 className="font-heading text-white mb-4" style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontFamily: 'GreedCondensed, sans-serif', fontWeight: 700, textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
@@ -322,7 +322,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
 
           <div className="text-white font-body mb-10 space-y-4" style={{ fontSize: '17px', lineHeight: 1.7 }}>
             <p>
-              Stel je voor: je AI kent je merk. Niet omdat je het elke keer opnieuw uitlegt, maar omdat je het \u00e9\u00e9n keer goed hebt vastgelegd. Je superprompt zit in ChatGPT, in Claude, in elk tool dat je gebruikt. Alles wat je maakt klinkt als jij.
+              Stel je voor: je AI kent je merk. Niet omdat je het elke keer opnieuw uitlegt, maar omdat je het één keer goed hebt vastgelegd. Je superprompt zit in ChatGPT, in Claude, in elk tool dat je gebruikt. Alles wat je maakt klinkt als jij.
             </p>
             <p>
               Brandprompt Plus geeft je dat fundament. Wij analyseren je website dieper, schrijven je superprompt uit, en leveren het als een document dat je direct kunt gebruiken.
@@ -332,7 +332,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           <ul className="space-y-3 mb-10">
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-              <span className="text-white font-body" style={{ fontSize: '17px' }}>Wij lezen je hele website, niet alleen de homepage</span>
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Diepere analyse van je website, inclusief dienstenpagina's en je verhaal</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
