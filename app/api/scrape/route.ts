@@ -34,15 +34,19 @@ const GATE_PATTERNS = [
   'ouder dan 18',
   'leeftijdsverificatie',
   'leeftijdscontrole',
+  'geboortejaar',
+  'geboortedatum',
   'age verification',
   'age gate',
+  'verify your age',
   'are you 18',
   'are you of legal',
-  'geboortejaar',
+  'you must be',
+  'over 18',
+  'legal age',
   'date of birth',
   'year of birth',
   'enter your birth',
-  'alcohol',
   'verantwoord drinken',
   'drink responsibly',
   'cookie-wall',
@@ -58,9 +62,20 @@ function isGateContent(text: string): boolean {
   return GATE_PATTERNS.some(pattern => lower.includes(pattern))
 }
 
+function countWords(text: string): number {
+  return text.split(/\s+/).filter(w => w.length > 0).length
+}
+
 function hasEnoughContent(text: string): boolean {
-  const wordCount = text.split(/\s+/).filter(w => w.length > 0).length
-  return wordCount >= MIN_WORDS && !isGateContent(text)
+  return countWords(text) >= MIN_WORDS && !isGateContent(text)
+}
+
+function isErrorPage(text: string): boolean {
+  const words = countWords(text)
+  if (words > 50) return false
+  const lower = text.toLowerCase()
+  return lower.includes('404') || lower.includes('not found') || lower.includes('page not found') ||
+    lower.includes('redirect') || lower.includes('moved permanently')
 }
 
 function parseHtml(html: string, pageUrl: string): { title: string; content: string } | null {
@@ -115,8 +130,8 @@ async function fetchViaJina(pageUrl: string): Promise<string | null> {
       const text = await response.text()
       if (text && text.length > 200) return text
     }
-  } catch (error) {
-    console.error('[1/4] Jina error voor', pageUrl, error)
+  } catch {
+    // Jina timeout or network error
   }
   return null
 }
@@ -171,28 +186,45 @@ async function fetchDirectPlain(pageUrl: string): Promise<string | null> {
 }
 
 async function fetchViaFirecrawl(pageUrl: string): Promise<string | null> {
-  if (!process.env.FIRECRAWL_API_KEY) {
-    console.log('[4/4] Firecrawl: geen API key geconfigureerd')
+  const apiKey = process.env.FIRECRAWL_API_KEY
+  if (!apiKey) {
+    console.log('[4/4] Firecrawl: FIRECRAWL_API_KEY niet gevonden in env')
+    return null
+  }
+  if (apiKey.length < 10) {
+    console.log('[4/4] Firecrawl: API key lijkt ongeldig (te kort)')
     return null
   }
   try {
-    console.log('[4/4] Firecrawl: start scrape voor', pageUrl)
-    const app = new FirecrawlApp({ apiKey: process.env.FIRECRAWL_API_KEY })
+    const app = new FirecrawlApp({ apiKey })
     const result = await app.scrapeUrl(pageUrl, { formats: ['markdown'] })
     if (!result.success) {
-      console.log('[4/4] Firecrawl: scrape niet succesvol voor', pageUrl)
+      console.log(`[4/4] Firecrawl: niet succesvol - ${JSON.stringify(result).substring(0, 200)}`)
       return null
     }
     const text = result.markdown || ''
-    console.log(`[4/4] Firecrawl: ${text.split(/\s+/).length} woorden opgehaald voor ${pageUrl}`)
+    const words = countWords(text)
+    console.log(`[4/4] Firecrawl: ${words} woorden opgehaald`)
+    if (words < 10) return null
     return text
   } catch (error) {
-    console.error('[4/4] Firecrawl error voor', pageUrl, error)
+    const msg = error instanceof Error ? error.message : String(error)
+    console.error(`[4/4] Firecrawl error: ${msg}`)
     return null
   }
 }
 
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export async function POST(request: NextRequest) {
+  const scraperLog: string[] = []
+  const log = (msg: string) => {
+    console.log(msg)
+    scraperLog.push(msg)
+  }
+
   try {
     const { url } = await request.json()
 
@@ -225,8 +257,8 @@ export async function POST(request: NextRequest) {
       `${baseUrl}/contact`,
     ]
 
-    // 1. Try Jina AI first (primary)
-    console.log('[1/4] Jina: start voor', url)
+    // 1. Jina AI
+    log(`[1/4] Jina: start voor ${url}`)
     const jinaUrls = pagesToScrape.slice(0, 4)
     try {
       const jinaResults = await Promise.race([
@@ -234,26 +266,32 @@ export async function POST(request: NextRequest) {
           const text = await fetchViaJina(pageUrl)
           return { pageUrl, text }
         })),
-        new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Jina phase timeout')), 15000)),
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 15000)),
       ])
 
       for (const { pageUrl, text } of jinaResults) {
-        if (text && hasEnoughContent(text)) {
+        if (!text) continue
+        const words = countWords(text)
+        const gate = isGateContent(text)
+        if (gate) {
+          log(`[1/4] Jina: gate content voor ${pageUrl} (${words} woorden), skip`)
+        } else if (words >= MIN_WORDS) {
           const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || pageUrl
           scrapedPages.push({ url: pageUrl, title, content: text })
-          console.log(`[1/4] Jina: OK voor ${pageUrl} (${text.split(/\s+/).length} woorden)`)
-        } else if (text && isGateContent(text)) {
-          console.log(`[1/4] Jina: gate content gedetecteerd voor ${pageUrl}, skip`)
+          log(`[1/4] Jina: OK voor ${pageUrl} (${words} woorden)`)
+        } else {
+          log(`[1/4] Jina: te weinig content voor ${pageUrl} (${words} woorden)`)
         }
         if (scrapedPages.length >= 4) break
       }
     } catch {
-      console.log('[1/4] Jina: fase timeout')
+      log('[1/4] Jina: fase timeout (15s)')
     }
 
-    // 2. Fallback: direct fetch with cheerio parsing (10s timeout op fase)
+    // 2. Cheerio (10s timeout op fase)
     if (scrapedPages.length === 0) {
-      console.log('[2/4] Cheerio: start voor', url)
+      await delay(500)
+      log(`[2/4] Cheerio: start voor ${url}`)
       try {
         const htmlResults = await Promise.race([
           Promise.all(
@@ -268,55 +306,81 @@ export async function POST(request: NextRequest) {
         ])
 
         for (const result of htmlResults) {
-          if (result && hasEnoughContent(result.content)) {
+          if (!result) continue
+          const words = countWords(result.content)
+          const gate = isGateContent(result.content)
+          const error = isErrorPage(result.content)
+          if (gate) {
+            log(`[2/4] Cheerio: gate content voor ${result.url} (${words} woorden), skip`)
+          } else if (error) {
+            log(`[2/4] Cheerio: error page voor ${result.url}, skip`)
+          } else if (words >= MIN_WORDS) {
             scrapedPages.push(result)
-            console.log(`[2/4] Cheerio: OK voor ${result.url} (${result.content.split(/\s+/).length} woorden)`)
-          } else if (result && isGateContent(result.content)) {
-            console.log(`[2/4] Cheerio: gate content gedetecteerd voor ${result.url}, skip`)
+            log(`[2/4] Cheerio: OK voor ${result.url} (${words} woorden)`)
+          } else {
+            log(`[2/4] Cheerio: te weinig content voor ${result.url} (${words} woorden)`)
           }
           if (scrapedPages.length >= 4) break
         }
       } catch {
-        console.log('[2/4] Cheerio: fase timeout')
+        log('[2/4] Cheerio: fase timeout (10s)')
       }
     }
 
-    // 3. Fallback: Googlebot plain text fetch
+    // 3. Googlebot
     if (scrapedPages.length === 0) {
-      console.log('[3/4] Googlebot: start voor', url)
+      await delay(500)
+      log(`[3/4] Googlebot: start voor ${url}`)
       const text = await fetchDirectPlain(url)
-      if (text && hasEnoughContent(text)) {
-        scrapedPages.push({ url, title: url, content: text })
-        console.log(`[3/4] Googlebot: OK (${text.split(/\s+/).length} woorden)`)
-      } else if (text && isGateContent(text)) {
-        console.log(`[3/4] Googlebot: gate content gedetecteerd, skip`)
+      if (!text) {
+        log('[3/4] Googlebot: geen response')
       } else {
-        console.log(`[3/4] Googlebot: onvoldoende content (${text ? text.split(/\s+/).length : 0} woorden)`)
+        const words = countWords(text)
+        const gate = isGateContent(text)
+        const error = isErrorPage(text)
+        if (gate) {
+          log(`[3/4] Googlebot: gate content (${words} woorden), skip`)
+        } else if (error) {
+          log('[3/4] Googlebot: error page, skip')
+        } else if (words >= MIN_WORDS) {
+          scrapedPages.push({ url, title: url, content: text })
+          log(`[3/4] Googlebot: OK (${words} woorden)`)
+        } else {
+          log(`[3/4] Googlebot: te weinig content (${words} woorden)`)
+        }
       }
     }
 
-    // 4. Fallback: Firecrawl (voor beveiligde sites met age gates, cookiewalls)
+    // 4. Firecrawl (headless browser, voor age gates en JS-sites)
     if (scrapedPages.length === 0) {
-      console.log('[4/4] Firecrawl: start voor', url)
+      await delay(500)
+      log(`[4/4] Firecrawl: start voor ${url}`)
       const text = await fetchViaFirecrawl(url)
-      if (text && hasEnoughContent(text)) {
-        const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || url
-        scrapedPages.push({ url, title, content: text })
-        console.log(`[4/4] Firecrawl: OK (${text.split(/\s+/).length} woorden)`)
-      } else if (text && isGateContent(text)) {
-        console.log(`[4/4] Firecrawl: gate content gedetecteerd, skip`)
+      if (!text) {
+        log('[4/4] Firecrawl: geen bruikbare content')
       } else {
-        console.log(`[4/4] Firecrawl: onvoldoende content (${text ? text.split(/\s+/).length : 0} woorden)`)
+        const words = countWords(text)
+        const gate = isGateContent(text)
+        if (gate) {
+          log(`[4/4] Firecrawl: gate content (${words} woorden), skip`)
+        } else if (words >= MIN_WORDS) {
+          const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || url
+          scrapedPages.push({ url, title, content: text })
+          log(`[4/4] Firecrawl: OK (${words} woorden)`)
+        } else {
+          log(`[4/4] Firecrawl: te weinig content (${words} woorden)`)
+        }
       }
     }
 
-    // 5. Nothing worked
+    // 5. Resultaat
     if (scrapedPages.length === 0) {
-      console.log('[Scraper] Alle lagen gefaald voor', url)
+      log(`[Scraper] Alle 4 lagen gefaald voor ${url}`)
       return NextResponse.json({
         error: 'Deze website laadt te langzaam of staat automatische analyse niet toe. Probeer het opnieuw of gebruik een andere URL.',
         wordCount: 0,
-        content: ''
+        content: '',
+        debug: scraperLog,
       }, { status: 200 })
     }
 
@@ -325,7 +389,7 @@ export async function POST(request: NextRequest) {
     ).join('\n\n')
 
     const wordCount = combinedContent.split(/\s+/).length
-    console.log(`[Scraper] Succes: ${wordCount} woorden van ${scrapedPages.length} pagina's`)
+    log(`[Scraper] Succes: ${wordCount} woorden van ${scrapedPages.length} pagina's`)
 
     return NextResponse.json({
       content: combinedContent,
@@ -334,7 +398,8 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('[Scraper] Onverwachte error:', error)
+    const msg = error instanceof Error ? error.message : String(error)
+    console.error(`[Scraper] Onverwachte error: ${msg}`)
     return NextResponse.json({
       error: 'We konden deze website helaas niet lezen. Sommige websites staan automatische analyse niet toe. Probeer een andere URL of neem contact op via hello@newfound.agency',
       wordCount: 0,
