@@ -316,26 +316,35 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
           <p className="text-white font-body mb-3" style={{ fontSize: 'clamp(18px, 2.5vw, 24px)', fontFamily: 'KansasNew, sans-serif' }}>
             Jouw merkanalyse als bruikbaar document
           </p>
-          <p className="text-accent font-body mb-10" style={{ fontSize: '1.3rem', fontWeight: 700 }}>
+          <p className="text-accent font-body mb-8" style={{ fontSize: '1.3rem', fontWeight: 700 }}>
             &euro; 150 eenmalig
           </p>
+
+          <div className="text-white font-body mb-10 space-y-4" style={{ fontSize: '17px', lineHeight: 1.7 }}>
+            <p>
+              Stel je voor: je AI kent je merk. Niet omdat je het elke keer opnieuw uitlegt, maar omdat je het \u00e9\u00e9n keer goed hebt vastgelegd. Je superprompt zit in ChatGPT, in Claude, in elk tool dat je gebruikt. Alles wat je maakt klinkt als jij.
+            </p>
+            <p>
+              Brandprompt Plus geeft je dat fundament. Wij analyseren je website dieper, schrijven je superprompt uit, en leveren het als een document dat je direct kunt gebruiken.
+            </p>
+          </div>
 
           <ul className="space-y-3 mb-10">
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-              <span className="text-white font-body" style={{ fontSize: '17px' }}>Diepere analyse. Homepage, dienstenpagina en over-pagina</span>
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Wij lezen je hele website, niet alleen de homepage</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-              <span className="text-white font-body" style={{ fontSize: '17px' }}>Uitgebreidere superprompt. Tone of voice, doelgroep, merkwaarden</span>
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Een superprompt die je merk echt kent, inclusief wie je klant is en hoe jij klinkt</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-              <span className="text-white font-body" style={{ fontSize: '17px' }}>Professionele PDF in Newfound huisstijl</span>
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Overzichtelijk document, klaar om te bewaren, te delen of direct in je AI te laden</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-              <span className="text-white font-body" style={{ fontSize: '17px' }}>Drie concrete merkadviezen op basis van jouw markt</span>
+              <span className="text-white font-body" style={{ fontSize: '17px' }}>Drie adviezen die alleen voor jouw merk gelden, niet voor iedereen in jouw branche</span>
             </li>
           </ul>
 
