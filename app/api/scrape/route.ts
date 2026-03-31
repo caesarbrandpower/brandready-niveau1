@@ -66,10 +66,6 @@ function countWords(text: string): number {
   return text.split(/\s+/).filter(w => w.length > 0).length
 }
 
-function hasEnoughContent(text: string): boolean {
-  return countWords(text) >= MIN_WORDS && !isGateContent(text)
-}
-
 function isErrorPage(text: string): boolean {
   const words = countWords(text)
   if (words > 50) return false
@@ -186,39 +182,25 @@ async function fetchDirectPlain(pageUrl: string): Promise<string | null> {
 }
 
 async function fetchViaFirecrawl(pageUrl: string): Promise<string | null> {
-  console.log('[FIRECRAWL] Wordt aangeroepen voor:', pageUrl)
-  console.log('[FIRECRAWL] API key aanwezig:', !!process.env.FIRECRAWL_API_KEY)
   const apiKey = process.env.FIRECRAWL_API_KEY
   if (!apiKey) {
-    console.log('[FIRECRAWL] STOP: geen API key in environment')
-    return null
-  }
-  console.log('[FIRECRAWL] API key lengte:', apiKey.length)
-  if (apiKey.length < 10) {
-    console.log('[FIRECRAWL] STOP: API key te kort')
+    console.log('[Scraper] Firecrawl: geen FIRECRAWL_API_KEY in environment')
     return null
   }
   try {
-    console.log('[FIRECRAWL] FirecrawlApp aanmaken en scrapeUrl starten...')
     const app = new FirecrawlApp({ apiKey })
     const result = await app.scrapeUrl(pageUrl, { formats: ['markdown'] })
-    console.log('[FIRECRAWL] Response ontvangen:', result.success, result.markdown?.length || 0, 'tekens')
     if (!result.success) {
-      console.log(`[FIRECRAWL] Niet succesvol - response: ${JSON.stringify(result).substring(0, 500)}`)
+      console.log(`[Scraper] Firecrawl mislukt: ${JSON.stringify(result).substring(0, 300)}`)
       return null
     }
     const text = result.markdown || ''
     const words = countWords(text)
-    console.log(`[FIRECRAWL] Content: ${words} woorden, eerste 200 tekens: ${text.substring(0, 200)}`)
-    if (words < 10) {
-      console.log('[FIRECRAWL] Te weinig woorden (< 10), retourneert null')
-      return null
-    }
+    if (words < 10) return null
     return text
-  } catch (error: unknown) {
+  } catch (error) {
     const msg = error instanceof Error ? error.message : String(error)
-    const status = (error as Record<string, unknown>)?.status || 'geen status'
-    console.log('[FIRECRAWL] Error:', msg, status)
+    console.error(`[Scraper] Firecrawl error: ${msg}`)
     return null
   }
 }
