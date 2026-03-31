@@ -54,7 +54,7 @@ export default function Home() {
 
     try {
       const scrapeController = new AbortController()
-      const scrapeTimeout = setTimeout(() => scrapeController.abort(), 15000)
+      const scrapeTimeout = setTimeout(() => scrapeController.abort(), 50000)
 
       const scrapeResponse = await fetch('/api/scrape', {
         method: 'POST',
@@ -164,7 +164,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-dark">
-      {/* Navbar with gradient background — full bleed */}
       <nav className="gradient-navbar" style={{ height: '72px', paddingLeft: '24px', paddingRight: '24px' }}>
         <a href="https://newfound.agency" target="_blank">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -172,99 +171,49 @@ export default function Home() {
         </a>
       </nav>
 
-      {/* Hero sectie */}
       {!result && !isLoading && (!error || showManualInput) && (
         <div className="flex flex-col items-center min-h-[calc(100vh-72px)]">
           <div className="flex-1 flex flex-col justify-center w-full mx-auto text-center px-4" style={{ maxWidth: '680px' }}>
             <p className="label-style text-accent mb-6 animate-hero-title">Brandprompt</p>
-
-            <h1 className="font-heading text-white mb-5 animate-hero-title">
-              Maak van je merk<br />een superprompt.
-            </h1>
-
-            <h2 className="text-white mb-3 animate-hero-subtitle">
-              Jouw AI klinkt niet als jij. Verander dat in 60 seconden.
-            </h2>
-
-            <p className="text-white/60 mb-16 font-body animate-hero-body" style={{ fontWeight: 300 }}>
-              Vertaal je website naar een prompt waar je AI mee kan werken.
-            </p>
-
+            <h1 className="font-heading text-white mb-5 animate-hero-title">Maak van je merk<br />een superprompt.</h1>
+            <h2 className="text-white mb-3 animate-hero-subtitle">Jouw AI klinkt niet als jij. Verander dat in 60 seconden.</h2>
+            <p className="text-white/60 mb-16 font-body animate-hero-body" style={{ fontWeight: 300 }}>Vertaal je website naar een prompt waar je AI mee kan werken.</p>
             <div className="animate-hero-cta">
               <UrlInput onSubmit={handleUrlSubmit} isLoading={isLoading} />
             </div>
-
             {showManualInput && (
               <div className="mt-10 p-6 bg-dark-light border border-white/10 rounded-btn animate-fade-in text-left">
                 <p className="text-white mb-4">{error}</p>
-                <textarea
-                  value={manualInput}
-                  onChange={(e) => setManualInput(e.target.value)}
-                  placeholder="Beschrijf je bedrijf: wat doe je, voor wie, en wat maakt jullie uniek?"
-                  className="w-full p-4 bg-dark border border-white/20 rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all font-body text-white placeholder:text-white/50"
-                  rows={5}
-                />
-                <button
-                  onClick={handleManualSubmit}
-                  disabled={!manualInput.trim() || isLoading}
-                  className="mt-4 w-full py-3 px-6 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                >
-                  Analyseer mijn merk
-                </button>
+                <textarea value={manualInput} onChange={(e) => setManualInput(e.target.value)} placeholder="Beschrijf je bedrijf: wat doe je, voor wie, en wat maakt jullie uniek?" className="w-full p-4 bg-dark border border-white/20 rounded-btn resize-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all font-body text-white placeholder:text-white/50" rows={5} />
+                <button onClick={handleManualSubmit} disabled={!manualInput.trim() || isLoading} className="mt-4 w-full py-3 px-6 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed transition-all">Analyseer mijn merk</button>
               </div>
             )}
           </div>
-
-          <div className="pb-8 text-sm text-white/50 animate-hero-footer">
-            Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-accent transition-colors">Newfound</a>
-          </div>
+          <div className="pb-8 text-sm text-white/50 animate-hero-footer">Een product van <a href="https://newfound.agency" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-accent transition-colors">Newfound</a></div>
         </div>
       )}
 
-      {/* Loading state */}
       {isLoading && !result && (
         <div className="min-h-[calc(100vh-72px)] flex items-center justify-center px-4">
           <LoadingState steps={loadingSteps} currentStep={loadingStep} />
         </div>
       )}
 
-      {/* Error state */}
       {error && !isLoading && !result && !showManualInput && (
         <div className="min-h-[calc(100vh-72px)] flex items-center justify-center px-4">
           <div className="text-center max-w-md animate-fade-in">
-            <div className="w-16 h-16 border-2 border-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-2xl text-accent">!</span>
-            </div>
+            <div className="w-16 h-16 border-2 border-white/20 rounded-full flex items-center justify-center mx-auto mb-6"><span className="text-2xl text-accent">!</span></div>
             <h3 className="font-body text-xl font-normal text-white mb-3">{error}</h3>
-            <button
-              onClick={() => {
-                setError(null)
-                setUrl('')
-                setShowManualInput(false)
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all"
-            >
-              Probeer opnieuw
-            </button>
+            <button onClick={() => { setError(null); setUrl(''); setShowManualInput(false); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className="inline-flex items-center gap-2 px-6 py-3 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all">Probeer opnieuw</button>
           </div>
         </div>
       )}
 
-      {/* Resultaat */}
       {result && (
         <div ref={resultRef}>
-          <BrandAnalysis
-            result={result}
-            onReset={() => {
-              setResult(null)
-              setUrl('')
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-          />
+          <BrandAnalysis result={result} onReset={() => { setResult(null); setUrl(''); window.scrollTo({ top: 0, behavior: 'smooth' }) }} />
         </div>
       )}
-
     </main>
   )
 }
