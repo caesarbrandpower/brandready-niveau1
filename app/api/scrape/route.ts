@@ -186,30 +186,39 @@ async function fetchDirectPlain(pageUrl: string): Promise<string | null> {
 }
 
 async function fetchViaFirecrawl(pageUrl: string): Promise<string | null> {
+  console.log('[FIRECRAWL] Wordt aangeroepen voor:', pageUrl)
+  console.log('[FIRECRAWL] API key aanwezig:', !!process.env.FIRECRAWL_API_KEY)
   const apiKey = process.env.FIRECRAWL_API_KEY
   if (!apiKey) {
-    console.log('[4/4] Firecrawl: FIRECRAWL_API_KEY niet gevonden in env')
+    console.log('[FIRECRAWL] STOP: geen API key in environment')
     return null
   }
+  console.log('[FIRECRAWL] API key lengte:', apiKey.length)
   if (apiKey.length < 10) {
-    console.log('[4/4] Firecrawl: API key lijkt ongeldig (te kort)')
+    console.log('[FIRECRAWL] STOP: API key te kort')
     return null
   }
   try {
+    console.log('[FIRECRAWL] FirecrawlApp aanmaken en scrapeUrl starten...')
     const app = new FirecrawlApp({ apiKey })
     const result = await app.scrapeUrl(pageUrl, { formats: ['markdown'] })
+    console.log('[FIRECRAWL] Response ontvangen:', result.success, result.markdown?.length || 0, 'tekens')
     if (!result.success) {
-      console.log(`[4/4] Firecrawl: niet succesvol - ${JSON.stringify(result).substring(0, 200)}`)
+      console.log(`[FIRECRAWL] Niet succesvol - response: ${JSON.stringify(result).substring(0, 500)}`)
       return null
     }
     const text = result.markdown || ''
     const words = countWords(text)
-    console.log(`[4/4] Firecrawl: ${words} woorden opgehaald`)
-    if (words < 10) return null
+    console.log(`[FIRECRAWL] Content: ${words} woorden, eerste 200 tekens: ${text.substring(0, 200)}`)
+    if (words < 10) {
+      console.log('[FIRECRAWL] Te weinig woorden (< 10), retourneert null')
+      return null
+    }
     return text
-  } catch (error) {
+  } catch (error: unknown) {
     const msg = error instanceof Error ? error.message : String(error)
-    console.error(`[4/4] Firecrawl error: ${msg}`)
+    const status = (error as Record<string, unknown>)?.status || 'geen status'
+    console.log('[FIRECRAWL] Error:', msg, status)
     return null
   }
 }
