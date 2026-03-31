@@ -6,9 +6,9 @@ STAP 1 — BRANCHESCAN
 Identificeer in welke branche dit bedrijf zit. Benoem de drie meest voorkomende clichés in die branche. Dingen die bijna ieder bedrijf in dit segment belooft. Dit zijn de valkuilen die de superprompt moet vermijden.
 
 STAP 2 — DIAGNOSE
-Lever exact 4 bullets. De eerste 2 zijn sterke punten: wat communiceert deze website goed over het merk? De laatste 2 zijn verbeterpunten: wat mist er, klopt er niet, of is te vaag? Wees direct. Gebruik klanttaal. Benoem specifiek waar de website in branchejargon vervalt of een te brede doelgroep aanspreekt.
+Lever exact 4 bullets. De eerste 2 zijn sterke punten: wat communiceert deze website goed over het merk? De laatste 2 zijn verbeterpunten. Schrijf elk verbeterpunt als een directe consequentie-redenering: begin met wat je op de site ziet, leg uit waarom dit de specifieke doelgroep van deze ondernemer raakt, en eindig met wat de ondernemer daardoor concreet verliest (klant, vertrouwen, conversie). Eén zin per punt. Geen vakjargon. Geen algemene observaties. Geen gedachtestreepjes.
 
-Schrijf daarnaast een "implicatie": maximaal twee zinnen die benoemen wat het de ondernemer kost als er niets verandert. Niet wat er mis is, maar wat het verlies is. Schrijf vanuit het perspectief van de ondernemer zelf. Toon: direct, urgent, zonder jargon. Geen liggend streepje midden in een zin.
+Schrijf daarnaast een "implicatie": schrijf alsof je de ondernemer aankijkt. Benoem de klant die ze nu mislopen, waarom die klant afhaakt, en wat dat concreet betekent voor hun business. Twee zinnen max. Direct, geen jargon, geen gedachtestreepjes.
 
 STAP 3 — SUPERPROMPT
 Lever de output op in het exacte JSON formaat zoals hieronder beschreven. Elke sectie is een instructie aan de AI, niet een beschrijving van het merk.
