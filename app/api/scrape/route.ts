@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import * as cheerio from 'cheerio'
+import FirecrawlApp from '@mendable/firecrawl-js'
 
 export const maxDuration = 60
 
@@ -128,6 +129,21 @@ async function fetchDirectPlain(pageUrl: string): Promise<string | null> {
   }
 }
 
+async function fetchViaFirecrawl(pageUrl: string): Promise<string | null> {
+  if (!process.env.FIRECRAWL_API_KEY) return null
+  try {
+    const app = new FirecrawlApp({ apiKey: process.env.FIRECRAWL_API_KEY })
+    const result = await app.scrapeUrl(pageUrl, { formats: ['markdown'] })
+    if (!result.success) return null
+    const text = result.markdown || ''
+    if (text.split(/\s+/).length < 100) return null
+    return text
+  } catch (error) {
+    console.error('Firecrawl failed for', pageUrl, error)
+    return null
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { url } = await request.json()
@@ -211,7 +227,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3. Nothing worked — return error so frontend shows manual input
+    // 4. Fallback: Firecrawl (voor beveiligde sites met age gates, cookiewalls)
+    if (scrapedPages.length === 0) {
+      console.log('Googlebot failed, trying Firecrawl for:', url)
+      const text = await fetchViaFirecrawl(url)
+      if (text) {
+        const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || url
+        scrapedPages.push({ url, title, content: text })
+      }
+    }
+
+    // 5. Nothing worked — return error so frontend shows manual input
     if (scrapedPages.length === 0) {
       return NextResponse.json({
         error: 'Deze website laadt te langzaam of staat automatische analyse niet toe. Probeer het opnieuw of gebruik een andere URL.',
