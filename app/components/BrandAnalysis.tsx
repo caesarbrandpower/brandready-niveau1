@@ -136,7 +136,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             Jouw merk als superprompt
           </h2>
           <p className="text-white font-body" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto' }}>
-            Jouw superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Laat je e-mailadres achter om hem te kopiëren of te downloaden.
+            Jouw superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Laat je e-mailadres achter om hem te kopi\u00ebren of te downloaden.
           </p>
         </div>
       </section>
@@ -188,7 +188,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
               <ul className="space-y-2">
                 {superprompt.dit_zeg_je_nooit.map((punt, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <span className="text-accent-pink mt-1">×</span>
+                    <span className="text-accent-pink mt-1">\u00d7</span>
                     <span className="text-white font-body" style={{ fontSize: '17px' }}>{punt}</span>
                   </li>
                 ))}
@@ -203,7 +203,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Diagnosis — card-like rapport block */}
+      {/* Diagnosis \u2014 card-like rapport block */}
       <section className="bg-dark" style={{ padding: '0 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '40px' }}>
@@ -212,7 +212,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
         </div>
       </section>
 
-      {/* Email lead sectie — gradient lines top/bottom, distinct bg */}
+      {/* Email lead sectie \u2014 gradient lines top/bottom, distinct bg */}
       <div className="gradient-line" />
       <section style={{ padding: '80px 0', background: 'rgba(255,255,255,0.04)' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
@@ -230,7 +230,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
                   onClick={handleCopy}
                   className="flex items-center gap-2 px-5 py-2.5 bg-accent-blue text-white rounded-btn font-body font-medium hover:brightness-110 transition-all"
                 >
-                  {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopiëren</>}
+                  {copied ? <><Check className="w-4 h-4" /> Gekopieerd!</> : <><Copy className="w-4 h-4" /> Kopi\u00ebren</>}
                 </button>
                 <button
                   onClick={handleDownload}
@@ -307,22 +307,22 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       </section>
       <div className="gradient-line" />
 
-      {/* Upsell — Brandprompt Plus */}
+      {/* Upsell \u2014 Brandprompt Plus */}
       <section className="bg-dark" style={{ padding: '96px 0' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px' }}>
           <h3 className="font-heading text-white mb-4" style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontFamily: 'GreedCondensed, sans-serif', fontWeight: 700, textTransform: 'uppercase' as const, lineHeight: 1.05 }}>
             BRANDPROMPT PLUS
           </h3>
           <p className="text-white font-body mb-3" style={{ fontSize: 'clamp(18px, 2.5vw, 24px)', fontFamily: 'KansasNew, sans-serif' }}>
-            Jouw merkanalyse als bruikbaar document
+            Jouw merk. Vastgelegd. Klaar om te gebruiken.
           </p>
           <p className="text-accent font-body mb-8" style={{ fontSize: '1.3rem', fontWeight: 700 }}>
-            &euro; 150 eenmalig
+            &euro; 147 eenmalig
           </p>
 
           <div className="text-white font-body mb-10 space-y-4" style={{ fontSize: '17px', lineHeight: 1.7 }}>
             <p>
-              Stel je voor: je AI kent je merk. Niet omdat je het elke keer opnieuw uitlegt, maar omdat je het één keer goed hebt vastgelegd. Je superprompt zit in ChatGPT, in Claude, in elk tool dat je gebruikt. Alles wat je maakt klinkt als jij.
+              Stel je voor: je AI kent je merk. Niet omdat je het elke keer opnieuw uitlegt, maar omdat je het \u00e9\u00e9n keer goed hebt vastgelegd. Je superprompt zit in ChatGPT, in Claude, in elk tool dat je gebruikt. Alles wat je maakt klinkt als jij.
             </p>
             <p>
               Brandprompt Plus geeft je dat fundament. Wij analyseren je website dieper, schrijven je superprompt uit, en leveren het als een document dat je direct kunt gebruiken.
@@ -360,33 +360,36 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             <p className="text-white/50 font-body" style={{ fontSize: '14px' }}>
               Je ontvangt je analyse binnen 24 uur in je inbox.
             </p>
+            <p className="font-body" style={{ fontSize: '14px', marginTop: '8px' }}>
+              <span className="text-white/50">Liever persoonlijk sparren met een merkexpert? </span>
+              <a
+                href="https://newfound.agency"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 underline hover:text-white transition-colors"
+              >
+                Bekijk wat Newfound doet &rarr;
+              </a>
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Newfound afsluitsectie */}
-      <section style={{ padding: '60px 0', background: 'rgba(255,255,255,0.04)' }}>
-        <div className="mx-auto px-4 text-center" style={{ maxWidth: '540px' }}>
-          <p className="text-white font-body leading-relaxed mb-8" style={{ fontSize: '17px' }}>
-            Gemaakt door Newfound. Het branding bureau voor groei. Strategie, creatie en slimme AI-tools die jouw merk elke dag laten werken. Meer weten? Bel of mail ons gerust.
-          </p>
+      {/* Newfound footer */}
+      <section style={{ padding: '48px 0', background: 'rgba(255,255,255,0.04)' }}>
+        <div className="mx-auto px-4 text-center">
           <a
             href="https://newfound.agency"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 border border-white text-white rounded-btn font-body hover:bg-white/5 transition-colors mb-4"
           >
-            Bekijk wat we doen <ArrowRight className="w-4 h-4" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://newfound.agency/wp-content/uploads/2025/06/Logo_newfound.svg"
+              alt="Newfound"
+              style={{ height: '16px', opacity: 0.5, margin: '0 auto' }}
+            />
           </a>
-          <p>
-            <a
-              href="tel:+31627525635"
-              className="text-white font-body hover:text-white/80 transition-colors"
-              style={{ fontSize: '15px', opacity: 0.6 }}
-            >
-              Of bel direct: +31 6 27 52 56 35
-            </a>
-          </p>
         </div>
       </section>
 
