@@ -25,37 +25,18 @@ const BROWSER_HEADERS = {
   'Upgrade-Insecure-Requests': '1',
 }
 
-const AGE_GATE_PATTERNS = [
-  /ben je 18/i, /are you 18/i, /age.?verif/i, /leeftijd/i,
-  /age.?gate/i, /18\+/i, /21\+/i, /geboortedatum/i, /date of birth/i,
-  /old enough/i, /wettelijke leeftijd/i, /drinking age/i,
-  /alcohol/i, /verify.?your.?age/i, /bevestig.?je.?leeftijd/i,
-]
-
-function isGateContent(content: string): boolean {
-  const lower = content.toLowerCase()
-  const words = content.split(/\s+/).length
-  // Kort + bevat age gate patroon = waarschijnlijk een gate
-  if (words < 150) {
-    const matchCount = AGE_GATE_PATTERNS.filter(p => p.test(lower)).length
-    if (matchCount >= 1) return true
-  }
-  return false
-}
-
 function hasEnoughContent(pages: ScrapedPage[]): boolean {
   if (pages.length === 0) return false
   const totalWords = pages.reduce((sum, p) => sum + p.content.split(/\s+/).length, 0)
-  // Minimaal 100 woorden aan echte content
-  if (totalWords < 100) return false
-  // Check of de content niet alleen een gate is
-  for (const page of pages) {
-    if (isGateContent(page.content)) return false
-  }
-  return true
+  return totalWords >= 100
 }
 
 function parseHtml(html: string, pageUrl: string): { title: string; content: string } | null {
+  // Skip te grote HTML bestanden die Cheerio doen hangen (client-side rendered)
+  if (html.length > 150000) {
+    console.log('parseHtml: HTML te groot voor Cheerio (' + html.length + ' bytes), skip')
+    return null
+  }
   if (html.length < 500) return null
 
   const $ = cheerio.load(html)
@@ -161,23 +142,24 @@ async function fetchDirectPlain(pageUrl: string): Promise<string | null> {
 
 async function fetchViaFirecrawl(pageUrl: string): Promise<string | null> {
   if (!process.env.FIRECRAWL_API_KEY) {
-    console.log('Firecrawl: geen API key gevonden')
+    console.log('Firecrawl: geen API key gevonden in env')
     return null
   }
   try {
-    console.log('Firecrawl: scraping', pageUrl)
+    console.log('Firecrawl: start scrape voor', pageUrl)
     const app = new FirecrawlApp({ apiKey: process.env.FIRECRAWL_API_KEY })
     const result = await app.scrapeUrl(pageUrl, { formats: ['markdown'] })
     if (!result.success) {
-      console.log('Firecrawl: scrape niet succesvol', result)
+      console.log('Firecrawl: niet succesvol -', (result as { error?: string }).error || 'onbekende fout')
       return null
     }
     const text = result.markdown || ''
-    console.log('Firecrawl: ontvangen', text.split(/\s+/).length, 'woorden')
-    if (text.split(/\s+/).length < 100) return null
+    const wordCount = text.split(/\s+/).length
+    console.log('Firecrawl: ontvangen', wordCount, 'woorden')
+    if (wordCount < 100) return null
     return text
   } catch (error) {
-    console.error('Firecrawl failed for', pageUrl, error)
+    console.error('Firecrawl error:', error)
     return null
   }
 }
@@ -215,7 +197,7 @@ export async function POST(request: NextRequest) {
       `${baseUrl}/contact`,
     ]
 
-    // 1. Try Jina AI first (primary) — with 15s hard limit on entire phase
+    // 1. Try Jina AI first (primary) with 15s hard limit
     console.log('[Scraper 1/4] Jina AI voor:', url)
     const jinaUrls = pagesToScrape.slice(0, 4)
     try {
@@ -235,28 +217,38 @@ export async function POST(request: NextRequest) {
         if (scrapedPages.length >= 4) break
       }
     } catch {
-      console.log('Jina phase timed out, moving to fallback')
+      console.log('[Scraper 1/4] Jina timeout')
     }
-    console.log(`[Scraper 1/4] Jina resultaat: ${scrapedPages.length} pagina\'s, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
+    console.log(`[Scraper 1/4] Jina resultaat: ${scrapedPages.length} pagina's, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
 
-    // 2. Fallback: direct fetch with cheerio parsing
+    // 2. Fallback: direct fetch with cheerio (met 10s timeout op parsing)
     if (!hasEnoughContent(scrapedPages)) {
       console.log('[Scraper 2/4] Cheerio fallback voor:', url)
       scrapedPages = []
-      const htmlResults = await Promise.all(
-        pagesToScrape.slice(0, 6).map(async (pageUrl) => {
-          const html = await fetchDirectHtml(pageUrl)
-          if (!html) return null
-          const parsed = parseHtml(html, pageUrl)
-          return parsed ? { url: pageUrl, ...parsed } : null
-        })
-      )
+      try {
+        const cheerioResults = await Promise.race([
+          Promise.all(
+            pagesToScrape.slice(0, 6).map(async (pageUrl) => {
+              const html = await fetchDirectHtml(pageUrl)
+              if (!html) return null
+              const parsed = parseHtml(html, pageUrl)
+              return parsed ? { url: pageUrl, ...parsed } : null
+            })
+          ),
+          new Promise<null[]>((resolve) => setTimeout(() => {
+            console.log('[Scraper 2/4] Cheerio phase timeout (10s)')
+            resolve([])
+          }, 10000)),
+        ])
 
-      for (const result of htmlResults) {
-        if (result) scrapedPages.push(result)
-        if (scrapedPages.length >= 4) break
+        for (const result of cheerioResults) {
+          if (result) scrapedPages.push(result)
+          if (scrapedPages.length >= 4) break
+        }
+      } catch (e) {
+        console.log('[Scraper 2/4] Cheerio error:', e)
       }
-      console.log(`[Scraper 2/4] Cheerio resultaat: ${scrapedPages.length} pagina\'s, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
+      console.log(`[Scraper 2/4] Cheerio resultaat: ${scrapedPages.length} pagina's, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
     }
 
     // 3. Fallback: Googlebot plain text fetch
@@ -267,10 +259,10 @@ export async function POST(request: NextRequest) {
       if (text) {
         scrapedPages.push({ url, title: url, content: text })
       }
-      console.log(`[Scraper 3/4] Googlebot resultaat: ${scrapedPages.length} pagina\'s, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
+      console.log(`[Scraper 3/4] Googlebot resultaat: ${scrapedPages.length} pagina's, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
     }
 
-    // 4. Fallback: Firecrawl (voor beveiligde sites met age gates, cookiewalls)
+    // 4. Fallback: Firecrawl (headless browser, voor JS-rendered en beveiligde sites)
     if (!hasEnoughContent(scrapedPages)) {
       console.log('[Scraper 4/4] Firecrawl fallback voor:', url)
       scrapedPages = []
@@ -279,10 +271,10 @@ export async function POST(request: NextRequest) {
         const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || url
         scrapedPages.push({ url, title, content: text })
       }
-      console.log(`[Scraper 4/4] Firecrawl resultaat: ${scrapedPages.length} pagina\'s, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
+      console.log(`[Scraper 4/4] Firecrawl resultaat: ${scrapedPages.length} pagina's, bruikbaar: ${hasEnoughContent(scrapedPages)}`)
     }
 
-    // 5. Nothing worked — return error so frontend shows manual input
+    // 5. Nothing worked
     if (scrapedPages.length === 0) {
       console.log('[Scraper] Alle scrapers gefaald voor:', url)
       return NextResponse.json({
@@ -297,7 +289,7 @@ export async function POST(request: NextRequest) {
     ).join('\n\n')
 
     const wordCount = combinedContent.split(/\s+/).length
-    console.log(`[Scraper] Succes: ${wordCount} woorden van ${scrapedPages.length} pagina\'s`)
+    console.log(`[Scraper] Succes: ${wordCount} woorden van ${scrapedPages.length} pagina's`)
 
     return NextResponse.json({
       content: combinedContent,
