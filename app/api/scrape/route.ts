@@ -4,7 +4,7 @@ import FirecrawlApp from '@mendable/firecrawl-js'
 
 export const maxDuration = 60
 
-const MIN_WORDS = 200
+const MIN_WORDS = 100
 
 interface ScrapedPage {
   url: string
@@ -72,7 +72,7 @@ function isSubstantialContent(text: string): boolean {
   for (const block of blocks) {
     const words = block.trim().split(/\s+/).filter(w => w.length > 0).length
     if (words >= 20) substantialBlocks++
-    if (substantialBlocks >= 2) return true
+    if (substantialBlocks >= 1) return true
   }
   return false
 }
@@ -87,7 +87,7 @@ function isErrorPage(text: string): boolean {
 
 function parseHtml(html: string, pageUrl: string): { title: string; content: string } | null {
   if (html.length < 500) return null
-  if (html.length > 150000) {
+  if (html.length > 250000) {
     console.log(`[Scraper] HTML te groot (${Math.round(html.length / 1024)}KB), skip Cheerio voor: ${pageUrl}`)
     return null
   }
