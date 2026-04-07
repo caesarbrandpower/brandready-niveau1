@@ -66,6 +66,17 @@ function countWords(text: string): number {
   return text.split(/\s+/).filter(w => w.length > 0).length
 }
 
+function isSubstantialContent(text: string): boolean {
+  const blocks = text.split(/\n\s*\n|\.\s+/)
+  let substantialBlocks = 0
+  for (const block of blocks) {
+    const words = block.trim().split(/\s+/).filter(w => w.length > 0).length
+    if (words >= 20) substantialBlocks++
+    if (substantialBlocks >= 2) return true
+  }
+  return false
+}
+
 function isErrorPage(text: string): boolean {
   const words = countWords(text)
   if (words > 50) return false
@@ -266,10 +277,12 @@ export async function POST(request: NextRequest) {
         const gate = isGateContent(text)
         if (gate) {
           log(`[1/4] Jina: gate content voor ${pageUrl} (${words} woorden), skip`)
-        } else if (words >= MIN_WORDS) {
+        } else if (words >= MIN_WORDS && isSubstantialContent(text)) {
           const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || pageUrl
           scrapedPages.push({ url: pageUrl, title, content: text })
           log(`[1/4] Jina: OK voor ${pageUrl} (${words} woorden)`)
+        } else if (words >= MIN_WORDS) {
+          log(`[1/4] Jina: geen substantiele content voor ${pageUrl} (${words} woorden, geen 2+ blokken van 20+ woorden)`)
         } else {
           log(`[1/4] Jina: te weinig content voor ${pageUrl} (${words} woorden)`)
         }
@@ -305,9 +318,11 @@ export async function POST(request: NextRequest) {
             log(`[2/4] Cheerio: gate content voor ${result.url} (${words} woorden), skip`)
           } else if (error) {
             log(`[2/4] Cheerio: error page voor ${result.url}, skip`)
-          } else if (words >= MIN_WORDS) {
+          } else if (words >= MIN_WORDS && isSubstantialContent(result.content)) {
             scrapedPages.push(result)
             log(`[2/4] Cheerio: OK voor ${result.url} (${words} woorden)`)
+          } else if (words >= MIN_WORDS) {
+            log(`[2/4] Cheerio: geen substantiele content voor ${result.url} (${words} woorden, geen 2+ blokken van 20+ woorden)`)
           } else {
             log(`[2/4] Cheerio: te weinig content voor ${result.url} (${words} woorden)`)
           }
@@ -333,9 +348,11 @@ export async function POST(request: NextRequest) {
           log(`[3/4] Googlebot: gate content (${words} woorden), skip`)
         } else if (error) {
           log('[3/4] Googlebot: error page, skip')
-        } else if (words >= MIN_WORDS) {
+        } else if (words >= MIN_WORDS && isSubstantialContent(text)) {
           scrapedPages.push({ url, title: url, content: text })
           log(`[3/4] Googlebot: OK (${words} woorden)`)
+        } else if (words >= MIN_WORDS) {
+          log(`[3/4] Googlebot: geen substantiele content (${words} woorden, geen 2+ blokken van 20+ woorden)`)
         } else {
           log(`[3/4] Googlebot: te weinig content (${words} woorden)`)
         }
@@ -354,10 +371,12 @@ export async function POST(request: NextRequest) {
         const gate = isGateContent(text)
         if (gate) {
           log(`[4/4] Firecrawl: gate content (${words} woorden), skip`)
-        } else if (words >= MIN_WORDS) {
+        } else if (words >= MIN_WORDS && isSubstantialContent(text)) {
           const title = text.split('\n')[0]?.replace(/^#\s*/, '').trim() || url
           scrapedPages.push({ url, title, content: text })
           log(`[4/4] Firecrawl: OK (${words} woorden)`)
+        } else if (words >= MIN_WORDS) {
+          log(`[4/4] Firecrawl: geen substantiele content (${words} woorden, geen 2+ blokken van 20+ woorden)`)
         } else {
           log(`[4/4] Firecrawl: te weinig content (${words} woorden)`)
         }
