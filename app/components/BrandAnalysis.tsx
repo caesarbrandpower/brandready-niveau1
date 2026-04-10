@@ -144,6 +144,9 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       {/* Superprompt content */}
       <section className="bg-dark" style={{ padding: '0 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px', userSelect: emailCaptured ? 'auto' : 'none', WebkitUserSelect: emailCaptured ? 'auto' : 'none' }}>
+          <p className="text-white font-body" style={{ fontSize: '15px', opacity: 0.7, marginBottom: '48px' }}>
+            Dit is geen beschrijving van je merk. Dit is een instructie voor je AI.
+          </p>
           <div className="space-y-12">
             <div>
               <h4 className="text-white mb-3 font-body" style={{ fontSize: '1.4rem', fontWeight: 500 }}>1. Wie je bent</h4>
