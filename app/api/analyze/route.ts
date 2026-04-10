@@ -20,30 +20,50 @@ export async function POST(request: NextRequest) {
 
     const truncatedContent = content.slice(0, 15000)
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
-        system: `${SYSTEM_PROMPT}\n\n${OUTPUT_FORMAT}\n\nJe moet ALTIJD geldige JSON teruggeven in het exacte formaat hierboven beschreven. Geen markdown formatting, geen code blocks, alleen raw JSON.`,
-        messages: [
-          {
-            role: 'user',
-            content: `Analyseer de volgende website content:\n\nURL: ${url}\n\nCONTENT:\n${truncatedContent}\n\nGeef je antwoord als geldige JSON.`
-          }
-        ]
-      })
+    const requestBody = JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4000,
+      system: `${SYSTEM_PROMPT}\n\n${OUTPUT_FORMAT}\n\nJe moet ALTIJD geldige JSON teruggeven in het exacte formaat hierboven beschreven. Geen markdown formatting, geen code blocks, alleen raw JSON.`,
+      messages: [
+        {
+          role: 'user',
+          content: `Analyseer de volgende website content:\n\nURL: ${url}\n\nCONTENT:\n${truncatedContent}\n\nGeef je antwoord als geldige JSON.`
+        }
+      ]
     })
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}))
+    let response: Response
+    let errorData: any = {}
+    const maxRetries = 2
+    let attempt = 0
+
+    while (true) {
+      response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01'
+        },
+        body: requestBody
+      })
+
+      if (response.ok) break
+
+      errorData = await response.json().catch(() => ({}))
+      const errorMessage: string = errorData.error?.message || ''
+      const isInputTokensRateLimit =
+        response.status === 429 && /input tokens per minute/i.test(errorMessage)
+
+      if (isInputTokensRateLimit && attempt < maxRetries) {
+        attempt++
+        console.warn(`Rate limit (input tokens per minute), poging ${attempt}/${maxRetries}, wacht 15s`)
+        await new Promise((resolve) => setTimeout(resolve, 15000))
+        continue
+      }
+
       console.error('Claude API error:', errorData)
-      throw new Error(`Claude API fout: ${errorData.error?.message || response.statusText}`)
+      throw new Error(`Claude API fout: ${errorMessage || response.statusText}`)
     }
 
     const data = await response.json()
