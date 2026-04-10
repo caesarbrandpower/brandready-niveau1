@@ -136,7 +136,7 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
             Jouw merk als superprompt
           </h2>
           <p className="text-white font-body" style={{ fontSize: '15px', opacity: 0.7, maxWidth: '520px', margin: '0 auto' }}>
-            Jouw superprompt is een instructieset voor je AI. Laad hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Laat je e-mailadres achter om hem te kopiëren of te downloaden.
+            Jouw superprompt is een instructieset voor je AI, geen beschrijving van je merk. Plak hem in ChatGPT of Claude en die AI schrijft voortaan in jouw stijl. Laat je e-mailadres achter om hem te kopiëren of te downloaden.
           </p>
         </div>
       </section>
@@ -144,9 +144,6 @@ export default function BrandAnalysis({ result, onReset }: BrandAnalysisProps) {
       {/* Superprompt content */}
       <section className="bg-dark" style={{ padding: '0 0 80px' }}>
         <div className="mx-auto px-4" style={{ maxWidth: '680px', userSelect: emailCaptured ? 'auto' : 'none', WebkitUserSelect: emailCaptured ? 'auto' : 'none' }}>
-          <p className="text-white font-body" style={{ fontSize: '15px', opacity: 0.7, marginBottom: '48px' }}>
-            Dit is geen beschrijving van je merk. Dit is een instructie voor je AI.
-          </p>
           <div className="space-y-12">
             <div>
               <h4 className="text-white mb-3 font-body" style={{ fontSize: '1.4rem', fontWeight: 500 }}>1. Wie je bent</h4>
