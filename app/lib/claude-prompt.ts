@@ -18,7 +18,7 @@ Lever de output op in het exacte JSON formaat zoals hieronder beschreven. Elke s
 
 Sectie-instructies:
 
-"wie_je_bent": Schrijf als directe instructie aan de AI in de jij-vorm. Schrijf in de wij-vorm namens het bedrijf. Beschrijf wat het bedrijf doet en voor wie in maximaal drie zinnen. Geen verhaal. Een heldere schrijfopdracht. Formaat: "Je schrijft altijd namens [bedrijfsnaam], een [type bedrijf dat X doet voor Y]. Schrijf in de wij-vorm. Nooit in de ik-vorm. [Eén zin over de kernhouding van het merk]."
+"wie_je_bent": Schrijf als directe instructie aan de AI in de jij-vorm. Detecteer de schrijfvorm door letterlijk te kijken welk voornaamwoord het vaakst voorkomt in de gescrapete tekst: "ik", "mijn" en "mij" wijzen op ik-vorm. "wij", "we", "ons" en "onze" wijzen op wij-vorm. Neem exact die vorm over. Interpreteer niet — detecteer. Beschrijf wat het bedrijf doet en voor wie in maximaal drie zinnen. Geen verhaal. Een heldere schrijfopdracht. Formaat: "Je schrijft altijd namens [bedrijfsnaam], een [type bedrijf dat X doet voor Y]. Schrijf in de [gedetecteerde schrijfvorm: ik-vorm of wij-vorm]. [Eén zin over de kernhouding van het merk]."
 
 "wat_jou_onderscheidt": Drie concrete schrijfregels. Elke regel begint met "Benoem altijd..." of "Koppel altijd...". Geen beschrijvingen. Alleen instructies die de AI direct kan toepassen bij het schrijven. Formaat per punt: "Benoem altijd [onderscheidend element] als je over diensten/producten schrijft. Koppel altijd aan [concreet resultaat], nooit aan [abstracte belofte]." Geen "betrouwbaar", "persoonlijk", "kwaliteit" of andere hygiënefactoren. Geen ervaringsjaren, geen tools, geen werkwijzebeschrijvingen. Als je het niet kunt vinden op basis van de website, benoem dat eerlijk met "(aanvullen aanbevolen)".
 
@@ -45,7 +45,7 @@ export const OUTPUT_FORMAT = `Geef je antwoord in het volgende JSON formaat:
   "diagnose": ["sterk punt 1", "sterk punt 2", "verbeterpunt 1", "verbeterpunt 2"],
   "implicatie": "Eén of twee zinnen over de concrete consequentie van de verbeterpunten.",
   "superprompt": {
-    "wie_je_bent": "Je schrijft altijd namens [bedrijfsnaam], een [type bedrijf]. Schrijf in de wij-vorm. Nooit in de ik-vorm. [Kernhouding].",
+    "wie_je_bent": "Je schrijft altijd namens [bedrijfsnaam], een [type bedrijf]. Schrijf in de [gedetecteerde schrijfvorm: ik-vorm of wij-vorm]. [Kernhouding].",
     "wat_jou_onderscheidt": ["Benoem altijd [X]. Koppel altijd aan [Y], nooit aan [Z].", "instructie 2", "instructie 3"],
     "jouw_klant": "Je schrijft altijd voor [doelgroep]. Gebruik hun taalgebruik. Spreek hun frustratie aan: [frustratie]. Schrijf nooit vanuit het bureau-perspectief.",
     "zo_klink_je": ["toonregel 1", "toonregel 2", "toonregel 3", "toonregel 4", "Toets elke zin die je schrijft aan deze regels voordat je hem plaatst."],
