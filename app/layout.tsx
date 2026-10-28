@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Brandprompt. Maak van je merk een superprompt',
-  description: 'Jouw AI klinkt niet als jij. Brandprompt vertaalt je website in 60 seconden naar een superprompt waarmee ChatGPT, Claude en Gemini schrijven zoals jouw merk. Door Newfound.',
+  description: 'Jouw AI klinkt niet als jij. Brandprompt maakt van je website in 60 seconden een superprompt, zodat ChatGPT, Claude en Gemini schrijven zoals jouw merk.',
 }
 
 export default function RootLayout({
